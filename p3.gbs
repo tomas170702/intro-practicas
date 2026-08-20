@@ -1,0 +1,23 @@
+// exc 8:
+
+program {
+    /*
+        PROPÓSITO:  ....
+        PRECONDICIONES: ninguna
+            *....
+    */
+    PintarElTableroDeAzul()
+}
+
+procedure PintarElTableroDeAzul() {
+    /*
+        PROPÓSITO:  
+        PARÁMETROS:
+            * parámetro1: tipo - descripción.
+            * parámetro2: tipo - descripción.
+        PRECONDICIONES:
+            * ....
+    */
+    
+}
+
