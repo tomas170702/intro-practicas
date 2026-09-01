@@ -1,0 +1,125 @@
+program{
+    //MoverVehiculoVacioAlNorte()
+    //RecogerSolicitanteConID5()
+    LlevarPasajeroConID5AcualADestino5AlNorte()
+}
+
+//1)
+procedure SacarGuber(){
+    /*
+    PROPOSITO: 
+        *saca el guber de la celda actual
+    PRECONDICION:
+        *hay un guber en la celda actual
+    OBSERVACIONES:
+        *GUBER se representa con una bolita negra
+    */
+    Sacar(Negro)
+}
+
+procedure PonerGuber(){
+    /*
+    PROPOSITO:
+        *colocar el guber en la celda actual
+    PRECONDICION:
+        *no hay un guber en la celda actual
+    OBSERVACIONES:
+        *GUBER se representa con una bolita negra
+    */
+    Poner(Negro)
+}
+procedure MoverVehiculoVacioAlNorte(){
+    /*
+    PROPOSITO:
+        *Mover a guber hacia una unica ubicacion al norte
+    PRECONDICION:
+        *debe haber al menos 1 celda hacia el norte
+         desde donde esta el cabezal
+    
+    */
+    SacarGuber()
+    Mover(Norte)
+    PonerGuber()
+}
+
+//2)
+
+procedure RecogerSolicitanteConID5(){
+    /*
+    PROPOSITO:
+        *subir al solicitante con ID5 al vehiculo
+    PRECONDICION:
+        *guber y el cabezal debe estar en la ubicacion donde se encuntra el solicitante
+        con el ID5 
+    */
+    repeat(3){
+        MoverVehiculoVacioAlNorte()
+    }
+}
+
+//6)
+procedure MoverVehiculoConPasajeroId_Al_(id, direccionAMover){
+    /*
+    PROPOSITO:
+        *mueve el vehiculo con el pasajero con el id dado UNA ubicacion
+        en el mapa hacia la direccion dada.
+        el cabezal termina sobre el vehiculo.
+    PRECONDICION:
+        *el cabezal se encuentra sobre el vehiculo.
+        *el vehiculo tiene pasajero con id dado
+    PARAMETROS:
+        *id-Numero: numero asignado al pasajero
+        *direccionAMover-Direccion: la direccion a la cual se mueve guber
+    */
+    Sacar_DeColor_(1, Negro)
+    Sacar_DeColor_(id ,Verde)
+    Mover_VecesAl_(1, direccionAMover)
+    Poner_DeColor_(1, Negro)
+    Poner_DeColor_(id, Verde)
+}
+
+//3)
+procedure LlevarPasajeroConID5AcualADestino5AlNorte(){
+    /*
+    PROPOSITO: 
+        * llevar al pasajero con ID5, 5 celdas hacia al norte,
+        desde la celda actual
+    PRECONDICION:
+        * el pasajero esta a bordo del guber
+        * debe haber al menos 5 celdas hacia al norte desde la celda actual
+    OBSERVACIONES:
+        *el pasajero a bordo del guber se representa con tantas bolitas verdes
+        como su ID representa
+    */
+    repeat(5){
+        MoverVehiculoConPasajeroId_Al_(5, Norte)
+    }
+}
+
+//4)
+procedure RecogerSolicitanteConId_(id){
+    /*
+    PROPOSITO:
+        *subir al solicitante con el ID dado al vehiculo
+    PRECONDICION:
+        *guber y el cabezal debe estar en la ubicacion donde se encuntra el solicitante
+        con el ID dado
+    PARAMETROS:
+        *id-Numero: numero asignado al pasajero
+    */
+    Sacar_DeColor_(id, Azul)
+    PonerGuber()
+    Poner_DeColor_(id, Verde)
+}
+
+//5)
+procedure RecogerSolicitanteAcá(){
+    /*
+    PROPOSITO:
+        *recoge al solicitante que se encuentra en la celda actual, subiendolo al vehiculo
+    PRECONDICION:
+        *hay solicitante debe estar en la celda actual
+        *guber y en la celda actual
+    */
+    RecogerSolicitanteConId_(nroBolitas(Azul))
+}
