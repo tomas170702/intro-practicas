@@ -1,0 +1,52 @@
+program {
+    /*
+    proposito: Pintar el tablero con bolitas azules
+    precondicion: el tablero debe tener 10 celdas de largo y 7 de ancho
+    */
+    PintarElTableroDeAzul()
+}
+
+
+procedure PintarElTableroDeAzul() {
+    /*
+    proposito: Pintar el tablero con bolitas azules
+    precondicion: el tablero debe tener 10 celdas de largo y 7 de ancho
+    */
+    repeat(6) {
+        PintarFilaDeAzul()
+        MoverseAlEste()
+    }
+    
+    IrAlBorde(Este)
+    Poner(Azul)
+    
+    repeat(9) {
+        IrHaciaElNorte()
+        PintarFilaDeAzul()
+    }
+}
+
+procedure MoverseAlEste() {
+    /*
+    proposito: moverse hacia la derecha pintando bolitas azules
+    precondicion: debe haber al menos 1 celda vacia hacia el este
+    */
+    Mover(Este)
+}
+        
+
+procedure PintarFilaDeAzul() {
+    /*
+    proposito: pintar una fila de bolitas azules
+    precondicion: la fila actual debe estar vacia
+    */
+    Poner(Azul)
+    }
+
+procedure IrHaciaElNorte() {
+    /*
+    proposito: moverse hacia el norte
+    precondicion: debe haber al menos 1 celda vacia hacia el norte
+    */
+    Mover(Norte)
+}

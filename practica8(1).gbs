@@ -1,0 +1,236 @@
+
+//1.
+procedure RecorrerFilaHorizontalHaciaEl(direccion){
+    /*
+PROPOSITO:
+    * recorrer la fila hacia **direccion**
+PRECONDICION:
+    * **direccion** no puede ser sur/norte
+PARAMETRO:
+    *direccion: direccion - es la direccion en la que se recorre la fila
+    */
+
+IrAlBorde(opuesto(dirección))
+while(puedeMover(dirección)){
+    Mover(dirección)
+    }
+}
+//2
+procedure SacarTodasLasDeColor_(color){
+    /*
+PROPOSITO: 
+    *sacar todas las bolitas de color **color** de la celda actual
+PARAMETRO:
+    * color: color - determina el color de las bolitas en la celda actual
+PRECONDICION:
+    * ninguna
+*/
+while(hayBolitas(color)){
+    Sacar(color)
+    }
+}
+
+//3.
+procedure VaciarFilaDe_(color){
+    /*
+PROPOSITO: 
+    *debe quitar todas las bolitas del color dado por el parámetro color de cada una de las celdas de la fila actual
+PARAMETRO:
+    * color: Color - determina el color de las bolitas a sacar
+PRECONDICION:
+    * ninguna
+    */
+IrAlBorde(opuesto(Oeste))
+while(puedeMover(Oeste)){
+    Sacar_DeColor_(nroBolitas(color))
+    Mover(Oeste)
+    }
+    Sacar_DeColor_(nroBolitas(color))
+}
+
+//4
+procedure VaciarFilaDe_HaciaEl_(color, dirección){
+    /*
+PROPOSITO:
+    *quitar todas las bolitas del color dado por el parámetro **color** de cada una de las celdas de la fila actual,
+PARAMETRO:
+    *color: Color - determina el color de las bolitas a sacar
+    *direccion: Direccion - determina la direccion en la que se mueve el cabezal
+PRECONDICION:
+    * **direccion** debe ser distinta de norte y sur
+    */
+IrAlBorde(opuesto(direccion))
+while(puedeMover(direccion)){
+    Sacar_DeColor_(nroBolitas(color))
+    Mover(direccion)
+    }
+    Sacar_DeColor_(nroBolitas(color))
+}
+
+//5
+procedure VaciarTableroDe_(color){
+    /*
+PROPOSITO:
+    * quita todas las bolitas del color dado por el parámetro color de cada una de las celdas del tablero
+    * el cabezal finaliza en el borde nor/este.
+PARAMETRO:
+    * color: Color - determina el color de las bolitas a sacar
+PRECONDICION:
+    * ninguna
+//OBSERVACIONES:
+    * El cabezal debe poder comenzar en cualquier celda del tablero y no es relevante donde finaliza
+*/
+IrAlBorde(Sur)
+while(puedeMover(Norte)){
+    VaciarFilaDe_HaciaEl_(color, Este)
+    Mover(Norte)
+    }
+    VaciarFilaDe_HaciaEl_(color, Este)
+}
+
+procedure IrAPrimeraCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    *avanzar hacia la primera celda en una direccion dada por **dirPrincipal** y **dirSecundaria**
+PARAMETRO:
+    *dirPrincipal: Direccion - determina una pimera ubicacion en la que se mueve el cabezal
+    *dirSecundaria: Direccion - determina una segunda ubicacion en la que se mueve el cabezal
+PRECONDICION:
+    * las direcciones **dirPrincipal** y **dirSecundaria** no puede ser ni iguales ni opuestas
+    */
+IrAlBorde(opuesto(dirPrincipal))
+IrAlBorde(opuesto(dirSecundaria))
+}
+
+function haySiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    * indica si hay direcciones a mover en dirPrincipal y en dirSecundaria 
+PARAMETRO:
+    *dirPrincipal: Direccion - determina una primera direccion
+    *dirSecundaria: Direccion - determina una segunda direccion
+TIPO:
+    *booleano 
+PRECONDICION:
+    * dirPrincipal /= dirSecundaria y no puede ser opuestas
+    */
+
+    return (puedeMover(opuesto(dirPrincipal)) || puedeMover(dirSecundaria))
+}
+
+
+procedure  IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    * mueve el cabezal a la sigueinte celda de direccion dada por **dirPrincipal** y **dirSecundaria**
+PARAMETRO:
+    *dirPrincipal: direccion - determina una primera direccion   
+    *dirSecundaria: direccion - determina una segunda direccion
+PRECONDICION:
+    *Hay al menos una celda vecina en el recorrido
+    *
+*/
+if(puedeMover(dirPrincipal)){
+    Mover(dirPrincipal)
+    }
+else{
+    IrAlBorde(dirPrincipal)
+    Mover(dirSecundaria)
+    }
+}
+
+procedure PintarTableroDe_(color){
+    /*
+PROPOSITO:
+    *colocar exactamente una bolita del color dado en cada celda del tablero
+PARAMETRO:
+    * color: color - determina el color de las bolitas que se colocan en el tablero
+PRECONDICION:
+    * ninguna
+*/
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+    Poner(color)
+    IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria)
+    }
+    Poner(color)
+}
+
+procedure PonerUnaDeCadaEnTodoElTablero(){
+/*
+PROPOSITO:
+    *colocar una bolita de cada cada color en cada celda del tablero
+    *el cabezal termina en la celda norte-este
+OBSERVACIONES:
+    *Es un recorrido de transformacion. 
+    *recorre el tablero por celdas.
+    *poniendo una bolita de cada color en cada celda
+PARAMETRO:
+    * no hay  
+PRECONDICION:
+    * ninguna
+*/
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+    PonerUnaDeCada()
+    IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+    PonerUnaDeCada()
+}
+
+
+
+procedure IrALaSiguienteVacíaHacia_(dirección){
+/*
+PROPOSITO:
+    *posiciona el cabezal en la próxima celda vacía en la fila o columna desde la celda en donde se encuentra el cabezal
+    *sin contar la celda actual 
+OBSERVACIONES:
+    *recorrido de busqueda
+    *no se sabe si lo que se busca existe en el tablero
+    *puede recorrer filas o columnas
+    *busca una celda vacia
+PARAMETRO:
+    *direccion: Direccion - es la direccion donde se va a psocionar el cabezal   
+PRECONDICION:
+    *ninguna
+*/
+Mover(direccion)
+while(puedeMover(direccion) && not hayCeldaVacia(direccion)){
+    Mover(direccion)
+    }
+}
+
+procedure IrHastaLaQueTengaUnaDeCada(){
+/*
+PROPOSITO:
+    * posiciona el cabezal en cualquier celda que contenga una bolita de cada color
+OBSERVACIONES:
+    *recorrido de busqueda
+    *se sabe lo que se busca
+    *recorre el tablero (celda por celda)
+    *busca una celda que tenga 1 bolita de cada color
+    *
+PARAMETRO:
+    *   
+PRECONDICION:
+    *Hay una celda que tenga una bolita de cada color
+*/
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while(not hayUnaDeCada())
+}
+
+/*
+PROPOSITO:
+    *
+OBSERVACIONES:
+    *
+PARAMETRO:
+    *   
+PRECONDICION:
+    * 
+*/
+//Oservaciones: 3 preguntas:
+//que tipo de recorrido? si es de busqueda o transformacion
+//que podemos recorrer? tablero, fila o columna
+//cual es la subtarea que procesa el elemento actual? aclara que hace el proposito del procedimiento ajeno al recorrido

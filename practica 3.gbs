@@ -1,0 +1,61 @@
+// ejercicio 6
+
+program{
+    PintarElTableroDeAzul()
+}
+
+
+procedure PintarElTableroDeAzul() {
+    /*
+    proposito: Pintar el tablero con bolitas azules
+    precondicion: el tablero debe tener 10 celdas de largo y 7 de ancho
+    */
+    IrAlBorde(Sur)
+    IrAlBorde(Oeste)
+    repeat(9) {
+    PintarFilaDeAzul()
+    IrASiguienteFila()
+    }
+    PintarFilaDeAzul()
+}
+
+procedure PintarFilaDeAzul() {
+    /*
+    proposito: moverse hacia la derecha pintando bolitas azules
+    precondicion: debe haber al menos 1 celda vacia hacia el este
+    desde la celda actual
+    */
+    repeat(6){
+    Poner(Azul)
+    Mover(Este)
+    }
+}
+
+procedure RecorrerFilas() {
+    /*
+    proposito: contemplar caso borde
+    precondicion: haber recorrido la fila actual
+    */
+    repeat(9){
+    IrAlBorde(Este)
+    }
+    Poner(Azul)
+}
+
+procedure IrASiguienteFila() {
+    /*
+    proposito: pintar filas hacia el norte
+    precondcion: no debe haber celdas vacias en la fila actual
+    */
+    RecorrerFilas()
+    Mover(Norte)
+    repeat(9){
+        IrAlBorde(Oeste)
+    }
+    
+}
+
+ //ejercicio 5
+ 
+ 
+ 

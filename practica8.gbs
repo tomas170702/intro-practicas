@@ -1,0 +1,563 @@
+/*
+PROPOSITO:
+    *
+PARAMETRO:
+    *   
+PRECONDICION:
+    * 
+*/
+
+
+//1.
+procedure RecorrerFilaHorizontalHaciaEl(direccion){
+    /*
+PROPOSITO:
+    * recorrer la fila hacia **direccion**
+PRECONDICION:
+    * **direccion** no puede ser sur/norte
+PARAMETRO:
+    *direccion: direccion - es la direccion en la que se recorre la fila
+    */
+
+IrAlBorde(opuesto(dirección))
+while(puedeMover(dirección)){
+    Mover(dirección)
+    }
+}
+//2
+procedure SacarTodasLasDeColor_(color){
+    /*
+PROPOSITO: 
+    *sacar todas las bolitas de color **color** de la celda actual
+PARAMETRO:
+    * color: color - determina el color de las bolitas en la celda actual
+PRECONDICION:
+    * ninguna
+*/
+while(hayBolitas(color)){
+    Sacar(color)
+    }
+}
+
+//3.
+procedure  VaciarFilaDe_(color){
+    /*
+PROPOSITO: 
+    *debe quitar todas las bolitas del color dado por el parámetro color de cada una de las celdas de la fila actual
+PARAMETRO:
+    * color: Color - determina el color de las bolitas a sacar
+PRECONDICION:
+    * ninguna
+    */
+IrAlBorde(opuesto(Oeste))
+while(puedeMover(Oeste)){
+    Sacar_DeColor_(nroBolitas(color))
+    Mover(Oeste)
+    }
+    Sacar_DeColor_(nroBolitas(color))
+}
+
+//4
+procedure VaciarFilaDe_HaciaEl_(color, dirección){
+    /*
+PROPOSITO:
+    *quitar todas las bolitas del color dado por el parámetro **color** de cada una de las celdas de la fila actual,
+PARAMETRO:
+    *color: Color - determina el color de las bolitas a sacar
+    *direccion: Direccion - determina la direccion en la que se mueve el cabezal
+PRECONDICION:
+    * **direccion** debe ser distinta de norte y sur
+    */
+IrAlBorde(opuesto(direccion))
+while(puedeMover(direccion)){
+    Sacar_DeColor_(nroBolitas(color))
+    Mover(direccion)
+    }
+    Sacar_DeColor_(nroBolitas(color))
+}
+
+//5
+procedure VaciarTableroDe_(color){
+    /*
+PROPOSITO:
+    * quita todas las bolitas del color dado por el parámetro color de cada una de las celdas del tablero
+    * el cabezal finaliza en el borde nor/este.
+OBSERVACIONES:
+    * El cabezal debe poder comenzar en cualquier celda del tablero y no es relevante donde finaliza
+PARAMETRO:
+    * color: Color - determina el color de las bolitas a sacar
+PRECONDICION:
+    * ninguna
+*/
+IrAlBorde(Sur)
+while(puedeMover(Norte)){
+    VaciarFilaDe_HaciaEl_(color, Este)
+    Mover(Norte)
+    }
+    VaciarFilaDe_HaciaEl_(color, Este)
+}
+
+//BIBLIOTECA PRACTICA 8:
+procedure IrAPrimeraCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    *avanzar hacia la primera celda en una direccion dada por **dirPrincipal** y **dirSecundaria**
+PARAMETRO:
+    *dirPrincipal: Direccion - determina una pimera ubicacion en la que se mueve el cabezal
+    *dirSecundaria: Direccion - determina una segunda ubicacion en la que se mueve el cabezal
+PRECONDICION:
+    * las direcciones **dirPrincipal** y **dirSecundaria** no puede ser ni iguales ni opuestas
+    */
+IrAlBorde(opuesto(dirPrincipal))
+IrAlBorde(opuesto(dirSecundaria))
+}
+
+function haySiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    * indica si hay direcciones a mover en dirPrincipal y en dirSecundaria 
+PARAMETRO:
+    *dirPrincipal: Direccion - determina una primera direccion
+    *dirSecundaria: Direccion - determina una segunda direccion
+TIPO:
+    *booleano 
+PRECONDICION:
+    * dirPrincipal /= dirSecundaria y no puede ser opuestas
+    */
+
+    return (puedeMover(opuesto(dirPrincipal)) || puedeMover(dirSecundaria))
+}
+
+
+procedure IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria){
+    /*
+PROPOSITO:
+    * avanza a la siguiente celda en un recorrido dado por **dirPrincipal** y **dirSecundaria**
+PARAMETRO:
+    *dirPrincipal: Direccion - determina una primera direccion
+    *dirSecundaria: Direccion - determina una segunda direccion entre filas y columnasa
+PRECONDICION:
+    * dirPrincipal /= dirSecundaria y no puede ser opuestas
+    * Hay una siguiente celda en el recorrido
+    */
+if(puedeMover(opuesto(dirPrincipal))){
+    Mover(opuesto(dirPrincipal))
+    }
+    else{
+        IrAlBorde(opuesto(dirprincipal))
+        Mover(dirSecundaria)
+        }
+}
+
+//7.a
+procedure PintarTableroDe_(color){
+    /*
+PROPOSITO:
+    * pinta todas las celdas del tablero con exactamente una bolita del color dado por el parámetro **color**
+PARAMETRO:
+    * color: Color - determina el color de las bolitas a pintar
+PRECONDICION:
+    * ninguna
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+        Poner(color)
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+    Poner(color)
+}
+
+//7.b
+procedure PonerUnaDeCadaEnTodoElTablero(){
+    /*
+PROPOSITO:
+    * colocar una bolita de cada color en cada celda del tablero
+    *el cabezal termina en la celda norte-este
+OBSERBVACIONES:
+    *es un reccorido de transformacion
+    *recorre el tablero por celdas
+    *pone una bolita de cada color en cada celda mientras recorre el tablero
+PRECONDICION:
+    * ninguna
+    */
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while (haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)) {
+    PonerUnaDeCadaColor()
+    IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+PonerUnaDeCadaColor()
+}
+
+//7.c
+
+//esta mal. hardcodeo
+procedure RellenarCon_EnAusenciaDe_EnElTablero(colorAPoner, colorAMirar){
+    /*
+PROPOSITO:
+    *colocar una bolita de color **colorAPoner** en cada celda del tablero.
+    *cuando en esa celda no hay una bolita de **colorAMirar**
+    *el cabezal finaliza en el borde Norte/Este
+PARAMETRO:
+    *colorAPoner: Color - color de las bolitas a poner
+    *coloAMirar: Color - color de las bolitas que ya se encuentran en el tablero
+OBSERVACIONES:
+    *recorrido de transformacion
+    *recorre el tablero por celdas
+    *poner una bolita de un color dado en cada celda que este vacia
+PRECONDICION:
+    *(el cabezal puede comenzar en cualquier celda y el tablero puede tener cualquier tamaño válido).
+    */
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while (haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este) && not esCeldaConBolitas(ColorAMirar)) {
+    Poner_DeColor_(1, ColorAPoner)
+    IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+}
+Poner_DeColor_(1, Azul)
+}
+______________________________________________________________________________
+
+procedure RellenarCon_EnAusenciaDe_EnElTablero(colorAPoner, colorAMirar){
+    /*
+PROPOSITO:
+    *colocar una bolita de color **colorAPoner** en cada celda del tablero.
+    *cuando en esa celda no hay una bolita de **colorAMirar**
+    *el cabezal finaliza en el borde Norte/Este
+PARAMETRO:
+    *colorAPoner: Color - color de las bolitas a poner
+    *coloAMirar: Color - color de las bolitas que ya se encuentran en el tablero
+OBSERVACIONES:
+    *recorrido de transformacion
+    *recorre el tablero por celdas
+    *poner una bolita de un color dado en cada celda que este vacia
+PRECONDICION:
+    *(el cabezal puede comenzar en cualquier celda y el tablero puede tener cualquier tamaño válido).
+    */
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+    Poner_SiNoHay_(colorAPoner,colorAMirar)
+    irASiguienteCeldaEnUnRecorrido(Norte, Este)
+    }
+    Poner_SiNoHay_(colorAPoner,colorAMirar)
+}
+
+
+procedure Poner_SiNoHay_(colorAPoner,colorAMirar){
+/*
+PROPÓSITO:
+    * Coloca una bolita de color **colorAPoner** en la celda actual únicamente 
+      si en la misma no hay bolitas de color **colorAMirar**.
+PARÁMETROS:
+    * colorAPoner: Color - El color de la bolita a colocar.
+    * colorAMirar: Color - El color cuya ausencia se verifica.
+ PRECONDICIONES:
+    * Ninguna.
+*/
+   if (not hayBolitas(colorAMirar)) {
+        Poner(colorAPoner)
+    } 
+}
+
+//7.d
+
+procedure  CompletarHasta_De_EnElTablero(cantidad, color) {
+    /*
+        PROPÓSITO:
+            * deja en cada celda del tablero exactamente tantas bolitas del color **color** como la cantidad indicada por **cantida**.
+        PARÁMETROS:
+            * cantidad: Numero - El numero de las bolitas que colocar en cada celda.
+            * color: Color - El color de las bolitas a colocar.
+        OBSERVACIONES:
+            *recorrido de transoformacion
+        PRECONDICIONES:
+            * ninguna
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+        CompletarCeldaHasta_De_(cantidad, color)
+        irASiguienteCeldaEnUnRecorrido(Norte, Este)
+    }
+    CompletarCeldaHasta_De_(cantidad, color)
+}
+
+procedure CompletarCeldaHasta_De_(cantidad, color) {
+    /*
+    PROPÓSITO:
+        *
+    PARÁMETROS:
+        * cantidad: Numero - El numero de las bolitas que colocar en cada celda.
+        * parámetro2: tipo - El color de las bolitas a colocar.
+    PRECONDICIONES:
+        * En ninguna celda del tablero hay más de **cantidad** bolitas del **color** dado
+        * **cantidad** > 0
+    */
+    repeat(cantidad - nroBolitas(color)){
+        Poner(color)
+    }
+}
+
+
+
+procedure IrALaSiguienteVacíaHacia_(dirección){
+/*
+PROPOSITO:
+    *posiciona el cabezal en la próxima celda vacía en la fila o columna desde la celda en donde se encuentra el cabezal
+    *sin contar la celda actual 
+OBSERVACIONES:
+    *recorrido de busqueda
+    *no se sabe si lo que se busca existe en el tablero
+    *puede recorrer filas o columnas
+    *busca una celda vacia
+PARAMETRO:
+    *direccion: Direccion - es la direccion donde se va a psocionar el cabezal   
+PRECONDICION:
+    *ninguna
+*/
+Mover(direccion)
+while(puedeMover(direccion) && not hayCeldaVacia(direccion)){
+    Mover(direccion)
+    }
+}
+
+procedure IrHastaLaQueTengaUnaDeCada(){
+/*
+PROPOSITO:
+    * posiciona el cabezal en cualquier celda que contenga una bolita de cada color
+OBSERVACIONES:
+    *recorrido de busqueda
+    *se sabe lo que se busca
+    *recorre el tablero (celda por celda)
+    *busca una celda que tenga 1 bolita de cada color
+PARAMETRO:
+    *   
+PRECONDICION:
+    *Hay una celda que tenga una bolita de cada color
+*/
+IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+while(not hayUnaDeCada()){
+    irASiguienteCeldaEnUnRecorrido(Norte, Este)
+    }
+}
+
+
+procedure ComerPiezaNegraConTorreHacia_(direcciónAComer){
+/*
+PROPOSITO:
+    *Comer una Pieza de color negro que se encuentra en la celda mas cercana de la Torre
+OBSERVACIONES:
+    *recorrido de busqueda y transformacion 
+    *recorre el tablero
+    *se sabe lo que se busca
+    *lo que se busca es una pieza de ajedrez negra
+PARAMETRO:
+    * direcciónAComer: Direccion - determina la direccion 
+PRECONDICION:
+    * Hay una pieza negra en direccion de la Torre blanca
+*/
+while(not hayUnaPiezaNegra()){
+    MoverTorreBlancaHacia_(direcciónAMover)
+    }
+ComerPiezaNegra()
+}
+
+//13
+
+//● Tres bolitas negras marcan el depósito central,
+//● dos bolitas negras marcan un depósito local,
+//● una bolita negra marca el camino de central a local,
+//● cada bolita azul marca una unidad de mercadería
+
+//A.
+function esDepósitoCentral(){
+/*
+PROPOSITO:
+    *que indican si el cabezal está, en el depósito central
+TIPO:
+    *booleano
+PARAMETRO:
+    * No tiene
+PRECONDICION:
+    * No tiene
+*/
+    return (nroBolitas(Negro) == 3)
+}
+
+function esDepósitoLocal(){
+/*
+PROPOSITO:
+    *que indican si el cabezal está en un depósito local.
+TIPO:
+    *booleano
+PARAMETRO:
+    * no tiene   
+PRECONDICION:
+    *no tiene
+*/
+    return (nroBolitas(Negro) == 2)
+}
+
+//B.
+procedure IrDeCentralAlLocal_(dirección){
+/*
+PROPOSITO:
+    *que mueve el cabezal del depósito central al depósito local que está en la dirección dada, suponiendo que el cabezal comience en el depósito central.
+OBSERVACIONES:
+    *recorrido de busqueda
+    *se sabe lo que se esta buscando
+    *se esta buscando un deposito local
+PARAMETRO:
+    * direccion: Direccion - determina la direccion donde se enceuntra el deposito local
+PRECONDICION:
+    *Hay deposito local
+*/
+while(not esDepósitoLocal()){
+   Mover(direccion)
+ }
+}
+
+//C.
+procedure IrDelLocal_ACentral(dirección){
+/*
+PROPOSITO:
+    *que mueve el cabezal al depósito central, suponiendo que el cabezal está en el depósito local que está en la dirección dada.
+OBSERVACIONES:
+    *recorrido de busqueda
+    *se sabe lo que se esta buscando
+    *se esta buscando un deposito central
+PARAMETRO:
+    * direccion: Direccion - determina la direccion donde se enceuntra el deposito local
+PRECONDICION:
+    *Debe estar posicionado en el deposito local
+    *Hay deposito central 
+*/
+while(not esDepósitoCentral()){
+    Mover(direccion)
+    }
+}
+
+//D.
+procedure Llevar_MercaderíasAlLocal_(cantidad, dirección){
+    /*
+PROPOSITO:
+    *lleva la cantidad de mercadería indicada del depósito central al depósito local que está en la dirección indicada
+    *el cabezal se deje dejar en deposito central nuevamente
+PARAMETRO:
+    *cantidad: Numero - indica la cantidad de mercaderia dada 
+    *direccion: Direccion - indica la direccion en la que se encuentra un deposito local
+PRECONDICION:
+    *el cabezal se debe estar en el deposito central
+    *Hay mercaderia a transportar
+*/
+while(haySuficienteMercaderia_(cantidad)){
+    Cargar_Mercaderia(cantidad)
+    IrDeCentralAlLocal_(dirección)
+    Descargar_Mercaderia(cantidad)
+    IrDeLocal_ACentral()
+    }
+}
+
+function haySuficienteMercaderia_(cantidad){
+    return(nroBolitas(Azul) >= cantidad)
+}
+
+procedure Cargar_Mercaderia(cantidad){
+    Sacar_DeColor_(Azul)
+}
+
+procedure Descargar_Mercaderia(cantidad){
+    Poner_DeColor_(Azul)
+}
+
+//E.
+procedure Traer_MercaderíasDelLocal_(cantidad, dirección){
+    /*
+PROPOSITO:
+    *que lleva la cantidad de mercadería indicada del depósito local en la dirección indicada, al depósito central
+    *Si en el depósito origen no hay la cantidad de mercadería necesaria, no se realiza ningun traslado
+    *el cabezal debe quedarse en el deposito central despues de traer la mercaderia
+PARAMENTRO:
+    *cantidad: Numero - indica la cantidad de mercaderia dada
+    *direccion: Direccion - indica la direccion en la que se encuentra el deposito local
+PRECONDICION:
+    *el cabezal se encuentra en el deposito central
+    *la **cantidad** de mercaderia > 0
+    *debe existir un deposito local en la direccion **direccion**
+    */
+if(haySuficienteMercaderia_(cantidad)){
+    Cargar_Mercaderia(cantidad)
+    IrDeLocal_ACentral(direccion)
+    Descargar_Mercaderia(cantidad)
+    }
+}
+//F.(sin subtarea de abstraccion, usando las que ya teniamos definidas)
+
+procedure Mover_MercaderíasDelLocal_AlLocal_(cantidad, origen, destino){
+    /*
+PROPSITO:
+    *que mueve la **cantidad** indicada de mercadería del depósito local que está en dirección **origen** al que está en dirección **destino**
+    *se asume que el cabezal inicia en el deposito central
+PARAMETRO:
+    *cantidad: Número - La cantidad de mercadería a trasladar.
+    *origen: Direccion - indica la direccion en la que se encuentra el primer deposito local
+    *destino: Direccion - indica la direccion en la que se encuentra el segundo deposito local
+PRECONDICION:
+    * **Origen** /= **destino**
+    * existe un deposito **destino**
+    */
+    IrDeCentralAlLocal_(origen)
+    if(haySuficienteMercaderia_(cantidad)){
+        Cargar_Mercaderia(cantidad)
+        IrDeLocal_ACentral(origen)
+        IrDeCentralAlLocal_(destino)
+        Descargar_Mercaderia(cantidad)
+    }
+    else {
+        IrDeCentralAlLocal_(origen)
+    }
+}
+
+----------------------------------------------------------
+
+//F.(con subtarea de abstraccion para autoamizar el viaje de del cabezal con la mercaderia)
+procedure Mover_MercaderíasDelLocal_AlLocal_(cantidad, origen, destino) {
+/*
+  PROPÓSITO:
+    * Mueve la **cantidad** indicada de mercadería desde el depósito local **origen** 
+      hacia el depósito local **destino**. 
+      Si en el depósito de origen no hay suficiente mercadería, no se realiza ningún traslado.
+      El cabezal finaliza en el depósito central.
+  PARÁMETROS:
+    * cantidad: Número - La cantidad de mercadería a trasladar.
+    * origen: Dirección - El punto cardinal del depósito donde se retira la mercadería.
+    * destino: Dirección - El punto cardinal del depósito donde se entrega la mercadería.
+  PRECONDICIONES:
+    * El cabezal se encuentra sobre el depósito central.
+    * Existen depósitos locales en las direcciones **origen** y **destino**.
+*/
+    IrDeCentralAlLocal_(origen)
+    if (haySuficienteMercadería_(cantidad)) {
+        Cargar_Mercaderías(cantidad)
+        IrDelLocal_ACentral(origen)
+        Depositar_MercaderíaEnLocal_(cantidad, destino)
+    } 
+    else {
+        IrDelLocal_ACentral(origen)
+    }
+}
+
+
+procedure Depositar_MercaderíaEnLocal_(cantidad, destino){
+    /*
+  PROPÓSITO:
+    * Lleva la **cantidad** de mercadería (ya cargada virtualmente) desde 
+      el depósito central hacia el depósito local **destino** y la descarga allí.
+  PARÁMETROS:
+    * cantidad: Número - La cantidad de mercadería a descargar.
+    * destino: Dirección - El depósito donde se depositará la mercadería.
+  PRECONDICIONES:
+    * El cabezal se encuentra en el depósito central.
+    * Existe un depósito local hacia la dirección **destino**.
+*/
+    IrDeCentralAlLocal_(destino)
+    Descargar_Mercaderías(cantidad)
+    IrDelLocal_ACentral(destino)
+}

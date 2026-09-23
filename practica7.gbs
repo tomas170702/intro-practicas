@@ -1,0 +1,138 @@
+//1)
+//a.
+function cantidadDeBolitas(color){
+    /*
+        PROPÓSITO: Devuelve la cantidad de bolitas de un color específico.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Numero
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(color))
+}
+
+//b.
+function hayMasDe5BolitasEnTotal(color){
+    /*
+        PROPÓSITO: Devuelve true si hay más de 5 bolitas de un color específico, false en caso contrario.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(color) > 5)
+}
+
+//c.
+function hayExactamente5Bolitas(color){
+    /*
+        PROPÓSITO: Devuelve true si hay exactamente 5 bolitas de un color específico, false en caso contrario.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(color) == 5)
+}
+
+//d.
+function hayAlMenos5Bolitas(color){
+    /*
+        PROPÓSITO: Devuelve true si hay al menos 5 bolitas de un color específico, false en caso contrario.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(color) >= 5)
+}
+
+//e.
+function hayBolitasDeTodosLosColores(color){
+    /*
+        PROPÓSITO: Devuelve true si hay bolitas de todos los colores, false en caso contrario.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(color) > 0)
+}
+
+function hayBolitasDeTodosLosColores(){
+    /*
+        PROPÓSITO: Devuelve true si hay bolitas de todos los colores, false en caso contrario.
+        PARÁMETROS:
+            * Ninguna
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(Negro) > 0 && nroBolitas(Azul) > 0 && nroBolitas(Rojo) > 0 && nroBolitas(Verde) > 0)
+}
+
+//f.
+function hayBolitasDeAlgunColor(){
+    /*
+        PROPÓSITO: Devuelve true si no hay bolitas de algún color, false en caso contrario.
+        PARÁMETROS:
+            * Ninguna
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (nroBolitas(Negro) == 0 && nroBolitas(Azul) == 0 && nroBolitas(Rojo) == 0 && nroBolitas(Verde) == 0)
+}
+
+function hayBolitasDeAlgun_(color){
+    /*
+        PROPÓSITO: Devuelve true si no hay bolitas de algún color, false en caso contrario.
+        PARÁMETROS:
+            * color: numero - El color de las bolitas a contar.
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+
+    return (nroBolitas(color) == 0)
+}
+
+//g.
+function leFaltaAlgunColorYNoEstaVacia(){
+    /*
+        PROPÓSITO: Devuelve true si le falta algún color y no está vacía, false en caso contrario.
+        PARÁMETROS:
+            * Ninguna
+        TIPO: Boolean
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (hayBolitasDeAlgunColor() && not hayBolitasDeTodosLosColores())
+}
+
+
+//2)
+function esCeldaVacía() {
+    /*
+        PROPÓSITO: indica si la celda actual esta vacia
+        PARÁMETROS:
+        TIPO: Booleano
+        PRECONDICIONES:
+            * Ninguna
+    */
+    
+    return (hayBolitasDeAlgunColor())
+}

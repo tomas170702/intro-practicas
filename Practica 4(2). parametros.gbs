@@ -1,0 +1,360 @@
+
+
+
+procedure Mover3VecesAl_(direccionAMover){
+    /*
+proposito: Mueve el cabezal 3 veces desde la celda actual hacia una direccion dada
+precondicion: debe haber al menos 3 celdas en alguna direccion
+* parametro: direccionAMover - tipo: direccion. describe la direccion a la que se va a mover el cabezal desde la cenda actual
+    */
+    
+    repeat(3){
+        Mover(direccionAMover)
+    }
+}
+
+procedure Poner6DeColor_(colorAPoner){
+    /*
+proposito: pone 6 bolitas de color en la celda actual
+precondicion: ninguna
+parametro: colorAPoner - tipo: color. describe el color del cual van a ser las bolitas de la celda actual
+    */
+    repeat(6){
+        Poner(colorAPoner)
+        
+    }
+}
+
+procedure Poner_Al_(colorAPoner, direcciónDondePoner){
+    /*
+proposito:  dado un color
+colorAPoner y una dirección direcciónDondePoner, ponga una bolita del color dado en la celda
+vecina en la dirección dada, dejando el cabezal en dicha celda.
+
+precondicion: debe haber al menos una celda vecina del cabezal en cualquier direccion 
+
+parametro: 
+    * colorAPoner - color: indica el color de la bolita a poner
+    *direcciónDondePoner - direccion: indica la direccion en la cual se va a mover el cabezal
+    */
+    Mover(direcciónDondePoner)
+    Poner(colorAPoner)
+}
+
+
+procedure ReemplazarUnaDe_Por_(colorAReemplazar, colorPorElCualReemplazar){
+    /*
+proposito: dado un primer color colorAReemplazar y un segundo color
+colorPorElCualReemplazar, reemplaza una bolita del primer color por una del segundo color en la
+celda actual.
+
+precondicion: Existe al menos una bolita de color **colorAReemplazar** en la celda actual.
+
+parametro:
+    *colorAReemplazar - color: El color de la bolita que se desea sacar
+    *colorPorElCualReemplazar - color: color de la bolita que se desea reemplazar
+    */
+    Poner(colorAReemplazar)
+    Sacar(colorAReemplazar)
+    Poner(colorPorElCualReemplazar)
+
+}
+    
+//5) El regreso de Nova
+
+//a) En primer lugar, se pide corregir los errores de Nova. No olvidar indicar en qué posición queda el
+//cabezal, ni de establecer para qué son los parámetros. El código de Nova es el siguiente:
+
+//procedure Poner_ADistancia3Al_(color, dirección) {
+//Mover3VecesAl_(dirección) Poner(color) }
+
+
+//Malas practicas a corregir:
+
+//Indentacion y formato
+//controto faltante: hay que documentar proposito precondicion y no indica para que son los parametros que uso
+//mal nombres de paramtros: color es muy generico y direccion lo escribe con un caracter especial que el programa no interpreta bien
+//Tampoco indica donde tiene que quedar el cabezal y eso lo pedia en la consigna
+
+
+// el contrato quedaria:
+
+/*
+//  PROPÓSITO:
+//    * Pone una bolita de color **colorAPoner** en la celda situada a 3 posiciones de distancia 
+//      hacia la dirección **direcciónADistancia**, dejando el cabezal en dicha celda.
+//  PARÁMETROS:
+//    * colorAPoner: Color - El color de la bolita a poner.
+//    * direcciónADistancia: Dirección - La dirección hacia la cual realizar el desplazamiento.
+//  PRECONDICIONES:
+//    * Debe haber al menos 3 celdas al **direcciónADistancia** de la celda actual.
+*/
+
+//procedure Poner_ADistancia3Al_(colorAPoner, direccionADistancia) {
+    /*
+  PROPÓSITO:
+    * Pone una bolita de color **colorAPoner** en la celda situada a 3 posiciones de distancia 
+      hacia la dirección **direcciónADistancia**, dejando el cabezal en dicha celda.
+  PARÁMETROS:
+    * colorAPoner: Color - El color de la bolita a poner.
+    * direcciónADistancia: Dirección - La dirección hacia la cual realizar el desplazamiento.
+  PRECONDICIONES:
+    * Debe haber al menos 3 celdas al **direcciónADistancia** de la celda actual.
+*/
+//  Poner(colorAPoner)
+//  Mover3VecesAl_(direccionADistancia)
+//}
+
+//b) el parametro **dirteccionADistacia** es un parametro propio del procedimiento **Poner_ADistancia3Al_**.
+//Cuando dentro del cuerpo invocamos al procedimiento **Mover3VecesAl_**, le pasamos el valor que recibió nuestro parámetro como argumento.
+//el valor tiene un alcance distinto, entra por el parametro de Poner_ADistancia3Al_. y se retransmite y se retrasmite con el mismo dato hacia el procedimimiento
+//**Mover3VecesAl_**
+
+
+
+//6) Nova tenia este codigo:
+
+//procedure Pintar3PuntosAzules() {
+//Poner (Azul)
+//      Poner_ADistancia3Al_(Azul, Este)
+//  Poner_ADistancia3Al_(Azul, Este)
+//Mover3VecesAl_(Oeste) Mover3VecesAl_(Oeste)
+//}
+
+//a) corregir los errores:
+//El poner azul sobra
+//falta de contrato
+//precondiciones implicitas
+//errores de indentacion y saltos de linea inexistentes
+//falta el uso de herramientos para repeticion y recurre a una mal usada repeticion de codigo
+
+//contrato:
+/*
+proposito: 
+    pintar de azul 3 puntos diferentes entre si sobre la fila en direccion al Este
+    manteniendo al cabezal en al posicion inicial.
+precondicion:
+    debe haber al menos 6 celdas al Este    
+parametro:
+    *No tiene
+*/
+
+//ejemplo practico del 5:
+
+procedure Poner_ADistancia3Al_(colorAPoner, direccionADistancia) {
+    /*
+  PROPÓSITO:
+    * Pone una bolita de color **colorAPoner** en la celda situada a 3 posiciones de distancia 
+      hacia la dirección **direcciónADistancia**, dejando el cabezal en dicha celda.
+  PARÁMETROS:
+    * colorAPoner: Color - El color de la bolita a poner.
+    * direcciónADistancia: Dirección - La dirección hacia la cual realizar el desplazamiento.
+  PRECONDICIONES:
+    * Debe haber al menos 3 celdas al **direcciónADistancia** de la celda actual.
+*/
+  Poner(colorAPoner)
+  Mover3VecesAl_(direccionADistancia)
+}
+
+procedure Pintar3PuntosAzules(){
+    /*
+proposito: 
+    pintar de azul 3 puntos diferentes entre si sobre la fila en direccion al Este
+    manteniendo al cabezal en al posicion inicial.
+precondicion:
+    debe haber al menos 6 celdas al Este    
+parametro:
+    *No tiene
+*/
+    repeat(2){
+        Poner_ADistancia3Al_(Azul, Este)
+    }
+    Mover_VecesAl_(3, Oeste)
+}
+
+
+program{
+    Mover3VecesAl_()
+    //Poner6DeColor_(Rojo)
+    //Poner_Al_(Azul, Este)
+    //ReemplazarUnaDe_Por_(Rojo, Negro)
+    Poner_ADistancia3Al_()
+    //Pintar3PuntosAzules()
+    Pintar3Puntos_()
+    PintarArcoIris()
+    Poner_DeColorRojo(4)
+
+}
+
+//6.c)
+
+procedure Pintar3Puntos_(colorPunto){
+    /*
+proposito:
+    * pintar 3 puntos de color **colorPunto** diferentes entre si sobre la fila en direccion al Este
+    dejando el cabezal en la posicion de origen
+precondicion: 
+    * debe haber al menos 6 celdas al Este
+parametro:
+    * **colorPunto**: Color - El color de los puntos a pintar
+    */
+    poner(colorPunto)
+    repeat(2){
+        Poner_ADistancia3Al_(colorPunto, Este) 
+    }
+    repeat(2){
+        Mover3VecesAl_(Oeste)
+    }
+}
+
+//7)
+
+procedure PintarArcoIris(){
+    /*
+PROPOSITO:
+    * Pinta un arcoiris en el tablero compuesto por 4 franjas de 3 puntos
+    de colores Negro, Azul, Rojo y Verde, dejando el cabezal en la posicion de origen
+PRECONDICION:
+    * El cabezal se ecuentra en la posicion Sur-Oeste del tablero
+    * Hay al menos 8 celdas disponibles al Este y 1 celdas disponibles al Norte
+PARAMETRO:
+    * No Hay
+*/
+    Pintar3Puntos_(Negro)
+    Mover(Este)
+    Pintar3Puntos_(Azul)
+    Mover(Norte)
+    Pintar3Puntos_(Verde) 
+    Mover(Este)
+    Mover(Sur)
+    Pintar3Puntos_(Rojo)
+    Mover_VecesAl_(2, Oeste)
+    
+}
+//biblioteca:
+procedure Mover_VecesAl_(cantidadAMover, direccionAMover) {
+    /*
+        PROPÓSITO: 
+            *Mover el cabezal una cantidad  
+            hacia una dirección **direccionAMover** 
+        PARÁMETROS:
+            * cantidadAMover: Número - La cantidad de posiciones a mover.
+            * direccionAMover: Dirección - La dirección hacia la cual mover el cabezal.
+        PRECONDICIONES:
+            * Debe haber al menos **cantidadAMover** celdas en la dirección **direccionAMover**
+            desde la celda actual.
+    */
+    repeat(cantidadAMover){
+        Mover(direccionAMover)
+    }
+}
+//
+
+procedure Poner_DeColorRojo(cantidadAPoner){
+    /*
+    PROPÓSITO:
+        * Poner puntos de color rojo en el tablero
+    PRECONDICIONES:
+        * La celda actual debe estar vacia
+    PARÁMETROS:
+        * cantidadAPoner: Número - La cantidad de puntos rojos a poner en la celda actual
+    */
+    repeat(cantidadAPoner){
+        Poner(Rojo)
+    }
+}
+
+procedure Poner_DeColor_(cantidadAPoner, colorAPoner){
+    /*
+        PROPÓSITO: 
+            * Poner **cantidadAPoner** de color **colorAPoner** en el tablero
+        PARÁMETROS:
+            * cantidadAPoner: Número - La cantidad de puntos del color especificado a poner en la celda actual
+            * colorAPoner: Color - El color de los puntos a poner
+        PRECONDICIONES:
+            * cantidadAPoner >= 0
+    */
+    repeat(cantidadAPoner){ 
+        Poner(colorAPoner)
+    }
+}
+
+procedure Sacar_DeColor_(colorASacar, cantidadASacar){
+    /*
+        PROPÓSITO: 
+            * Sacar **cantidadASacar** de color **colorASacar** en el tablero
+        PARÁMETROS:
+            * colorASacar: Color - El color de los puntos a sacar
+            * cantidadASacar: Número - La cantidad de puntos del color especificado a sacar en la celda actual
+        PRECONDICIONES:
+            * cantidadASacar > 0
+    */
+    repeat(cantidadASacar){ 
+        Sacar(colorASacar)
+    }
+}
+
+//12)
+procedure IrAEsquinaAl_Y_(primeraDirección,
+segundaDirección){
+    /*
+        PROPÓSITO: 
+            * Mover el cabezal a la esquina del tablero en la dirección
+             de la primera y segunda dirección dadas
+        PARÁMETROS:
+            * primeraDirección: Dirección - La primera dirección del borde
+            * segundaDirección: Dirección - La segunda dirección del borde
+        PRECONDICIONES:
+            * **pimeraDirección** y **segundaDirección** 
+            deben ser direcciones válidas (Norte, Sur, Este, Oeste)
+            y ser perpendiculares entre sí
+    */
+    IrAlBorde(primeraDirección)
+    IrAlBorde(segundaDirección)
+}
+
+//13)
+procedure  EscribirFechaConDía_Mes_Año_(día, mes, año){
+    /*
+        PROPÓSITO: 
+            * Escribir la fecha en el tablero con el formato "día/mes/año"
+            es decir, primero el día (color Azul), luego el mes (color Rojo) y el año (color Verde)
+        PARÁMETROS:
+            * día: Número - El día a escribir
+            * mes: Número - El mes a escribir
+            * año: Número - El año a escribir
+        PRECONDICIONES:
+            * día, mes y año deben ser números válidos para una fecha
+    */
+    // Implementación de la escritura de la fecha en el tablero
+
+    Poner_DeColor_(día, Azul)
+    Mover(Este)
+    Poner_DeColor_(mes, Rojo)
+    Mover(Este)
+    Poner_DeColor_(año, Verde)
+}
+//falsa biblioteca:
+
+
+procedure RegistrarListadoDeFechas(){
+    /*
+        PROPÓSITO: 
+            * Registrar un listado de fechas en el tablero
+        PRECONDICIONES:
+            * El cabezal debe estar en la posición inicial del tablero
+    */
+    // Implementación del registro de un listado de fechas
+
+    EscribirFechaConDía_Mes_Año_(15, 6, 1918)
+    Mover_VecesAl_(1, Norte)
+    EscribirFechaConDía_Mes_Año_(23, 9, 1947)
+    Mover_VecesAl_(1, Norte)    
+    EscribirFechaConDía_Mes_Año_(1, 5, 1886)
+    Mover_VecesAl_ (1, Norte)
+    EscribirFechaConDía_Mes_Año_(6, 12, 2007)
+    Mover_VecesAl_(1, Norte)
+    EscribirFechaConDía_Mes_Año_(19, 3, 1911)
+}
+
+

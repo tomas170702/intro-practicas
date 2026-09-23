@@ -1,0 +1,156 @@
+//FUNCIONES CON PROCEDIMIENTOS:
+
+function hayBolitas_EnCeldaAl_(direccion, color){
+    /*
+PRPOSITO:
+    *indicar si la celda en una direccion dada al lado del cabezal tiene bolitas
+TIPO:
+    *booleano
+PRECONDICION:
+    *debe haber una celda en alguna direccion al lado de la celda actual
+    */
+    Mover(dirección)
+    return(hayBolitas(color))
+}
+
+//biblioteca unidad 9:
+function hayBolitas_Al_(color, direccion){
+        /*
+PRPOSITO:
+    *indicar si la celda lindante del cabezal en una direccion dada tiene bolitas
+TIPO:
+    *booleano
+PRECONDICION:
+    *debe haber una celda en alguna direccion al lado de la celda lindante
+    */
+    return(puedeMover(direccion) && hayBolitas_EnCeldaAl_(direccion, color))
+}
+
+function minimoEntro_y_(a, b){
+/*
+PROPOSITO:
+    *describre el valor mas chico entre *a* y *b*, si valen lo mismo se elige el primero de los 2
+TIPO: Numero
+PARAMETROS:
+    *a: Numero - el valor numerico que toma *a*  
+    *b: Numero - el valor numerico que toma *b*
+PRECONDICION:
+    *ninguna
+    */
+    return(choose
+        a when (a <= b)
+        b otherwise
+    )
+}
+
+
+function unoSi_CeroSiNo_(condicion){
+    /*
+
+    */
+    return(choose 1 when(condicion)
+        0 otherwise)
+}
+
+function cantidadDeCeldasConBolitasDeColor_(color) {
+    /*
+        PROPÓSITO: describe el total de celdas con bolitas de **color** 
+        PARÁMETROS:
+            * color: Color - describe el color de las bolitas.
+        TIPO: Numero
+        OBSERVACIONES:
+            *recorrido de acumulacion
+            *sobre el talblero, celda por celda
+            *busca celdas con bolitas de color *color*
+        PRECONDICIONES:
+            * ninguna
+    */
+    cantidadCeldasConBolitasContadas := 0
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+        cantidadCeldasConBolitasContadas := cantidadCeldasConBolitasContadas 
+        + 
+        unoSi_CeroSiNo_(hayBolitas(color))
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+    //cantidadCeldasConBolitasContadas := cantidadCeldasConBolitasContadas 
+    //    + 
+    //unoSi_CeroSiNo_(hayBolitas(color))
+    //ESTO ESTA MAL PERO ES VALIDO
+    //return (cantidadCeldasConBolitasContadas := cantidadCeldasConBolitasContadas 
+    //    + 
+    //unoSi_CeroSiNo_(hayBolitas(color)))
+    //ESTO ES MOTIVO PARA DESAPROBAR EL PARCIAL, PONES UN COMANDO DONDE VA UNA EXPRESION
+    return(cantidadCeldasConBolitasContadas :=  unoSi_CeroSiNo_(hayBolitas(color)))
+}
+//V2
+function cantidadDeCeldasConBolitasDeColor_(color) {
+    /*
+        PROPÓSITO: describe el total de celdas con bolitas de **color** 
+        PARÁMETROS:
+            * color: Color - describe el color de las bolitas.
+        TIPO: Numero
+        OBSERVACIONES:
+            *recorrido de acumulacion
+            *sobre el talblero, celda por celda
+            *busca celdas con bolitas de color *color*
+        PRECONDICIONES:
+            * ninguna
+    */
+    
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Norte, Este)
+    cantidadCeldasConBolitasContadas :=  unoSi_CeroSiNo_(hayBolitas(color)) 
+    //ESTO ES VALIDO TAMBIEN
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)
+        cantidadCeldasConBolitasContadas := cantidadCeldasConBolitasContadas 
+        + 
+        unoSi_CeroSiNo_(hayBolitas(color))
+    }
+    return(cantidadCeldasConBolitasContadas)
+
+}
+procedure EdadMinimaDelAula(){
+    /*
+    */
+    IrAPrimeraBancoDelAula()
+    edadMasChicaHastaAhora := edadAlumnoAca()
+    while(haySuienteBancoDelAula() := minimoemtre_y_(edadMasChicaHastaAhora, edadAlumnoAca)){
+        IrASiguienteBancoDelAula()
+    }
+    return(edadMasChicaHastaAhora)
+}
+
+
+function hayBolitas_EnElBorde_(color, direccion){
+    /*
+    PROPOSITO:
+        *indicar si en la celda que se encuentra en el borde
+        dado por la **dirección**, hay bolitas del **color**
+    PARAMETRO:
+        *color: Color - describe el color de las bolitas
+        *direccion: Direccion - determina la direccion del borde con bolitas
+    TIPO:
+        *booleano 
+    PRECONDICION:
+        * ninguna
+    */
+    IrAlBorde(direccion)
+    return(hayBolitas(color))
+}
+
+function hayBolitas_Hacia_(color, direccion){
+    /*
+    PROPOSITO:
+        * indica si en alguna de las celdas hacia la dirección, **direccion**
+        hay bolitas del color **color**
+    PRECONDICION:
+        *color: Color - determina el color de las bolitas
+        *direccion: Direccion - determina la direccion de la celda 
+    TIPO:
+        *booleando
+    PRECONDICION:
+        *no se debe incluir la celda actual
+    */
+}
+

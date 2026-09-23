@@ -1,0 +1,75 @@
+//Escribir un procedimiento DibujarRectánguloRojoYNegroDe5x3() que dibuje un rectángulo
+//sólido de 5 celdas de largo por 3 de alto, similar al realizado en “P2. 2. Por Arriba”, pero esta vez, utilice
+//repetición para solucionar el problema
+
+
+program{
+    DibujarRectánguloRojoYNegroDe5x3()
+}
+    
+
+procedure DibujarRectánguloRojoYNegroDe5x3(){
+    /* proposito: Dibujar un rectangulo de colores rojo y negro de 3 filas x 5 columnas
+    precondicion: Que haya un maximo de 2 celdas al norte y un maximo de 4 celdas al oeste */
+    PintarPrimeraColumna()
+    PintarSegundaColumna()
+    PintarTerceraColumna()
+}
+
+
+procedure PintarPrimeraColumna(){
+    /* proposito: Ir pintando las celdas del de la primera columna y desplazarse hacia arriba
+    precondicion: Que no haya celdas pintadas en el cuadrado */
+    repeat(4) {
+        Poner(Rojo)
+        Poner(Negro)
+        Mover(Este)
+    }
+    IrAlBorde(Este)
+    Poner(Rojo)
+    Poner(Negro)
+}
+
+
+procedure PintarSegundaColumna(){
+    /* proposito: pintar la segunda celda y desplazarse hacia el lado opuesto al que empezamos
+    Precondicion: que la colunma actual ya este pintada*/
+    Mover(Norte)
+    repeat(4){
+        Poner(Rojo)
+        Poner(Negro)
+        Mover(Oeste)
+    }
+    IrAlBorde(Oeste)
+    Poner(Rojo)
+    Poner(Negro)
+}
+
+
+procedure PintarTerceraColumna(){
+    /* proposito: pintar la ultima columna del tablero
+    Precondicion: Haber terminado de pintar la segunda columna*/
+    Mover(Norte)
+    repeat(4){
+        Poner(Rojo)
+        Poner(Negro)
+        Mover(Este)
+    }
+    IrAlBorde(Este)
+    Poner(Rojo)
+    Poner(Negro)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

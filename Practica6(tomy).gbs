@@ -1,0 +1,62 @@
+program {
+    Depositar_EnMoneda_ComoPesos()
+    ExtraerHasta_EnMoneda_(15, Rojo)
+}
+procedure Depositar_EnPesos(cantidadADepositar, colorDeLaMoneda){
+    /*
+    PROPÓSITO: deposita las divisas a cambiar en el banco
+    PARÁMETROS: ninguno
+    PRECONDICIONES: debe haber divisas a depositar
+    */
+    Poner_DeColor_(cantidadADepositar, colorDeLaMoneda)
+}
+procedure Depositar_EnMoneda_ComoPesos(cantidadADepositar, moneda){
+    /*
+    PROPÓSITO:
+        *dado el dinero en **cantidadADepositar** y un color en **moneda**
+        agrega a la cuenta la cantidad de pesos equivalente a lo indicado para depositar
+    PARÁMETROS:
+        * cantidadADepositar : numero - indica la cantidad de dinero a depositar.
+        * moneda: color - indica segun el color cual es la divisa que se utiliza.
+    PRECONDICIONES
+        * **cantidadADepositar** debe ser mayor a 0
+    */
+    if(moneda == Verde){
+        Depositar_EnPesos(1 * 80, Negro)
+    }
+    elseif(moneda == Azul) {
+        Depositar_EnPesos(1 * 90, Negro)
+    }
+    else(moneda == Rojo){
+        Depositar_EnPesos(1 * 12, Negro)
+    }
+}
+
+procedure Extraer_Dinero(cantidadAExtraer, colorDeLaMoneda){
+    /*
+    */
+    Sacar_DeColor_(cantidadAExtraer, colorDeLaMoneda)
+}
+
+procedure ExtraerHasta_EnMoneda_(cantidadAExtraer, moneda){
+    /*
+    PROPOSITO:
+        *Dada una cantidad **cantidadAExtraer** y una divisa dada en **moneda**
+        remueve de la cuenta una cantidad de dinero dada, si en la cuenta hay menos dinero,
+        se extrae todo el dinero de la cuenta
+    PARAMETRO:
+        *cantidadAExtraer: numero - indica la cantidad de dinero que se extrae
+        *moneda: color - indica segun el color cual es la divisa que se extrae
+    PRECONDICION: 
+    * **cantidadAExtraer** debe ser mayor a 0
+    */
+    if(nroBolitas(moneda) >= cantidadAExtraer){
+        Extraer_Dinero(cantidadAExtraer, colorDeLaMoneda)
+    }
+}
+
+procedure ConvertirHasta_PesosA_(pesosAConvertir, moneda){
+    /*
+
+    */
+}
