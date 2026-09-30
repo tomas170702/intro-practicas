@@ -25,6 +25,152 @@ PRECONDICION:
 
 }
 
+
+
+procedure RegistrarHispanohablantesSilosHayCon_(color){
+    /*
+PROPOSITO:
+    *agrupa a los hispanohablantes y coloca una bolita negra en caso de ausencia de los mismos
+    *elimina representacion de todos los turistas no hispanohablantes del cuadrante
+PARAMETRO:
+    *color: Color - decribe el color en el que se registran los hispanohablantes
+PRECONDICION:
+    *ninguna
+    */
+    if(cantidadDeTuristasHispanohablantes() > 0){
+        RegistrarHispanohablantesAca(cantidadDeTuristasHispanohablantes(), color)
+    }
+    else{
+        RegidtrarAusenciaDeHispanohablantes()
+    }
+}
+
+procedure RegistrarHispanohablantesAca(cantidad, color){
+    /*
+PROPOSITO:
+    *
+PARAMETRO:
+    *
+PRECONDICION:
+    *
+    */
+    Poner_DeColor_(cantidad, color)
+}
+
+function cantidadDeTuristasHispanohablantes(){
+    /*
+PROPOSITO:
+    *
+PARAMETRO:
+    *
+PRECONDICION:
+    *
+    */
+    return(nroBolitas(argentina()) + nroBolitas(mexico()))
+}
+
+
+procedure RegidtrarAusenciaDeHispanohablantes(){
+    /*
+PROPOSITO:
+    *
+PARAMETRO:
+    *
+PRECONDICION:
+    *
+    */
+    Poner(Negro)
+}
+
+
+procedure IrACentroDeReunionEnFilaDeTuristaDe_(colorPais){
+    /*
+PROPOSITO:
+    *unica el cabezal en el cuadrante de la fila actual que es el centro de la reunion de turistas
+    del pais dado
+OBSERVACIONES:
+    *recorrido de busqueda
+    *sobre la fila de cuadrantes
+    *se busca un centro de reunion
+PARAMETRO:
+    *colorPais: Color - describe el color de los paises de los turistas en el centro de reunion
+PRECONDICION:
+    *hay un unico cuadrante que actua como centro en la fila actual
+    */
+    IrAlBorde(Oeste)
+    while(not esCentroDeReunionDe_(colorPais)){
+        Mover(Este)
+    }
+}
+
+
+function esCentroDeReunionDe_(colorPais){
+    /*
+  PROPÓSITO:
+    * Indica si el cuadrante actual es el centro de reunión de los turistas 
+      del país representado por el color **colorPaís**.
+  PARÁMETROS:
+    * colorPaís: Color - El color que representa al país a evaluar.
+  TIPO: Booleano
+  PRECONDICIONES:
+    * Ninguna (es total, ya que sus subtareas se encargan de no caerse del tablero).
+    */
+return(
+    nroBolitas(colorPais) > turistasAl_(Norte, colorPais)
+    nroBolitas(colorPais) > turistasAl_(Sur, colorPais)
+    nroBolitas(colorPais) > turistasAl_(Este, colorPais)
+    nroBolitas(colorPais) > turistasAl_(Oeste, colorPais)
+    )
+} 
+
+
+function turistasAl_(direccion, colorPais){
+    /*
+    PROPOSITO:
+      *describe la cantidad de turista del pais **colorPais** que hay en
+      el cuadrante vecino en direccion **direccion**.
+      si no hay cuadrante en esa direccion describe 0.
+    PARAMETRO:
+      *direccion: Direccion - hacia donde mirar.
+      *colorPais: Color - El color de los turistas a contar.
+    TIPO:
+      *Numero
+    PRECONDICION:
+      *Ninguna
+    */
+    cantidadVecina := 0
+    if(puedeMover(dirección)){
+        Mover(dirección)
+        cantidadVecina := cantidadVecina + 1
+    }
+    return(cantidadVecina)
+}
+procedure MapearDensidadDeHispanohablantesBajoColor_(color){
+    /*
+PROPOSITO:
+    *deja en cada cuadrante la cantidad de bolitas de un color **color** 
+    que reprensenta la sumatoria de la cantidad 
+    de turistas hispanohablantes que tiene dicho cuadrante.
+    *marca con una bolita negra cada cuadrante 
+    en la que no se identifique un turista hispanohablante
+OBSERVACION:
+    *recorrido de transformacion
+    *sobre los cuadrantes de la imagen
+    *agrupando a los hispanohablantes bajo el color dado
+PARAMETRO:
+    *color: Color - describe el color por el cual se representan los turistas hispanohablantes
+PRECONDICION:
+    * ninguna
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este, Norte) //se posciona en el recorrido
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Este, Norte)){
+        RegistrarHispanohablantesSilosHaycon_(color)
+        IrASiguienteCeldaEnUnRecorridoAl_Y_(Este, Norte)
+    }
+    RegistrarHispanohablantesSilosHaycon_(color)
+
+}
+
 procedure RegistrarHispanohablantesSilosHayCon_(color){
     /*
 PROPOSITO:
