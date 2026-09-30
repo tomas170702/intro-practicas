@@ -1,0 +1,221 @@
+//parcial age of gompire
+
+//1)
+function puntosAObtenerEnSector() {
+    /*
+        PROPÓSITO:
+            *describre los puntos obtenidos en el sector centrado de la parcela actual
+        TIPO: Número
+        PRECONDICIONES:
+            *ninguna
+        OBSERVACIONES:
+            *sector centrado en la parcela actual es la parcela actual + todas sus direcciones ortogonales
+            *15 puntos si hay alimentos o oro en la parcela del sector
+            *10 puntos si hay madera o piedra en la parcela del sector
+            *10 puntos adicionales si hay de los 4 recursos
+    */
+    return (
+        puntos_SiHayRecurso_O_CeroSino(15, recursoAlimento(), recursoOro())
+        +
+        puntos_SiHayRecurso_O_CeroSino(10, recursoMadera(), recursoPiedra())
+        +
+        puntos_SiHayTodosLosRecursosCeroSino(10)
+    )
+}
+
+function puntos_SiHayRecurso_O_CeroSino(cantidadPuntos, 1erRecursos, 2doRecurso) {
+    /*
+    PROPOSITO: describe **cantidadPuntos** si hay **1erRecurso** o  **2doRecurso** en el sector
+    centrado en la parcela actual y 0 sino
+    PARAMETRO:
+    *cantidadPuntos: Numero - describe la cantidad de puntos obtenidos
+    *1erRecursos: Color - describe al primer recurso
+    *2doRecurso: Color - describe al segundo recurso
+    TIPO: Numero
+    PRECONDICION: ninguna 
+    */
+    return(choose
+        cantidadPuntos when (hayRecurso_EnSector(1erRecursos) || hayRecurso_EnSector(2doRecursos))
+        0 otherwise
+    )
+}
+
+function puntos_SiHayTodosLosRecursosCeroSino(cantidadPuntos) {
+    /*
+        PROPÓSITO: describe **cantidadPuntos** si hay de todos recursos en el sector centrado en la parcela actual 
+        0 sino
+        PARÁMETROS:
+            *cantidadPuntos: Numero - describe la cantidad de puntos obtenidos
+        TIPO: Tipo
+        PRECONDICIONES:
+            * 
+    */
+    
+    return (choose
+        cantidadPuntos when (hayDeTodosLosRecursosEnElSector())
+        0 otherwise
+    )
+}
+
+
+function hayRecurso_EnSector(recurso){
+    /*
+        PROPOSITO: indica si hay **recurso** en el sector centrado en la parcela actual
+        TIPO: booleando
+        PARAMETRO: recurso: Color - describe un recurso
+        PRECONDICION: ninguna
+    */
+    
+    return(hayRecurso_Aca(recurso) || hay_RecursoEnAlgunaDireccion(recurso))
+}
+
+function hay_RecursoEnAlgunaDireccion(recurso){
+    /*
+        PROPÓSITO: indica si hay **recurso** en alguna de las direcciones del sector
+        PARÁMETROS:
+            * recurso: Color - describe un recurso
+        TIPO: booleano
+        PRECONDICIONES:
+            * ninguna
+        OBSERVACIONES:
+            *recorrido de busqueda
+            *se recorren direcciones
+            *se buscan recursos
+            *no sabe si hay recursos
+    */
+    dirActual := minDir()
+    while(direccionActual /= maxDir && not hayRecurso_Al_(recurso, dirActual)){
+        dirActual := siguiente(dirActual)
+    }
+    return (hayRecurso_Al_(recurso, dirActual))
+}
+
+
+function  hayRecurso_Al_(recurso, direccion){
+    /*
+        PROPÓSITO: indica si hay **recurso** en **direccion** desde la parcela actual
+        PARÁMETROS:
+            * recurso: Color - describe un recurso
+            * direccion: Direccion - describe una direccion
+        TIPO: booleano
+        PRECONDICIONES:
+            * ninguna
+    */
+    
+    return (hayParcelaAl_(direccion) && hayrecurso_EnParcelaAl_(recurso, direccion))
+}
+
+
+function hayrecurso_EnParcelaAl_(recurso, direccion){
+    /*
+        PROPOSITO: indica si hay **recurso** en parcela hacia **direccion** desde la parcela actual
+        PARAMETRO:
+            *recurso: Color - describe un recurso
+            *direccion: Direccion - describe una direccion
+        TIPO: booleano
+        PRECONDICION:
+            * hay al menos una parcela hacia direccion **direccion**
+    */
+    Mover(dirección)
+    return (hayRecurso_Aca(recurso))
+}
+
+function hayParcelaAl_(direccion){
+    /*
+        PROPÓSITO: indica si hay parcela en la **direccion**
+        PARÁMETROS:
+            *direccion: Direccion - describe una direccion
+        TIPO: Booleano
+        PRECONDICIONES:
+            * ninguna
+    */
+    
+    return (puedeMover(dirección))
+}
+
+
+function hayDeTodosLosRecursosEnElSector() {
+    /*
+        PROPÓSITO: indica si hay de todos los recursos en el sector 
+        TIPO: booleano
+        PRECONDICIONES:
+            * ninguna
+        OBSERVACIONES:
+            * es un recorrido de busqueda
+            * sin saber si hay recurso
+            * sobre los recursos en el sector actual
+    */
+    recursoActual := minRecurso()
+    while(recursoActual =/ maxRecurso() && hayRecurso_EnSector(recurso)){
+        recursoActual := siguiente(recursoActual)
+        } 
+    return (hayRecurso_EnSector(recurso))
+}
+
+
+//2)
+
+procedure AumentarEn_RecursoDeMenorRiqueza(cantidadAIncrementar) {
+    /*
+        PROPÓSITO: 
+            *Aumenta el recurso de menor riqueza en **cantidadAIncrementar** en cada parcela del mapa
+            en la que hay un recurso de menor riqueza en el mapa
+        PARÁMETROS:
+            * cantidadAIncrementar: Numero - describe la cantidad de recurso en parcela.
+        PRECONDICIONES:
+            * debe existir al menos una parcela en donde exista **recursoDeMenorRiqueza**
+    */
+    Aumentar_EnElMapaEn_(recursoDeMenorRiqueza(), cantidadAIncrementar)
+}
+
+
+function recursoDeMenorRiqueza() {
+    /*
+        PROPÓSITO: describe el recurso de menor riqueza en el mapa
+        TIPO: color 
+        PRECONDICIONES:
+            * ninguna
+        observaciones:
+            * recorrido de acumulacion
+            * se recorren recursos
+            * registra el recurso de menor riqueza comparando el minimo y el maximo
+    */
+    recursoActual := minRecurso()
+    recursoDeMenorRiquezaHastaAhora := recursoActual
+    while(recursoActual /= maxRecurso()){
+        recursoActual := siguiente(recursoActual)
+        recursoDeMenorRiquezaHastaAhora := minimoRecursoEntre_Y_(recursoActual, recursoDeMenorRiquezaHastaAhora)
+    }
+    return (recursoDeMenorRiquezaHastaAhora)
+}
+
+function minimoRecursoEntre_Y_(primerRecurso, segundoRecurso){
+    /*
+        PROPÓSITO: describe el minimo recurso entre **recursoActual** y **recursoDeMenorRiquezaHastaAhora**
+        Parametro:
+            *recursoActual: 
+            *recursoDeMenorRiquezaHastaAhora:
+        TIPO: Color
+        PRECONDICIONES:
+            * ninguna
+    */
+    
+    return (choose
+        primerRecurso when riquezaDeRecursoEnMapa(primerRecurso < segundoRecurso)
+        segundoRecurso otherwise
+    )
+}
+    
+procedure Aumentar_EnElMapaEn_(, cantidadAIncrementar){
+    /*
+        PROPOSITO:
+            * aumenta el **recursoDeMenorRiqueza** en **cantidadAIncrementar**
+        PARAMETROS:
+            *recursoDeMenorRiqueza:
+            * cantidadAIncrementar:
+        PRECONDICION:
+        OBSERVACIONES:
+    */
+}
+
+riquezaDeRecursoEnMapa

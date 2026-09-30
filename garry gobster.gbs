@@ -1,0 +1,146 @@
+// Ejercicio 1)
+function puedenGanarBatallaMagosContraMortifagos(){
+    /*
+    PROP: indica si los magos pueden derrotar a los mortifagos en una batalla.
+    PREC: Ninguna
+    PARA: -
+    TIPO: Booleano
+    */
+    return(poderTotalDe_(categoríaMago()) > poderTotalDe_(categoríaMortifago()))
+}
+
+function poderTotalDe_(categoria){
+    /*
+    PROP: descrbe el poder total de la categoria *categoria* en todo Gobswarts
+    PREC: la categoria dada debe ser un numero que represente a una categoria válida
+    PARA: 
+        - categoria: Numero, numero que describe la categoria del personaje a determinar su poder
+    TIPO: Número
+    OBSE: Recorrido de acumulacion sobre habitaciones de gobswarts, acumulando el poder magico de la categoria dada
+    */
+    IrAlInicioEnUnRecorridoAl_YAl_(Este, Norte) 
+    poderTotal := poderPersonajeHabitacionActualSiEs_(categoria)
+    while (haySiguienteCeldaEnUnRecorridoAl_YAl_(Este, Norte)) {
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este, Norte) 
+        poderTotal := poderTotal + poderPersonajeHabitacionActualSiEs_(categoria)
+    }
+    return (poderTotal)
+}
+
+function poderPersonajeHabitacionActualSiEs_(categoria){
+    /*
+    PROP: describe el poder del personaje de categoria dada si hay ese personaje en la habitacion actual, si no hay describe 0
+    PREC: la categoria dada debe ser un numero que represente a una categoria válida
+    PARA: 
+        - categoria: Numero, numero que describe la categoria del personaje a determinar su poder 
+    TIPO: Número
+    */
+    return(choose
+            poderMágicoDelPersonaje() when (hayPersonajeDeCategoría_(categoria))
+            0                         otherwise)
+}
+
+
+//2)
+
+function estáElSeñorGobscuroEnGobwarts() {
+    /*
+        PROPÓSITO: indica si el señor gobscuro esta en gobwarts
+        TIPO: booleano
+        PRECONDICIONES:
+            *ninguna
+        OBSERVACIONES:
+            recorrido de busqueda
+            sin saber si esta
+            busca a donde esta el señor gobscuro
+            se sabe que es un mortifago, que oculta su poder por lo cual actualmente tine un valor de 1,
+            y que de haber entrado en gobwarts deberia esta en una mazmorra
+    */
+    IrAlInicioEnUnRecorridoAl_YAl_(Este, Norte) //biblioteca
+    while(haySiguienteHabitacionEnUnRecorridoAl_YAl_(Este, Norte) && not estaElSeñorGobscuroAca()){
+        IrASiguienteHabitacionEnUnRecorridoAl_YAl_(Este, Norte) //biblioteca
+    }
+    return (estaElSeñorGobscuroAca())
+}
+
+function estaElSeñorGobscuroAca() {
+    /*
+        PROPÓSITO: indica si el señor gobscuro esta en la habitacion actual de gobwarts 0 sino
+        TIPO: booleano
+        PRECONDICIONES:
+            * ninguna
+    */
+    return (tipoDeHabitacion() == habitacionMazmorras() 
+    && 
+    hayPersonajeDeCategoría_(categoríaMortifago())
+    &&
+    poderMágicoDelPersonaje() == 1)
+}
+
+//3)
+
+//procedure EliminarEnemigosPorDestrucciónDelDiario() {
+    /*
+        PROPÓSITO: elimina de gobwarts a todos los dementores y mortifagos que exitan
+        PARAMETROS: no tiene  
+        PRECONDICIONES:
+            * ninguna
+    */
+    //EliminarCategorias(categoríaMortifago(), categoriaDementor())
+//}
+//ESTO ESTA MAL (BUENA LA IDEA PERO RECICLARIA CODIGO)
+
+procedure EliminarEnemigosPorDestrucciónDelDiario() {
+    /*
+        PROPÓSITO: elimina de gobwarts a todos los dementores y mortifagos que exitan
+        PARAMETROS: no tiene  
+        PRECONDICIONES:
+            * ninguna
+        observaciones:
+        recorrido de transformacion
+        recorriendo el castillo de gobwarts habitacion por habitacion
+        y elimina a los enemigos que encuentre en las habitaciones
+    */
+    IrAlInicioEnUnRecorridoAl_YAl_(Norte, Este) //biblioteca
+    while(haySiguienteHabitacionEnUnRecorridoAl_YAl_(Norte, Este)){ //biblioteca
+        EliminarEnemigosSiHayAca()
+        IrASiguienteHabitacionEnUnRecorridoAl_YAl_(Norte, Este)
+    }
+    EliminarEnemigosSiHayAca()
+}
+
+
+procedure EliminarEnemigosSiHayAca() {
+    /*
+        PROPÓSITO: 
+            *Elimina a los enemigos de la habitacion Actual
+            si el personaje pertenece a la categoria dementor
+            y categoria mortifago.
+        PRECONDICIONES:
+            * ninguna
+    */
+    if (hayPersonajeDeCategoría_(categoríaMortifago())) {
+        EliminarPersonaje()
+    } elseif (hayPersonajeDeCategoría_(categoríaDementor()) ) {
+        EliminarPersonaje() 
+    }
+}
+
+
+// tmb queda bien: 
+
+procedure EliminarEnemigosSiHayAca() {
+    /*
+        PROPÓSITO: 
+            *Elimina a los enemigos de la habitacion Actual
+            si el personaje pertenece a la categoria dementor
+            y categoria mortifago.
+        PRECONDICIONES:
+            * ninguna
+    */
+    if (hayPersonajeDeCategoría_(categoríaMortifago()) || hayPersonajeDeCategoría_(categoríaDementor())) {
+        EliminarPersonaje() 
+    }
+}
+
+//4)

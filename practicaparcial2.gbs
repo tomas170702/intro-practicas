@@ -1,0 +1,171 @@
+function esPixelSaturadoAca(){
+    /*
+    PROPOSITO:
+        *Indica si pixel actual esta saturado en alguno de sus componentes
+    PARAMETRO:
+        *no tiene
+    TIPO:
+        *booleano
+    OBSERVACIONES:
+     * recorrido de busqueda y acumulacion
+     * se busca pixeles saturados en celdas lindantes
+     * 
+    PRECONDICION:
+        *ninguna
+    */
+    componenteActual := minComponente()
+    while(componenteActual /= MaxComponente() && not esComponenteSaturado(componenteActual)){
+        componenteActual := siguienteComponente_(componenteActual)
+    }
+    return(esComponenteSaturado(componenteActual))
+}
+
+
+function esComponenteSaturado(componente){
+    /*
+    proposito: 
+    *la intensidad del componente actual en el pixel actual es mayor a la suma 
+    de los mismos componentes en los pixeles lindantes
+    precondicion:
+    *ninguna
+    parametro:
+    *componente: Componente - 
+    tipo:
+    *booleando
+    observaciones:
+    *recorrido de acumulacion
+    *direcciones
+    *comparar los componentes de pixeles lindates respecto al los componentes del pixel
+    */
+    direccionActual := minDir()
+    SumaintensadesLindates := 0
+    while(direccionActual /= maxDir()){
+        SumaintensadesLindates := SumaIntensadesLindates + intensidadDe_Al_(componente, dirActual)
+        direccionActual := siguiente(direccionActual)
+    }
+    return(SumaintensadesLindates := SumaIntensadesLindates + intensidadDe_Al_(componente, dirActual) < intensidadCompoenteAca_(componente))
+}
+
+function intensidadDe_Al_(componente, direccion){
+    /*
+    proposito:
+    *describe la intensidad del componente dado en la direccion del componente dado
+    describe 0 si no se puede mover
+    precondicion:
+    *ninguna
+    tipo:
+    *Numero
+    parametro:
+    *componente: Componente
+    *dirActual: Direccion
+    */
+    return(choose intensidadCompoenteAl_(componente) when (puedeMover(dirección))
+         0 otherwise)
+}
+
+function intensidadComponenteAl_(componente, dirección){
+    /*
+    proposito:
+    *describe intensidad de **componente** hacia **direccion**
+    precondicion:
+    *hay al menos un pixel en **direccion**
+    tipo:
+    *Numero
+    parametro:
+    *componente
+    *dirección
+    */
+    Mover(dirección)
+    return(intensidadComponenteAl_(componente))
+}
+
+
+//2)
+procedure SaturarComponenteDeMayorTemperatura(){
+    /*
+    proposito:
+    *satura en todos los pixeles de la iamgen, el componente de mayor temperatura
+    en contraste con el componente de menor temperatura.
+    parametro:
+    *no tiene
+    precondicion:
+    *ninguna
+    observaciones:
+    *recorrido de transformacion
+    *recorre todos los pixeles de la imagen
+    *saturar los componentes de mayor temperatura
+    */
+    compMayor := componenteDeMayorTempreaturaEnLaimagen()
+    compMenor := componenteDeMenorTemperaturaEnLaImagen()
+    IrAPrimerPixelDeLaImagen(Norte, Este)
+    while(haysiguientePixelEnLaImagen(Norte, Este)){ 
+        SaturarComponente_ConContraste_Aca(compMayor, compMenor)
+        IrASiguientePixelEnLaImagen(Norte, Este) 
+    }
+    SaturarComponente_ConContraste_Aca(compMayor, compMenor)
+}
+procedure IrAPrimerPixelDeLaImagen(dirPrincipal, dirSecundaria){
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria) //biblioteca
+}
+
+function haysiguientePixelEnLaImagen(dirPrincipal, dirSecundaria) { //biblioteca
+    /* 
+        PROPÓSITO: 
+        PARÁMETROS:
+            * parámetro1: tipo - descripción.
+            * parámetro2: tipo - descripción.
+        TIPO: boleando
+        PRECONDICIONES:
+            * 
+    */
+    return (haySiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria)) //biblioteca
+}
+
+procedure IrASiguientePixelEnLaImagen(dirPrincipal, dirSecundaria){
+    IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria) 
+}
+function componenteDeMayorTempreaturaEnLaimagen(){
+    /*
+        PROPÓSITO: describe a el componente de mayor temperatura en la imagen actual
+        TIPO: Componente
+        PRECONDICIONES:
+        *existe una componente un componente de mayor temperatura en la imagen actual
+        Observaciones:
+        *recorrido de acumulacion
+        *en componenetes
+        *registra el componente de mayor temperatura
+    */
+    compActual := minComponente()
+    mayorTemperaturaVista := temperaturaDe_(compActual)
+    componenteDeMayorTemperatura := compActual
+    while(compActual /= maxComponente()){
+        compActual := siguienteComponente_(compActual)
+        mayorTemperaturaVista := maximoEntre_(mayorTemperaturaVista, temperaturaDe_(compActual)) //biblioteca
+        componenteDeMayorTemperatura := componenteDeMayorTemperaturaEntre_Y_(mayorTemperaturaVista >= temperaturaDe_(compActual), componenteDeMayorTemperatura, compActual)
+    }
+    return (componenteDeMayorTemperatura)
+}
+
+function componenteDeMayorTemperaturaEntre_Y_(esMayor, primerComponente, segundaComponente) {
+    return(choose
+        primerComponente when (esMayor)
+        segundaComponente otherwise
+    )
+}
+
+procedure SaturarComponente_ConContraste_Aca(compMayor, compMenor){
+    /*
+    PROPÓSITO:
+    *satura en un pixel un componente usando otra componente como contraste
+    PARÁMETROS:
+    *compMayor: Componente - componente de mayor temperatura
+    *compMenor: Componente - componente de menor temperatura
+    PRECONDICION:
+    *ninguna
+    */
+    repeat(minimoEntre_Y_(intensidadCompoenteAca_(compMenor), 255 - intensidadCompoenteAca_(compMayor))){
+        IncrementarComponente_Acá(compMayor)
+    }
+}
+
+

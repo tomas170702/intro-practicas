@@ -25,8 +25,6 @@ PRECONDICION:
 
 }
 
-
-
 procedure RegistrarHispanohablantesSilosHayCon_(color){
     /*
 PROPOSITO:
@@ -46,25 +44,17 @@ PRECONDICION:
 }
 
 procedure RegistrarHispanohablantesAca(cantidad, color){
-    /*
-PROPOSITO:
-    *
-PARAMETRO:
-    *
-PRECONDICION:
-    *
-    */
     Poner_DeColor_(cantidad, color)
 }
 
 function cantidadDeTuristasHispanohablantes(){
     /*
 PROPOSITO:
-    *
+    *indica la cantidad de turistas hispanohablantes en el cuadrante actual
 PARAMETRO:
-    *
+    *no tiene
 PRECONDICION:
-    *
+    *ninguna
     */
     return(nroBolitas(argentina()) + nroBolitas(mexico()))
 }
@@ -73,11 +63,12 @@ PRECONDICION:
 procedure RegidtrarAusenciaDeHispanohablantes(){
     /*
 PROPOSITO:
-    *
+    *registra cuando no hay hispano hablantes en el cuadrante actual
 PARAMETRO:
-    *
+    *no tiene
 PRECONDICION:
-    *
+    *Hispano hablante == 0
+    *se debe estar en el cuadrante actual
     */
     Poner(Negro)
 }
