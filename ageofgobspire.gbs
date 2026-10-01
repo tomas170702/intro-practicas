@@ -206,7 +206,7 @@ function minimoRecursoEntre_Y_(primerRecurso, segundoRecurso){
     )
 }
     
-procedure Aumentar_EnElMapaEn_(, cantidadAIncrementar){
+procedure Aumentar_EnElMapaEn_(riquezaDeRecursoEnMapa, cantidadAIncrementar){
     /*
         PROPOSITO:
             * aumenta el **recursoDeMenorRiqueza** en **cantidadAIncrementar**
@@ -218,4 +218,3 @@ procedure Aumentar_EnElMapaEn_(, cantidadAIncrementar){
     */
 }
 
-riquezaDeRecursoEnMapa
