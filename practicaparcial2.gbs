@@ -124,7 +124,7 @@ function haysiguientePixelEnLaImagen(dirPrincipal, dirSecundaria) { //biblioteca
 procedure IrASiguientePixelEnLaImagen(dirPrincipal, dirSecundaria){
     IrASiguienteCeldaEnUnRecorridoAl_Y_(dirPrincipal, dirSecundaria) 
 }
-function componenteDeMayorTempreaturaEnLaimagen(){
+function componenteDeMayorTempreaturaEnLaImagen(){
     /*
         PROPÓSITO: describe a el componente de mayor temperatura en la imagen actual
         TIPO: Componente

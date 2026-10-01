@@ -1,0 +1,143 @@
+function esCasillaSegura() {
+    /*
+        PROPÓSITO:  indica si la casilla actual es segura para revelar
+        TIPO: Booleano
+        PRECONDICIONES:
+            * ninguna
+    */
+
+    return (estaCubierta() && not hayVecinaPeligrosa())
+}
+
+function hayVecinaPeligrosa(){
+    /*
+    proposito: indica si hay una casilla vecina peligrosa en el mapa
+    tipo: Booleano
+    precondicion: ninguna
+    observaciones:
+        *una casilla peligrosa es una casilla cubierta o con indicador
+        *es un recorrido de busqueda
+        *sin saber si hay una casilla vecina con indicador
+        *se hace el recorrido una direccion que va actualizandose
+    */
+    dirActual := minDir()
+    while (dirActual /= maxDir() && not hayVecinaCubiertaOConIndicador(dirActual)){
+        dirActual := siguiente(dirActual)
+    }
+    return (hayVecinaCubiertaOConIndicador(dirActual))
+}
+
+function hayVecinaCubiertaOConIndicador(direccion) {
+    /*
+        PROPÓSITO: indica si hay una casilla vecina cubierta o que tenga un indicador
+        TIPO: booleano
+        PRECONDICIONES:
+            *ninguna
+    */
+    return ((hayVecinaCubiertaAl_(direccion) || tieneIndicadorAl_(direccion)))
+}
+
+function tieneIndicadorAl_(direccion){
+    /*
+    proposito: indica si la casilla vecina tiene indicador
+    tipo: Booleano
+    precondicion: ninguna
+    */
+    return (puedeMover(direccion) && esVecinaConIndicadorAl_(direccion))
+}
+
+
+function esVecinaConIndicadorAl_(direccion){
+    /*
+        PROPÓSITO: indica si la casilla vecina tiene indicador
+                    en direccion al **direccion**
+        TIPO: booleano
+        PRECONDICIONES:
+            * existe al menos una casilla vecina con indicador
+    */
+    Mover(direccion)
+    return (not estaCubierta(direccion) && hayIndicadorAca(direccion))
+}
+
+
+//2)
+
+procedure Arriesgar() {
+    /*
+        PROPÓSITO: revela la casilla cubierta más riesgosa de la grilla
+        PRECONDICIONES:
+            * existe una celda mas riesgosa que el resto y esa celda esta cubierta
+        OBSERVACIONES:
+            *recorrido de busqueda
+            *sabiendo que existe una casilla mas riesgosa que el resto
+            *buscando la casilla de mayor riesgo en el mapa
+    */
+    IrAPrimerCasillaEnUnRecorridoAl_Y_(Norte, Este)
+    while(not esCasillaConRiesgo(riesgoBuscado)){
+        IrSiguienteCasillaEnUnRecorridoAl_Y_(Norte, Este)
+    }
+    Revelar()
+}
+
+// calculo de cantidad -> subtarea recorrido de acumulacion al ser vecinas tiene que ser sobre direcciones
+
+function esCasillaConRiesgo_(riesgoBuscado) {
+    /*
+    Proposito: indica si la casilla actual es la mas riesgosa
+    precondicion: ninguna
+    tipo: Booleano
+    observaciones: 
+    */
+    return(estáCubierta() && riesgoDeLaCasillaActual == riesgoBuscado) // el riesgo de la casilla actual es absoluto
+}
+
+
+
+// condicion del uno si cero sino -> subtarea del tipo booleano
+
+function esCasillaReveladaYConIndicador() {
+    /*
+    proposito: Indica si la casilla actual esta revelada y con indicador.
+    precondicion: ninguna
+    tipo: booleano
+    */
+    return(esCasillaRevelada() && hayIndicadorAcá())
+}
+
+
+
+
+
+
+
+
+
+
+1. mas abajo a nivel primitivo calcular numero en base a las vecinas // en direcciones
+2. maximo entre los riesgos de las casillas (actual y su siguiente) //en toda la grilla/mapa
+3. verificar si ese riesgo obtenido es el riesgo maximo absoluto -> revele
+
+
+-------------------------
+
+function () {
+    /*
+    proposito:
+    precondiciones:
+    tipo Numero
+    */
+    direcciónActual := minDir() 
+    riesgoAcumuladoPorAhora := 0
+    riesgoMaximosRegistradoAhora := riesgoAcumuladoPorAhora
+    while (direccionActual /= maxDir()) { 
+        direcciónActual := siguiente(direcciónActual) 
+        riesgoAcumuladoPorAhora := riesgoMaximosRegistrado
+        riesgoMaximosRegistrado := maximoEntre_y_(riesgoMaximosRegistrado >= riesgoAcumuladoPorAhora)
+    } 
+    return (riesgoAcumuladoPorAhora) 
+}
+
+function cantidadDeVecinasReveladasYConIndicador(){
+
+        return(choose)
+}
