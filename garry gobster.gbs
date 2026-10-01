@@ -18,7 +18,7 @@ function poderTotalDe_(categoria){
     TIPO: Número
     OBSE: Recorrido de acumulacion sobre habitaciones de gobswarts, acumulando el poder magico de la categoria dada
     */
-    IrAlInicioEnUnRecorridoAl_YAl_(Este, Norte) 
+    IrAlInicioEnUnRecorridoAl_YAl_(Este, Norte) //biblioteca
     poderTotal := poderPersonajeHabitacionActualSiEs_(categoria)
     while (haySiguienteCeldaEnUnRecorridoAl_YAl_(Este, Norte)) {
         IrASiguienteCeldaEnUnRecorridoAl_YAl_(Este, Norte) 
@@ -46,7 +46,7 @@ function poderPersonajeHabitacionActualSiEs_(categoria){
 function estáElSeñorGobscuroEnGobwarts() {
     /*
         PROPÓSITO: indica si el señor gobscuro esta en gobwarts
-        TIPO: booleano
+        TIPO: Booleano
         PRECONDICIONES:
             *ninguna
         OBSERVACIONES:
@@ -66,7 +66,7 @@ function estáElSeñorGobscuroEnGobwarts() {
 function estaElSeñorGobscuroAca() {
     /*
         PROPÓSITO: indica si el señor gobscuro esta en la habitacion actual de gobwarts 0 sino
-        TIPO: booleano
+        TIPO: Booleano
         PRECONDICIONES:
             * ninguna
     */
@@ -144,3 +144,181 @@ procedure EliminarEnemigosSiHayAca() {
 }
 
 //4)
+
+function categoriaDePersonajeConMayorPoderMágico() {
+    /*
+        PROPÓSITO: describe la categoria del personaje
+                que mayor poder magico tiene en todo gobwarts
+        TIPO: Numero
+        PRECONDICIONES:
+            * ninguna
+        OBSERVACIONES:
+            *recorrido de busqueda 
+            *busca a la categoria del personaje con mayor poder magico en todo gobwarts
+            *sabe sabe que hay 1 personaje con mayor poder que todos los demas
+    */
+
+    IrASiguienteHabitacionEnUnRecorridoAl_YAl_(Este, Norte) 
+    while (haySiguienteHabitacionEnUnRecorridoAl_YAl_(Este,Norte) && hayPersonajeDeCategoría_(categoria)) {
+        IrASiguienteHabitacionEnUnRecorridoAl_YAl_(Este, Norte)
+    }
+    return (personajeDe_ConMayorPoderMagicoAca(categoria))
+}
+
+function personajeDe_ConMayorPoderMagicoAca(categoria) {
+    /*
+        PROPÓSITO: describe el personaje de **categoria** 
+                con mayor poder magico en la habitacion
+        TIPO: Numero
+        PRECONDICIONES:
+            * ninguna
+        OBSERVACIONES:
+            * recorrido de acumulacion de maximos
+            * sobre personajes en habitacion
+            * 
+    */
+    
+    return ()
+}
+
+
+// ESTA MAL! RECORRE A LAS HABITACIONES BUSCANDO PERSONAJES Y DESPUES ACUMULA PERSONAJES
+
+
+function categoriaDePersonajeConMayorPoderMágico() {
+    /*
+        PROPÓSITO: describe la categoria del personaje
+            que mayor poder magico tiene en todo gobwarts
+        TIPO: Numero
+        PRECONDICIONES:
+            * debe haber un personaje con mayor poder que los demas
+        OBSERVACIONES:
+            * recorrido de busqueda 
+            * sabiendo que hay un personaje con mayor poder que los demas
+            * recorre personajes hasta encontrar uno con mayor poder magico que los demas
+    */
+    IrAPrimerPersonaje()
+    while (not esPersonajeConMayorPoder()) {
+        IrASiguientePersonaje()
+    }
+    return (categoriaDePersonaje())
+}
+
+function categoriaDePersonaje() {
+    /*
+        PROPÓSITO: describe la categoria de el personaje personaje en la habitacion actual
+        TIPO: Numero
+        PRECONDICIONES:
+            * el personaje debe estar en la habitacion actual
+    */
+    
+    return (choose
+        categoriaMago() when (hayPersonajeDeCategoría_(categoríaMago))
+        categoriaDementor()  when (hayPersonajeDeCategoría_(categoríaDementor))
+        categoriaMortifago() when (hayPersonajeDeCategoría_(categoriaMortifago))
+        categoriaMuggle() otherwise
+    )
+}
+
+procedure IrAPrimerPersonaje(){
+    /*
+    proposito: se dirige hacia el primer personaje de gobwarts
+    precondicion: existe minimo un personaje en gobwarts
+    observacion:
+        *es un recorrido de busqueda
+        * sabiendo que existe el personaje
+        *recorrer las habitaciones hasta llegar a el
+    */
+    IrAlInicioEnUnRecorridoAl_YAl_(Norte, Este) //biblioteca
+    IrASiguientePersonaje()
+}
+
+
+function hayPersonajeAca(){
+    /*
+    proposito: indica si hay un personaje de cualquier categoria en la habitacion actual
+    tipo: Booleano
+    precondicion: ninguna
+    */
+    
+    return(hayPersonajeDeCategoría_(categoríaMago()) 
+    || hayPersonajeDeCategoría_(categoríaMortifago())
+    || hayPersonajeDeCategoría_(categoríaDementor())
+    || hayPersonajeDeCategoría_(categoríaMuggle())
+    )
+}
+
+function haySiguienteHabitacionEnUnRecorridoAl_YAl_(dir1, dir2){
+    /*
+    proposito: indica si hay una siguiente habitacion en gobwarts
+    tipo: Booleano
+    parametro:
+        *dir1: Direccion - indica la 1era direccion en la cual se busca una direccion
+        *dir2: Direccion - indica la 2da direccion en la cual se busca una direccion
+    precondicion: dir1 y dir2 deben ser ni iguales ni opuestas (son perpendiculares)
+    orbsevarcion:(siempre que uses algo de bibilioteca enun procedimiento hay que hacer una observacion para aclararlo) se representan las celdas de un tablero como habitacion de gobwarts
+    */
+
+    return (haySiguienteCeldaEnUnRecorridoAl_YAl_(dir1, dir2)) //biblioteca
+}
+
+
+procedure IrASiguientePersonaje(){
+    /*
+    proposito: se dirige a un siguiente personaje en un recorrido
+    precondicion: existe al menos un personaje en gobwarts
+    observaciones:
+    *se usa para un recorrido de busqueda sabiendo que el personaje existe
+    */
+    while (not hayPersonajeAca()) {
+        IrASiguienteCeldaEnUnRecorridoAl_YAl_(Norte,Este)
+    }
+}
+
+
+function esPersonajeConMayorPoder() {
+    /*
+        PROPÓSITO: indica si el personaje actual es que mayor poder tiene
+               en todo gobwarts
+        TIPO: Booleano
+        PRECONDICIONES:
+            * existe un persona en la habitacion actual
+    */
+    
+    return (poderMágicoDelPersonaje() == mayorPoderMagicoDeGobwarts())
+}
+
+function mayorPoderMagicoDeGobwarts(){
+    /*
+    proposito: describe el mayor poder magico de gobwarts
+    tipo: Numero
+    precondicion: existen minimo un personaje con poder maxico dentro de gobwarts
+    observaciones:
+        *recorrido maximo-minimo
+        *compara el poder magico de todos los personajes
+        *registra el mayor poder magico de gobwarts
+    */
+    IrAPrimerPersonaje()
+    mayorPoderMagicoActual := poderMágicoDelPersonaje()
+    while(haySiguientePersonaje()){
+        IrASiguientePersonaje()
+        mayorPoderMagicoActual := maximoEntre_Y_(mayorPoderMagicoActual, poderMágicoDelPersonaje())
+    }
+    return(mayorPoderMagicoActual)
+}
+
+function haySiguientePersonaje() {
+    /*
+    proposito: indica si hay un siguiente personaje en un gobwarts
+    tipo: Booleano
+    precondicion: ninguna
+    observaciones:
+        *recorrido busqueda 
+        *no sabe si hay un personaje en gobwarts
+        *recorre las habitaciones de gobwarts buscando personaje
+    */
+    while (not hayPersonajeAca() && haySiguienteHabitacionEnUnRecorridoAl_YAl_(Norte, Este)) {
+        IrASiguienteHabitacionEnUnRecorridoAl_YAl_(Norte, Este)
+    }
+    return (hayPersonajeAca())
+}
