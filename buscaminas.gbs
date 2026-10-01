@@ -120,7 +120,7 @@ function esCasillaReveladaYConIndicador() {
 
 -------------------------
 
-function () {
+function () 
     /*
     proposito:
     precondiciones:
@@ -128,13 +128,11 @@ function () {
     */
     direcciónActual := minDir() 
     riesgoAcumuladoPorAhora := 0
-    riesgoMaximosRegistradoAhora := riesgoAcumuladoPorAhora
     while (direccionActual /= maxDir()) { 
         direcciónActual := siguiente(direcciónActual) 
         riesgoAcumuladoPorAhora := riesgoMaximosRegistrado
-        riesgoMaximosRegistrado := maximoEntre_y_(riesgoMaximosRegistrado >= riesgoAcumuladoPorAhora)
-    } 
-    return (riesgoAcumuladoPorAhora) 
+        
+    return (riesgoMaximosRegistrado()) 
 }
 
 function cantidadDeVecinasReveladasYConIndicador(){
