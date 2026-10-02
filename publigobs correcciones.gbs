@@ -1,0 +1,92 @@
+procedure MapearDensidadDeHispanohablantesBajoColor_(colorHispanohablantes) {
+/*propósito pone en cada cuadrante de la imagen la cantidad de bolitas color **colorHispanohablantes** equivalente a la sumatoria de las cantidades de turistas de países hispanohablantes, en caso que no haya en ese cuadrante pone una bolita negra
+  precondición -
+  parámetros colorHispanohablantes - color - describe el color con el que se representa a los hispanohablantes 
+  observación: es un recorrido de procesamiento sobre los cuadrantes de la imagen agrupando a los hispanohablantes bajo el color dado */
+    IrAPrimerCuadranteEnUnRecorridoAl_Y_ (Este, Norte)
+   while (haySiguienteCuadranteEnUnRecorridoAl_Y_(Este, Norte)) {
+      MapearDensidadDeCuadrante_(colorHispanohablantes)
+      IrASiguienteCuadranteEnUnRecorridoAl_Y_(Este, Norte) }
+ MapearDensidadDeCuadrante_(colorHispanohablantes)
+}
+
+procedure MapearDensidadDeCuadrante_(colorHispanohablantes) {
+/* propósito: agrupa hispanohablantes bajo el color ** colorHispanohablantes** en caso que no hubiera se marca su ausencia
+   parámetro:  colorHispanohablantes - color - describe el color con el que se representa a los hispanohablantes 
+   precondición: -
+   observación: la ausencia se marca con una bolita negra */
+ nroHispanohablantes := cantidadHispanohablantesAca()
+ VaciarCuadrante()
+ if (nroHispanohablantes()) {
+     MapearDensidadDeCuadrante_Aca(colorHispanohablantes)
+  } else {
+     MarcarAusenciaHispanohablantes()
+    }
+}
+
+procedure MarcarAusenciaHispanohablantes() {
+     Poner (Negro)
+}
+ function cantidadHispanohablantesAca() {
+return (nroBolitas (argentina()) + nroBolitas(mexico()))
+ }
+
+2
+procedure IrAlCentroDeReunionEnFilaDeTuristasDe_ (colorPais) {
+/* proposito: ubicar el cabezal en el centro de reunion de los turistas del pais representado por el color dado
+parametro: colorPais - color - describe el color que representa el pais cuyo centro de reunion estamos buscando
+precondicion: debe haber al hay un unico cuadrante que actua como centro de reunion 
+observacion: es un recorrido de busqueda sobre los cuadrantes de la fila actual buscando aquel que es centro de reunion del pais dado */
+
+IrAlBorde (Oeste)
+while (not esCentroDeReuniónDeTuristasDe_(colorPais)) {
+  Mover(Este)
+  }
+}
+function  esCentroDeReuniónDeTuristasDe_(colorPais) {
+ /* proposito indica si el cuadrante actual es el centro de reunion de los turistas del pais **colorPais** en la fila actual
+    precondición: tiene que haber un cuadrante que sea centro de reunión
+   parametro: colorPais - color -
+    tipo: booleano */
+ return (nroTuristas_ConCentroAca(colorPais) == nroDeTuristasDe_EnCentroDeReunion(colorPais))
+}
+function nroTuristas_ConCentroAca(colorPais) {
+/*proposito: describe el número de turistas del **colorPais** en el cuadrante actual y sus lindantes donde existan
+ precondicion debe haber al menos una celda lindante
+ parametro: colorPais - color - 
+ tipo: numero 
+ observacion: recorrido de acumulacion sobre llas direcciones sumando la cantidad total de turistas del pais dado */
+nroTuristasVistos:= nroTuristas_(colorPais)
+dirActual := minDir()
+while (dirActual /= minDir()) {
+  nroTuristasVistos := nroTuristasVistos + nroTuristasDe_Al_(colorPais, dirActual)
+  dirActual := siguiente(dirActual)
+  }
+return (nroTuristasVistos + nroTuristasDe_Al_(colorPais, dirActual))
+}
+
+function nroTuristasDe_Al_(colorPais, dirAObservar) {
+/* proposito: describe el numero de turistas que hay en el cuadrante de la direccion dada, en caso que no haya describe cero
+   precondicion: ninguna
+   parametro: dirAObservar - direccion - describe la direccion a observar
+                     colorPais - color -
+   tipo: número */ 
+return (
+   choose 0 when (not puedeMover())
+             nroTuristasDe_EnCuadranteAl_(colorPais) otherwise
+  )
+
+function nroTuristasDe_EnCuadranteAl_(colorPais) {
+  Mover(dirAObservar)
+  return(nroTuristasDe_(colorPais))
+}
+
+function  nroDeTuristasDe_EnCentroDeReunion(colorPais) {
+/*proposito: describe el numero de turistas del **colorPais** que hay en el centro de reunion de la fila actual 
+   tipo: numero
+  obs: recorrido de maximo minimo sobre los cuadrantes de la fila */
+  maxNroDeTuristasVisto := nroTuristasDe_ConCentroAca (colorPais)
+    Mover(Este)
+    maxNroTuristasVisto := maximoEntre_y_(maxNroTuristasVistos, nroTuristasDe_ConCentroAca(colorPais))
+    }
+}
