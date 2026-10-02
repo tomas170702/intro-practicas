@@ -146,9 +146,9 @@ function hayDeTodosLosRecursosEnElSector() {
             * sobre los recursos en el sector actual
     */
     recursoActual := minRecurso()
-    while(recursoActual =/ maxRecurso() && hayRecurso_EnSector(recurso)){
+    while(recursoActual /= maxRecurso() && hayRecurso_EnSector(recurso)){
         recursoActual := siguiente(recursoActual)
-        } 
+    }
     return (hayRecurso_EnSector(recurso))
 }
 
@@ -182,31 +182,81 @@ function recursoDeMenorRiqueza() {
     */
     recursoActual := minRecurso()
     recursoDeMenorRiquezaHastaAhora := recursoActual
+    menorRiquezaHastaAhora := riquezaDe_(recursoDeMenorRiquezaHastaAhora)
     while(recursoActual /= maxRecurso()){
         recursoActual := siguiente(recursoActual)
-        recursoDeMenorRiquezaHastaAhora := minimoRecursoEntre_Y_(recursoActual, recursoDeMenorRiquezaHastaAhora)
+        recursoDeMenorRiquezaHastaAhora := recursoEntre_y_si_(recursoDeMenorRiquezaHastaAhora, recursoActual, menorRiquezaHastaAhora < riquezaDe_(recursoActual))
+        menorRiquezaHastaAhora := minimoEntre_Y_(menorRiquezaHastaAhora, riquezaDe_(recursoActual))
+    }
+    return (recursoDeMenorRiquezaHastaAhora)
+}
+//opcion 2 para hacer el recorrido
+function recursoDeMenorRiqueza() {
+    /*
+        PROPÓSITO: describe el recurso de menor riqueza en el mapa
+        TIPO: color 
+        PRECONDICIONES:
+            * ninguna
+        observaciones:
+            * recorrido de acumulacion
+            * se recorren recursos
+            * registra el recurso de menor riqueza comparando el minimo y el maximo
+    */
+    recursoActual := minRecurso()
+    recursoDeMenorRiquezaHastaAhora := recursoActual
+    while(recursoActual /= maxRecurso()){
+        recursoActual := siguiente(recursoActual)
+        recursoDeMenorRiquezaHastaAhora := elDeMenorRiquezaEntre_Y_(recursoDeMenorRiquezaHastaAhora, recursoActual)
     }
     return (recursoDeMenorRiquezaHastaAhora)
 }
 
-function minimoRecursoEntre_Y_(primerRecurso, segundoRecurso){
+function elDeMenorRiquezaEntre_Y_(recurso1, recurso2) {
+    choose(recurso1 when (riquezaDe_(recurso1) > riquezaDe_(recurso2))
+           recurso2 otherwise)
+}
+
+function recursoEntre_y_si_(primerRecurso, segundoRecurso, booleano){
     /*
         PROPÓSITO: describe el minimo recurso entre **recursoActual** y **recursoDeMenorRiquezaHastaAhora**
         Parametro:
             *recursoActual: 
             *recursoDeMenorRiquezaHastaAhora:
+            *booleano: ...
         TIPO: Color
         PRECONDICIONES:
             * ninguna
     */
     
     return (choose
-        primerRecurso when riquezaDeRecursoEnMapa(primerRecurso < segundoRecurso)
+        primerRecurso when (booleano)
         segundoRecurso otherwise
     )
 }
-    
-procedure Aumentar_EnElMapaEn_(riquezaDeRecursoEnMapa, cantidadAIncrementar){
+
+function riquezaDe_(recurso) {
+    /*
+    proposito: describe la riqueza de **recurso**
+    tipo: Numero
+    parametro:
+        *reecurso:Color - describe el tipo de recurso 
+    precondicion:
+    *ninguna
+    observaciones:
+        *recorrido de acumulacion
+        *acumula recursos
+        *registra su riqueza
+    */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este, Norte)//biblioteca
+    cantidadDeRecursos := 0
+    while (haySiguienteParcelaEnUnRecorrido(Este, Norte)) {
+        cantidadDeRecursos := cantidadDeRecursos + intensidadDeRecurso_Aca(recurso)
+        IrAsiguienteParcelaEnUnRecorrido_y_(Este, Norte)
+    }
+    return(cantidadDeRecursos + intensidadDeRecurso_Aca(recurso))
+}
+
+procedure Aumentar_EnElMapaEn_(recursoDeMenorRiqueza, cantidadAIncrementar){
     /*
         PROPOSITO:
             * aumenta el **recursoDeMenorRiqueza** en **cantidadAIncrementar**
@@ -214,7 +264,29 @@ procedure Aumentar_EnElMapaEn_(riquezaDeRecursoEnMapa, cantidadAIncrementar){
             *recursoDeMenorRiqueza:
             * cantidadAIncrementar:
         PRECONDICION:
-        OBSERVACIONES:
+            * existe **recursoDeMenorRiqueza** en **cantidadAIncrementar**
+        observaciones:
+            *recorrido de transformacion
     */
+    IrAPrimeraCeldaEnUnRecorridoAl_Y_(Este, Norte)//biblioteca
+    while (haySiguienteParcelaEnUnRecorrido(Este, Norte)) {
+        IncrementarRecurso_AcaEn_(recursoDeMenorRiqueza, cantidadAIncrementar)
+        IrAsiguienteParcelaEnUnRecorrido_y_(Este, Norte)
+    }
+    IncrementarRecurso_AcaEn_(recursoDeMenorRiqueza, cantidadAIncrementar)
+}
+
+procedure IncrementarRecurso_AcaEn_(recursoDeMenorRiqueza, cantidadAIncrementar) {
+    /*
+        PROPÓSITO: incrementa en **cantidadAincrentar** el *recursoDeMenorRiqueza**
+        PARÁMETROS:
+            *recursoDeMenorRiqueza: Color - describe el coplor de recurso de menor riqueza
+            *cantidadAIncrementar: Numero - describe la cantida en la que se va a incrementar ese recurso
+        PRECONDICIONES:
+            * cantidadAIncrementar > 0
+    */
+    repeat (cantidadAIncrementar) {
+        IncrementarRecurso_Aca(recursoDeMenorRiqueza)
+    }
 }
 
