@@ -66,76 +66,117 @@ procedure Arriesgar() {
     /*
         PROPÓSITO: revela la casilla cubierta más riesgosa de la grilla
         PRECONDICIONES:
-            * existe una celda mas riesgosa que el resto y esa celda esta cubierta
+            * existe una celda mas riesgosa que el resto y esa casilla esta cubierta
         OBSERVACIONES:
             *recorrido de busqueda
-            *sabiendo que existe una casilla mas riesgosa que el resto
-            *buscando la casilla de mayor riesgo en el mapa
+            *sabiendo que existe una casilla con riego maximo
+            *busca la casilla de mayor riesgo en el mapa
     */
-    IrAPrimerCasillaEnUnRecorridoAl_Y_(Norte, Este)
-    while(not esCasillaConRiesgo(riesgoBuscado)){
-        IrSiguienteCasillaEnUnRecorridoAl_Y_(Norte, Este)
-    }
+    IrACasillaMásRiesgosa()
     Revelar()
 }
 
-// calculo de cantidad -> subtarea recorrido de acumulacion al ser vecinas tiene que ser sobre direcciones
-
-function esCasillaConRiesgo_(riesgoBuscado) {
+procedure IrACasillaMásRiesgosa() {
     /*
-    Proposito: indica si la casilla actual es la mas riesgosa
+    proposito: se dirige a la casilla mas riegosa del mapa
     precondicion: ninguna
-    tipo: Booleano
-    observaciones: 
+    observaciones:
+        *recorrido de busqueda
+        *busca la casilla mas riegosa del mapa
+        *recorre las casillas del mapa
+
     */
-    return(estáCubierta() && riesgoDeLaCasillaActual == riesgoBuscado) // el riesgo de la casilla actual es absoluto
+    IrAPrimerCasillaEnUnRecorridoAl_Y_(Norte, Este)
+    while(not esCasillaMasRiesgosa()){
+        IrSiguienteCasillaEnUnRecorridoAl_Y_(Norte, Este)
+    }
 }
-
-
-
-// condicion del uno si cero sino -> subtarea del tipo booleano
-
-function esCasillaReveladaYConIndicador() {
-    /*
-    proposito: Indica si la casilla actual esta revelada y con indicador.
-    precondicion: ninguna
-    tipo: booleano
-    */
-    return(esCasillaRevelada() && hayIndicadorAcá())
-}
-
-
-
-
-
-
-
-
-
 
 1. mas abajo a nivel primitivo calcular numero en base a las vecinas // en direcciones
 2. maximo entre los riesgos de las casillas (actual y su siguiente) //en toda la grilla/mapa
 3. verificar si ese riesgo obtenido es el riesgo maximo absoluto -> revele
+// calculo de cantidad -> subtarea recorrido de acumulacion al ser vecinas tiene que ser sobre direcciones
 
-
--------------------------
-
-function () 
+function esCasillaMasRiesgosa(){
     /*
-    proposito:
-    precondiciones:
-    tipo Numero
+    proposito: indica cuando la casilla es riesgosa
+    tipo: Booleano
+    precondicion: ninguna
+    observaciones:
+        *recorrido de buqueda sabiendo que se busca
+        *se recorren casillas
+        *se pide identificar casillas reveldas con indicador
     */
-    direcciónActual := minDir() 
-    riesgoAcumuladoPorAhora := 0
-    while (direccionActual /= maxDir()) { 
-        direcciónActual := siguiente(direcciónActual) 
-        riesgoAcumuladoPorAhora := riesgoMaximosRegistrado
-        
-    return (riesgoMaximosRegistrado()) 
+    return (estáCubierta() && riesgoAcá() == maximoRiesgo())
 }
 
-function cantidadDeVecinasReveladasYConIndicador(){
-
-        return(choose)
+function riesgoAcá() {
+    /*
+    proposito: describe el riesgo de una casilla
+    tipo: Numero
+    precondicion: Está cubierta
+    observaciones:
+        *recurrido de Acumulacion
+        *sobre direccion
+        *se busca determinar el riesgo de una casilla
+    */
+    dirActual := minDir()
+    riesgoAcumulado := riesgoAl_(dirActual)
+    while(dirActual /= maxDir()) {
+        dirActual := siguiente(dirActual)
+        riesgoAcumulado := riesgoAcumulado + riesgoAl_(dirActual)
+    }
+    return(riesgoAcumulado)
 }
+
+function riesgoAl_(direccion) {
+    /*
+    porposito: describe el riego en una **direccion**
+    tipo: Numero
+    precondicion: ninguna
+    */
+    return(choose 
+        1 when (puedeMover(direccion) && hayRiesgoAl_(direccion))
+        0 otherwise
+    )
+}
+
+function hayRiesgoAl_(direccion) {
+    /*
+    proposito: indica si hay riego en casilla Al **direccion**
+    tipo: Booleano
+    precondicion: exiate al menos una casilla en **direccion**
+    */
+    Mover(direccion)
+    return(esCasillaReveladaYConIndicador())
+}
+
+function esCasillaReveladaYConIndicador(){
+    /*
+    proposito: indicar si la casilla actual está revelada y tiene indicador
+    tipo: Booleando
+    precondicion: ninguna
+    */
+    return (not estaCubierta && hayindicadorAca())
+}
+
+
+function maximoRiesgo() {
+    /*
+    proposito: decribe el riesgo maximo visto
+    tipo: Numero
+    precondicion: Ninguna
+    observaciones:
+        recorrido maximo-minimo
+        busca el mayor riego
+        entre todas las casillas del tablero
+    */
+    IrAPrimerCasillaEnUnRecorridoAl_Y_(Norte, Este)
+    maximoRiesgoVisto := riesgoAcá()
+    while(haySiguienteCeldaEnUnRecorridoAl_Y_(Norte, Este)){
+        IrSiguienteCasillaEnUnRecorridoAl_Y_(Norte, Este)
+        maximoRiesgoVisto := maximoEntre_Y_(maximoRiesgoVisto, riesgoAcá())//biblioteca
+    } 
+    return(maximoRiesgoVisto)
+}
+

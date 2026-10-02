@@ -190,6 +190,7 @@ function recursoDeMenorRiqueza() {
     }
     return (recursoDeMenorRiquezaHastaAhora)
 }
+
 //opcion 2 para hacer el recorrido
 function recursoDeMenorRiqueza() {
     /*
@@ -212,6 +213,14 @@ function recursoDeMenorRiqueza() {
 }
 
 function elDeMenorRiquezaEntre_Y_(recurso1, recurso2) {
+    /*
+    proposito: describe el recurso de menor riqueza entre **recurso1** y **recuros2**
+    parametros:
+        *recurso1: Color - describe el color con el cual se representa el recurso
+        *recurso2: Color - describe el color con el cual se representa el recurso
+    tipo: Numero
+    precondicion: se deben haber acumulado recursos en el mapa
+    */
     choose(recurso1 when (riquezaDe_(recurso1) > riquezaDe_(recurso2))
            recurso2 otherwise)
 }

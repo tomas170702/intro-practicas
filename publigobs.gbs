@@ -59,12 +59,9 @@ PRECONDICION:
 
 function cantidadDeTuristasHispanohablantes(){
     /*
-PROPOSITO:
-    *
-PARAMETRO:
-    *
-PRECONDICION:
-    *
+    PROPOSITO: describe la cantidad de turistas hispanohablantes
+    tipo: Numero
+    PRECONDICION: ninguna
     */
     return(nroBolitas(argentina()) + nroBolitas(mexico()))
 }
@@ -72,12 +69,9 @@ PRECONDICION:
 
 procedure RegidtrarAusenciaDeHispanohablantes(){
     /*
-PROPOSITO:
-    *
-PARAMETRO:
-    *
+PROPOSITO: registra la ausencia de hispanohablantes en el mapa
 PRECONDICION:
-    *
+    * hispanohablantes == 0
     */
     Poner(Negro)
 }
