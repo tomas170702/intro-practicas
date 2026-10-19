@@ -51,6 +51,7 @@ function cantDeGombisAtacandoEnCelda(){
 
 // Ejercicio 3
 procedure ExplotarMinaDeCalabaza(){
+    EliminarPlanta()
     EliminarGombisAca()
     dirActual := minDir()
     while(dirActual /= maxDir()){
