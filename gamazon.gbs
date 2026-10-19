@@ -1,1 +1,13 @@
 //Ejercicio 1)
+
+procedure LlevarCamiónAlInicioDeUnRecorrido(){
+    /*
+    proposito: 
+        *lleva el camion al inicio de un recorrido que inicia en la esquina (Sur-Oeste)
+    precondicion:
+        *ninguna
+    */
+    IrAPrimeraCeldaEnUnRecorrido(Norte, Este) //biblioteca 
+}
+
+
