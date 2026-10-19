@@ -145,15 +145,6 @@ procedure EntregarPaqueteACompradorSiHayAca() {
             *sobre el mapa
             *entrega los paquetes
     */
-    idPaquete := idPaquete()
-    RecogerPaquete_(idPaquete)
-    direccionAlComprador := direcciónHaciaLaCuálEstáElComprador()
-    pasos := 0
-    while(not estaElCompradorDe_(idPaquete)){
-        MoverCamionAl_(direccionAlComprador)
-        pasos := pasos + 1
-    }
-    entregarPaqueteAlComprador(idPaquete)
 
 
-}
+
