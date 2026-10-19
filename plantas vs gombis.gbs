@@ -1,20 +1,38 @@
 // Ejercicio 1
 function seDetendráElAvanceDeGombis() {
+    \*
+    proposito: indica si se detiene el avance de glmbis en el jardin
+    precondicion: ninguna
+    tipo: Booleano
+    observaciones:
+    .recorrido de busqueda sin saber
+    .se recorre el mapa por carriles
+    .
+    *\
     //recorrido tablero por flas de izquierda a derecha
     IrAPrimerCarril()
-    while(haySiguenteCarril() && seDentieneElAvanceDeGombisAcá()){//se pone aca para chequear que se cumpla en todos los carriles
+    while(haySiguenteCarril() && seDentieneElAvanceDeGombisEnCarril()){//se pone aca para chequear que se cumpla en todos los carriles
         IrASiguienteCarril()
     }
-    return (seDentieneElAvanceDeGombisAcá())
+    return (seDentieneElAvanceDeGombisCarril())
 }
 
-function seDentieneElAvanceDeGombisAcá() {
+function seDentieneElAvanceDeGombisEnCarril() {
+    \*
+    proposito: indica si se detiene el avance de gombis en el carril actual
+    precondicion: ninguna
+    tipo: Booñeanl
+    observaciones:
+    *recorrido de busqueda
+    *sin saber
+    *sobre celdas del carril buscando si hay gombi o planta
+    *\
     //recorrido por celdas de un carril
     IrAlBorde(Oeste)
-    while (puedeMover(Este) && not hayPlanta() && not hayGombi()) {
+    while (puedeMover(Este) && not(hayPlanta() || hayGombi())) {
         Mover(Este)
     }
-    return (not hayGombi() || (hayGombi() && hayPlanta()))
+    return (not hayGombi() || hayPlanta())
 }
 
 
