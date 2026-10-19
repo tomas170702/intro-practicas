@@ -1,0 +1,84 @@
+// Ejercicio 1
+function seDetendráElAvanceDeGombis() {
+    //recorrido tablero por flas de izquierda a derecha
+    IrAPrimerCarril()
+    while(haySiguenteCarril() && seDentieneElAvanceDeGombisAcá()){//se pone aca para chequear que se cumpla en todos los carriles
+        IrASiguienteCarril()
+    }
+    return (seDentieneElAvanceDeGombisAcá())
+}
+
+function seDentieneElAvanceDeGombisAcá() {
+    //recorrido por celdas de un carril
+    IrAlBorde(Oeste)
+    while (puedeMover(Este) && not hayPlanta() && not hayGombi()) {
+        Mover(Este)
+    }
+    return (not hayGombi() || (hayGombi() && hayPlanta()))
+}
+
+
+// Ejercicio 2
+function porcentajeActivoDeHordaDe_(cantidadDeGombis) {
+    //para que un gombi ataque tiene que estar en la misma celda que una planta
+    //recorrido de acumulacion para ver cuantos gombis están atacando alguna planta
+    cantDeGombisAtacando := 0
+    IrAPrimerCarril()
+    while(haySiguenteCarril()){
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoAca()
+        IrASiguienteCarril()
+    }
+    return ((cantDeGombisAtacando + cantDeGombisAtacandoAca()) * 100 div cantidadDeGombis)
+}
+
+function cantDeGombisAtacandoAca() {
+    cantDeGombisAtacando := 0
+    IrAlBorde(Oeste)
+    while (puedeMover(Este)){
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda()
+        Mover(Este)
+    }
+    return (cantDeGombisAtacando + cantDeGombisAtacandoEnCelda())
+}
+
+function cantDeGombisAtacandoEnCelda(){
+    return (choose
+        cantidadDeGombis() when (hayPlanta())
+        0 otherwise
+    )
+}
+
+
+// Ejercicio 3
+procedure ExplotarMinaDeCalabaza(){
+    EliminarGombisAca()
+    dirActual := minDir()
+    while(dirActual /= maxDir()){
+        EliminarGombisAl_(dirActual)
+        dirActual := siguiente(dirActual)
+    }
+    EliminarGombisAl_(dirActual)
+}
+
+procedure EliminarGombisAca(){
+    if (hayGombi()) {
+        EliminarGombis()
+    }
+}
+
+
+procedure EliminarGombis(){
+    // PREC: Hay al menos un Gombi en la celda actual
+    repeat(cantidadDeGombis()){
+        EliminarGombi()
+    }
+}
+
+
+procedure EliminarGombisAl_(direccion){
+    if(puedeMover(direccion)){
+        Mover(direccion)
+        EliminarGombisAca()
+    }    
+}
+
