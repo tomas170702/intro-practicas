@@ -3,11 +3,157 @@
 procedure LlevarCamiónAlInicioDeUnRecorrido(){
     /*
     proposito: 
-        *lleva el camion al inicio de un recorrido que inicia en la esquina (Sur-Oeste)
+        *lleva el camion al inicio de un recorrido que inicia en la esquina (Este-Sur)
     precondicion:
-        *ninguna
+        *las direcciones dadas son perpediculares
+        *El cabezal se enceutnra sobre el camion 
     */
-    IrAPrimeraCeldaEnUnRecorrido(Norte, Este) //biblioteca 
+     LlevarCamionAlBorde_(Sur)
+     LlevarCamionAlBorde_(Este)
+}
+
+procedure LlevarCamionAlBorde_(direccion) {
+    /*
+        PROPÓSITO: lleva el camion hacia el borde de la **direccion** dada
+        PARÁMETROS:
+            *direccion: Direccion - indica la direccion del borde hacia donde se dirigie el camion
+        PRECONDICIONES:
+            * el cabezal se encuentra sobre el camion
+    */
+    while(puedeMover(direccion)){
+        MoverCamionAl_(direccion)
+    }
 }
 
 
+function elCamiónEstáAlFinalDeUnRecorrido() {
+    /*
+        PROPÓSITO: 
+            *Que indica si el camión se encuentra en la ubicación de la
+            esquina Norte-Oeste
+        TIPO: booleano
+        PRECONDICIONES:
+            * No debe haber mas celdas al Norte Y al Este
+            * el cabezal se encuentra sobre el camion
+    */
+    return (not(puedeMover(Norte)) && not(puedeMover(Oeste)))
+}
+
+procedure MoverCamiónAPróximaUbicación(){
+        /*
+    proposito: 
+        * Que mueve el camión a la siguiente ubicación en un recorrido por el
+        mapa hacia el Oeste y el Norte
+    precondicion:
+        *las direcciones dadas son perpediculares
+        *hay proxima ubicacion en un recorrido
+        * el cabezal se encuentra sobre el camion
+    */
+    if (puedeMover(Oeste)) {
+        MoverCamionAl_(Oeste)
+    } 
+    else {
+        MoverCamionAl_(Norte)
+        LlevarCamionAlBorde_(Norte)
+    }
+}
+
+
+//Ejercicio 2
+
+function  direcciónHaciaLaCuálEstáElComprador() {
+    /*
+        PROPÓSITO: describe hacia qué dirección
+            está el comprador
+        TIPO: Direccion
+        PRECONDICIONES:
+            *el cabezal se encuentra sobre el camion
+            * el comprador de un paquete siempre se 
+            encuentra en la misma fila o columna que la ubicación 
+            en donde se recogió su paquete
+        observaciones:
+            *recorrido de busqueda
+            *sobre direcciones
+            *sabiendo que esta el comprador 
+    */
+    dirActual := minDir()
+    while (not estaElcompradorDe_Hacia_(idPaqueteEnCamion, dirActual)) {
+        dirActual := siguiente(dirActual)
+    }
+    return(dirActual)
+}
+
+function estaElcompradorDe_Hacia_(idPaquete, direccion){
+    /*
+    proposito: indica la **direccion** del comprandor del paquete **idpaquete**
+    tipo: numero
+    paramentro:
+        *idPaquete: Numero - identificador que puede ir del 1 a 4999
+    precondicion:idpaquete esta entre 1 y 4999
+    observaciones:
+    *recorrido de busqueda sobre filas
+    *buscando al comprador
+    *sabiendo que existe en alguna ubicacion
+    */
+    while(puedeMover(dirección) && not(estaElCompradorDe_(idPaquete))){
+        MoverCamiónAPróximaUbicación()
+    }
+
+    return(estaElCompradorDe_(idPaquete))
+}
+
+
+//ejercicio 3
+
+Se desea llevar cada paquete que se encuentra en el mapa a su correspondiente comprador. Para ello, sabemos que
+todo paquete tiene su comprador en la misma fila o columna que en el lugar en donde se lo recoge. Deseamos entonces
+realizar el procedimiento LlevarTodosLosPaquetesDeASuComprador que lleva cada uno de los paquetes a su
+correspondiente comprador
+
+
+procedure LlevarTodosLosPaquetesDeASuComprador(){
+    /*
+    proposito: 
+        *lleva cada uno de los paquetes a su
+        correspondiente comprador
+    precondicion: 
+        *ninguna
+    observaciones:
+        *recorrido de transformacion
+        *sobre todo el mapa
+        *recogiendo y entregando paquetes
+    */
+    LlevarCamiónAlInicioDeUnRecorrido()
+    while (not(elCamiónEstáAlFinalDeUnRecorrido)) {
+        MoverCamiónAPróximaUbicación()
+        EntregarPaqueteACompradorSiHayAca()
+    }
+        EntregarPaqueteACompradorSiHayAca()
+
+}
+
+
+procedure EntregarPaqueteACompradorSiHayAca() {
+    /*
+        PROPÓSITO: entrega el paquete del camion al comprador, dejando el camion en el boder este-sur
+        PRECONDICIONES:
+            * el cabezal se encuentra sobre el camion
+            *id de cabezal se encueuntra sobre el paquete de id dado
+            *
+        Observaciones:
+            *recorrido de acumulacion de paqueteS
+            *sobre el mapa
+            *entrega los paquetes
+    */
+    idPaquete := idPaquete()
+    RecogerPaquete_(idPaquete)
+    direccionAlComprador := direcciónHaciaLaCuálEstáElComprador()
+    pasos := 0
+    while(not estaElCompradorDe_(idPaquete)){
+        MoverCamionAl_(direccionAlComprador)
+        pasos := pasos + 1
+    }
+    entregarPaqueteAlComprador(idPaquete)
+
+
+}
