@@ -1,0 +1,118 @@
+//Ejercicio 1)
+
+procedure LlevarCamiónAlInicioDeUnRecorrido(){
+    /*
+    proposito: 
+        *lleva el camion al inicio de un recorrido que inicia en la esquina (Este-Sur)
+    precondicion:
+        *las direcciones dadas son perpediculares
+        *El cabezal se encuentra sobre el camion 
+    */
+     LlevarCamionAlBorde_(Sur)
+     LlevarCamionAlBorde_(Este)
+}
+
+procedure LlevarCamionAlBorde_(direccion) {
+    /*
+        PROPÓSITO: lleva el camion hacia el borde de la **direccion** dada
+        PARÁMETROS:
+            *direccion: Direccion - indica la direccion del borde hacia donde se dirigie el camion
+        PRECONDICIONES:
+            * el cabezal se encuentra sobre el camion
+    */
+    while(puedeMover(direccion)){
+        MoverCamionAl_(direccion)
+    }
+}
+
+
+function elCamiónEstáAlFinalDeUnRecorrido() {
+    /*
+        PROPÓSITO: 
+            *Que indica si el camión se encuentra en la ubicación de la
+            esquina Norte-Oeste
+        TIPO: booleano
+        PRECONDICIONES:
+            * No debe haber mas celdas al Norte Y al Este
+            * el cabezal se encuentra sobre el camion
+    */
+    return (not(puedeMover(Norte)) && not(puedeMover(Oeste)))
+}
+
+procedure MoverCamiónAPróximaUbicación(){
+        /*
+    proposito: 
+        * Que mueve el camión a la siguiente ubicación en un recorrido por el
+        mapa hacia el Oeste y el Norte
+    precondicion:
+        *las direcciones dadas son perpediculares
+        *hay proxima ubicacion en un recorrido
+        * el cabezal se encuentra sobre el camion
+    */
+    if (puedeMover(Oeste)) {
+        MoverCamionAl_(Oeste)
+    } 
+    else {
+        MoverCamionAl_(Norte)
+        LlevarCamionAlBorde_(Oeste)
+    }
+}
+
+
+//Ejercicio 2
+
+function  direcciónHaciaLaCuálEstáElComprador() {
+    /*
+        PROPÓSITO: describe hacia qué dirección
+            está el comprador
+        TIPO: Direccion
+        PRECONDICIONES:
+            *el cabezal se encuentra sobre el camion
+            *el comprador de un paquete siempre se 
+            encuentra en la misma fila o columna que la ubicación 
+            en donde se recogió su paquete
+        observaciones:
+            *recorrido de busqueda
+            *sobre direcciones
+            *sabiendo que esta el comprador 
+    */
+    dirActual := minDir()
+    while(dirActual /= maxDir() && not(estaELCompradoDe_En_(idPaquete, dirActual))){
+        dirActual := siguiente(dirActual)
+    }
+    return(estaELCompradoDe_En_(idPaquete, dirActual))
+}
+
+function estaElCompradoDe_En_(idPaquete, direccion){
+    /*
+        PROPÓSITO: indica hacia que **direcicon** se encuentra el comprador de **idPaquete**
+        PARÁMETROS:
+            * idPaquete: -  
+            * direccion: -
+        TIPO: booleano
+        PRECONDICIONES:
+            * EL CABEZAL ESTA SOBRE EL CAMION
+    */
+    while(not estaELCompradoDe_(idPaquete)){
+        MoverCamionAl_(direccion)
+    }
+    return (estaELCompradoDe_(idPaquete))
+}
+//ejercicio 3
+
+Se desea llevar cada paquete que se encuentra en el mapa a su correspondiente comprador. Para ello, sabemos que
+todo paquete tiene su comprador en la misma fila o columna que en el lugar en donde se lo recoge. Deseamos entonces
+realizar el procedimiento LlevarTodosLosPaquetesDeASuComprador que lleva cada uno de los paquetes a su
+correspondiente comprador
+
+
+procedure LlevarTodosLosPaquetesDeASuComprador(){
+
+}
+
+
+procedure EntregarPaqueteACompradorSiHayAca() {
+
+}
+
+
