@@ -43,13 +43,13 @@ function porcentajeActivoDeHordaDe_(cantidadDeGombis) {
     cantDeGombisAtacando := 0
     IrAPrimerCarril()
     while(haySiguenteCarril()){
-        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoAca()
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCarril()
         IrASiguienteCarril()
     }
-    return ((cantDeGombisAtacando + cantDeGombisAtacandoAca()) * 100 div cantidadDeGombis())
+    return ((cantDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100 div cantidadDeGombis())
 }
 
-function cantDeGombisAtacandoAca() {
+function cantDeGombisAtacandoEnCarril() {
     cantDeGombisAtacando := 0
     IrAlBorde(Oeste)
     while (puedeMover(Este)){
