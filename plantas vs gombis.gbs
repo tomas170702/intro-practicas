@@ -46,7 +46,7 @@ function porcentajeActivoDeHordaDe_(cantidadDeGombis) {
         cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoAca()
         IrASiguienteCarril()
     }
-    return ((cantDeGombisAtacando + cantDeGombisAtacandoAca()) * 100 div cantidadDeGombis)
+    return ((cantDeGombisAtacando + cantDeGombisAtacandoAca()) * 100 div cantidadDeGombis())
 }
 
 function cantDeGombisAtacandoAca() {
