@@ -6,7 +6,7 @@ procedure LlevarCamiónAlInicioDeUnRecorrido(){
         *lleva el camion al inicio de un recorrido que inicia en la esquina (Este-Sur)
     precondicion:
         *las direcciones dadas son perpediculares
-        *El cabezal se enceutnra sobre el camion 
+        *El cabezal se encuentra sobre el camion 
     */
      LlevarCamionAlBorde_(Sur)
      LlevarCamionAlBorde_(Este)
@@ -54,7 +54,7 @@ procedure MoverCamiónAPróximaUbicación(){
     } 
     else {
         MoverCamionAl_(Norte)
-        LlevarCamionAlBorde_(Norte)
+        LlevarCamionAlBorde_(Oeste)
     }
 }
 
@@ -68,7 +68,7 @@ function  direcciónHaciaLaCuálEstáElComprador() {
         TIPO: Direccion
         PRECONDICIONES:
             *el cabezal se encuentra sobre el camion
-            * el comprador de un paquete siempre se 
+            *el comprador de un paquete siempre se 
             encuentra en la misma fila o columna que la ubicación 
             en donde se recogió su paquete
         observaciones:
@@ -77,32 +77,27 @@ function  direcciónHaciaLaCuálEstáElComprador() {
             *sabiendo que esta el comprador 
     */
     dirActual := minDir()
-    while (not estaElcompradorDe_Hacia_(idPaqueteEnCamion, dirActual)) {
+    while(dirActual /= maxDir() && not(estaELCompradoDe_En_(idPaquete, dirActual))){
         dirActual := siguiente(dirActual)
     }
-    return(dirActual)
+    return(estaELCompradoDe_En_(idPaquete, dirActual))
 }
 
-function estaElcompradorDe_Hacia_(idPaquete, direccion){
+function estaElCompradoDe_En_(idPaquete, direccion){
     /*
-    proposito: indica la **direccion** del comprandor del paquete **idpaquete**
-    tipo: numero
-    paramentro:
-        *idPaquete: Numero - identificador que puede ir del 1 a 4999
-    precondicion:idpaquete esta entre 1 y 4999
-    observaciones:
-    *recorrido de busqueda sobre filas
-    *buscando al comprador
-    *sabiendo que existe en alguna ubicacion
+        PROPÓSITO: indica hacia que **direcicon** se encuentra el comprador de **idPaquete**
+        PARÁMETROS:
+            * idPaquete: -  
+            * direccion: -
+        TIPO: booleano
+        PRECONDICIONES:
+            * EL CABEZAL ESTA SOBRE EL CAMION
     */
-    while(puedeMover(dirección) && not(estaElCompradorDe_(idPaquete))){
-        MoverCamiónAPróximaUbicación()
+    while(not estaELCompradoDe_(idPaquete)){
+        MoverCamionAl_(direccion)
     }
-
-    return(estaElCompradorDe_(idPaquete))
+    return (estaELCompradoDe_(idPaquete))
 }
-
-
 //ejercicio 3
 
 Se desea llevar cada paquete que se encuentra en el mapa a su correspondiente comprador. Para ello, sabemos que
@@ -124,7 +119,7 @@ procedure LlevarTodosLosPaquetesDeASuComprador(){
         *recogiendo y entregando paquetes
     */
     LlevarCamiónAlInicioDeUnRecorrido()
-    while (not elCamiónEstáAlFinalDeUnRecorrido()) {
+    while (not(elCamiónEstáAlFinalDeUnRecorrido)) {
         MoverCamiónAPróximaUbicación()
         EntregarPaqueteACompradorSiHayAca()
     }
@@ -134,17 +129,7 @@ procedure LlevarTodosLosPaquetesDeASuComprador(){
 
 
 procedure EntregarPaqueteACompradorSiHayAca() {
-    /*
-        PROPÓSITO: entrega el paquete del camion al comprador, dejando el camion en el boder este-sur
-        PRECONDICIONES:
-            * el cabezal se encuentra sobre el camion
-            *id de cabezal se encueuntra sobre el paquete de id dado
-            *
-        Observaciones:
-            *recorrido de acumulacion de paqueteS
-            *sobre el mapa
-            *entrega los paquetes
-    */
+
 }
 
 

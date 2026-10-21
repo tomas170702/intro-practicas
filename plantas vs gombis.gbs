@@ -1,20 +1,38 @@
 // Ejercicio 1
 function seDetendráElAvanceDeGombis() {
+    \*
+    proposito: indica si se detiene el avance de glmbis en el jardin
+    precondicion: ninguna
+    tipo: Booleano
+    observaciones:
+    .recorrido de busqueda sin saber
+    .se recorre el mapa por carriles
+    .
+    *\
     //recorrido tablero por flas de izquierda a derecha
     IrAPrimerCarril()
-    while(haySiguenteCarril() && seDentieneElAvanceDeGombisAcá()){//se pone aca para chequear que se cumpla en todos los carriles
+    while(haySiguenteCarril() && seDentieneElAvanceDeGombisEnCarril()){//se pone aca para chequear que se cumpla en todos los carriles
         IrASiguienteCarril()
     }
-    return (seDentieneElAvanceDeGombisAcá())
+    return (seDentieneElAvanceDeGombisCarril())
 }
 
-function seDentieneElAvanceDeGombisAcá() {
+function seDentieneElAvanceDeGombisEnCarril() {
+    \*
+    proposito: indica si se detiene el avance de gombis en el carril actual
+    precondicion: ninguna
+    tipo: Booñeanl
+    observaciones:
+    *recorrido de busqueda
+    *sin saber
+    *sobre celdas del carril buscando si hay gombi o planta
+    *\
     //recorrido por celdas de un carril
     IrAlBorde(Oeste)
-    while (puedeMover(Este) && not hayPlanta() && not hayGombi()) {
+    while (puedeMover(Este) && not(hayPlanta() || hayGombi())) {
         Mover(Este)
     }
-    return (not hayGombi() || (hayGombi() && hayPlanta()))
+    return (not hayGombi() || hayPlanta())
 }
 
 
@@ -25,13 +43,13 @@ function porcentajeActivoDeHordaDe_(cantidadDeGombis) {
     cantDeGombisAtacando := 0
     IrAPrimerCarril()
     while(haySiguenteCarril()){
-        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoAca()
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCarril()
         IrASiguienteCarril()
     }
-    return ((cantDeGombisAtacando + cantDeGombisAtacandoAca()) * 100 div cantidadDeGombis)
+    return ((cantDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100 div cantidadDeGombis())
 }
 
-function cantDeGombisAtacandoAca() {
+function cantDeGombisAtacandoEnCarril() {
     cantDeGombisAtacando := 0
     IrAlBorde(Oeste)
     while (puedeMover(Este)){
@@ -43,7 +61,7 @@ function cantDeGombisAtacandoAca() {
 
 function cantDeGombisAtacandoEnCelda(){
     return (choose
-        cantidadDeGombis() when (hayGombi())
+        cantidadDeGombis() when (hayPlanta())
         0 otherwise
     )
 }
@@ -51,6 +69,7 @@ function cantDeGombisAtacandoEnCelda(){
 
 // Ejercicio 3
 procedure ExplotarMinaDeCalabaza(){
+    EliminarPlanta()
     EliminarGombisAca()
     dirActual := minDir()
     while(dirActual /= maxDir()){
@@ -79,6 +98,8 @@ procedure EliminarGombisAl_(direccion){
     if(puedeMover(direccion)){
         Mover(direccion)
         EliminarGombisAca()
+        Mover(opuesto(direccion)) //mover al opuesto para seguir con 
+                                  //el while desde donde exploto la bomba
     }    
 }
 
