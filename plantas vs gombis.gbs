@@ -43,7 +43,7 @@ function cantDeGombisAtacandoAca() {
 
 function cantDeGombisAtacandoEnCelda(){
     return (choose
-        cantidadDeGombis() when (hayPlanta())
+        cantidadDeGombis() when (hayGombi())
         0 otherwise
     )
 }

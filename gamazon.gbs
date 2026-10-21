@@ -124,7 +124,7 @@ procedure LlevarTodosLosPaquetesDeASuComprador(){
         *recogiendo y entregando paquetes
     */
     LlevarCamiónAlInicioDeUnRecorrido()
-    while (not(elCamiónEstáAlFinalDeUnRecorrido)) {
+    while (not elCamiónEstáAlFinalDeUnRecorrido()) {
         MoverCamiónAPróximaUbicación()
         EntregarPaqueteACompradorSiHayAca()
     }
