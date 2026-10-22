@@ -8,8 +8,8 @@ procedure LlevarCamiónAlInicioDeUnRecorrido(){
         *las direcciones dadas son perpediculares
         *El cabezal se encuentra sobre el camion 
     */
-     LlevarCamionAlBorde_(Sur)
-     LlevarCamionAlBorde_(Este)
+    LlevarCamionAlBorde_(Sur)
+    LlevarCamionAlBorde_(Este)
 }
 
 procedure LlevarCamionAlBorde_(direccion) {
@@ -61,13 +61,13 @@ procedure MoverCamiónAPróximaUbicación(){
 
 //Ejercicio 2
 
-function  direcciónHaciaLaCuálEstáElComprador() {
+function direcciónHaciaLaCuálEstáElComprador() {
     /*
-        PROPÓSITO: describe hacia qué dirección
-            está el comprador
+        PROPÓSITO: describe hacia qué dirección está el comprador
         TIPO: Direccion
         PRECONDICIONES:
             *el cabezal se encuentra sobre el camion
+            *hay un paquete en la ubicación actual
             *el comprador de un paquete siempre se 
             encuentra en la misma fila o columna que la ubicación 
             en donde se recogió su paquete
@@ -77,27 +77,35 @@ function  direcciónHaciaLaCuálEstáElComprador() {
             *sabiendo que esta el comprador 
     */
     dirActual := minDir()
-    while(dirActual /= maxDir() && not(estaELCompradoDe_En_(idPaquete, dirActual))){
+    while(dirActual /= maxDir() && not(estaELCompradorDe_En_(idDePaquete(), dirActual))){
         dirActual := siguiente(dirActual)
     }
-    return(estaELCompradoDe_En_(idPaquete, dirActual))
+    return(estaELCompradorDe_En_(idDePaquete(), dirActual))
 }
 
-function estaElCompradoDe_En_(idPaquete, direccion){
+function estaElCompradorDe_En_(idPaquete, direccion){
     /*
         PROPÓSITO: indica hacia que **direcicon** se encuentra el comprador de **idPaquete**
         PARÁMETROS:
-            * idPaquete: -  
-            * direccion: -
+            * idPaquete: Numero 
+            * direccion: Direccion
         TIPO: booleano
         PRECONDICIONES:
-            * EL CABEZAL ESTA SOBRE EL CAMION
+            * ninguna
+        observaciones:
+            *recorrido de busqueda
+            *sabiendo que esta el comprador
+            *recorres ubicaciones del mapa
+
     */
-    while(not estaELCompradoDe_(idPaquete)){
-        MoverCamionAl_(direccion)
+    while(puedeMover(direccion) && not estaELCompradoDe_(idPaquete())){
+        Mover(direccion)
+
     }
-    return (estaELCompradoDe_(idPaquete))
+    return (estaELCompradoDe_(idPaquete()))
 }
+
+
 //ejercicio 3
 
 Se desea llevar cada paquete que se encuentra en el mapa a su correspondiente comprador. Para ello, sabemos que
@@ -106,39 +114,152 @@ realizar el procedimiento LlevarTodosLosPaquetesDeASuComprador que lleva cada un
 correspondiente comprador
 
 
+//procedure LlevarTodosLosPaquetesDeASuComprador(){
+//    /*
+//    proposito: lleva cada uno de los paquetes a su
+//               correspondiente comprador
+//    precondicion:
+//        *El cabezal esta sobre el camion
+//        *El camion debe estar en la misma ubicacion que el paquete
+//    observaciones:
+//        *recorrido de acumulacion 
+//        *acumula los paquetes
+//        *en cada ubicacion ubicacion del mapa
+//    */
+//    acumuladorDePaquetes := 0
+//    LlevarCamiónAlInicioDeUnRecorrido()
+//    while (not elCamiónEstáAlFinalDeUnRecorrido()) {
+//        acumuladorDePaquetes := acumuladorDePaquetes + 1
+//        MoverCamiónAPróximaUbicación()
+//    }
+//    acumuladorDePaquetes := acumuladorDePaquetes + 1
+//    EntregarPaqueteACompradorSiHayAca()
+//}
+//
+//
+//procedure EntregarPaqueteACompradorSiHayAca() {
+//    /*
+//    proposito: entrega paquetes a comprador si hay en la ubicacion actual
+//    precondicion: 
+//            *el cabezal esta sobre el camion
+//            *hay un comprador en la ubicacion actual
+//    */
+//    if(estaELCompradoDe_En_(idPaquete, direccion)){
+//        MoverCamionAl_(direccion)
+//    }
+//}
+
+
 procedure LlevarTodosLosPaquetesDeASuComprador(){
     /*
     proposito: lleva cada uno de los paquetes a su
                correspondiente comprador
     precondicion:
         *El cabezal esta sobre el camion
-        *El camion debe estar en la misma ubicacion que el paquete
+        *el comprador de un paquete siempre se 
+            encuentra en la misma fila o columna que la ubicación 
+            en donde se recogió su paquete
     observaciones:
-        *recorrido de acumulacion 
-        *acumula los paquetes
-        *en cada ubicacion ubicacion del mapa
+        *recorrido de transformacion
     */
-    acumuladorDePaquetes := 0
     LlevarCamiónAlInicioDeUnRecorrido()
-    while (not elCamiónEstáAlFinalDeUnRecorrido()) {
-        acumuladorDePaquetes := acumuladorDePaquetes + 1
+    while(not elCamiónEstáAlFinalDeUnRecorrido()){
+        EntregarPaqueteACompradorSiHayAca()
         MoverCamiónAPróximaUbicación()
     }
-    acumuladorDePaquetes := acumuladorDePaquetes + 1
     EntregarPaqueteACompradorSiHayAca()
 }
 
 
-procedure EntregarPaqueteACompradorSiHayAca() {
+procedure EntregarPaqueteACompradorSiHayAca(){
     /*
     proposito: entrega paquetes a comprador si hay en la ubicacion actual
     precondicion: 
             *el cabezal esta sobre el camion
-            *hay un comprador en la ubicacion actual
+            *hay un paquete en la ubicacion actual
     */
-    if(estaELCompradoDe_En_(idPaquete, direccion)){
+    
+    if(hayPaquete()){
+        EntregarPaquete_ACompradorAl_(idPaquete(), direcciónHaciaLaCuálEstáElComprador())
+    }
+}
+
+procedure EntregarPaquete_ACompradorAl_(idPaquete, direccion) {
+    /*
+        PROPÓSITO: 
+        PARÁMETROS:
+
+        PRECONDICIONES:
+            * ....
+    */
+    EntregarPaquete_ACompradorAl_A_(idPaquete, direccion, distanciaAlComprador(idPaquete, direccion))
+}
+
+procedure EntregarPaquete_ACompradorAl_A_(idPaquete, direccion, distancia) {
+    RecogerPaquete_(idPaquete)
+    Mover_CamionAl_(distancia, direccion)
+    EntregarPaquete_AComprador(idPaquete)
+    Mover_CamionAl_(distancia, opuesto(direccion))
+}
+
+function distanciaAlComprador(idPaquete, direccion) {
+    // PREC: El camion está sobre un paquete
+    //       Hay un comprador hacia la dirección dada
+    distancia := 0
+    while(not estáElCompradorDe_(idPaquete)) {
+        Mover(direccion)
+        distancia := distancia + 1
+    }
+    return(distancia)
+}
+
+procedure Mover_CamionAl_(distancia, direccion){
+    /*
+    proposito:
+        * Mover camion *distancia* hacia *direccion*
+    paranetro:
+        *distancia: Numero - es la cantidad de ubicaciones que recorrio el camion hasta llegar al comprador
+        *direccion: Direccion - es la direccion en la cual se encuentra el comprador
+    precondicion:
+        * el cabezal esta sobre el camion
+    observaciones:
+        *recorrido de transformacion
+        *sobre ubicaciones del mapa
+        *viaja hacia ubicacion del comprador
+    */
+    repeat (distancia) {
         MoverCamionAl_(direccion)
     }
 }
 
+//ejercicio 4
+Como ya mencionamos un paquete puede contener un producto o un conjunto de productos. Para poder saber cuántos
+productos se van a llevar en el camión en cuestión, el ID del paquete nos indica cuántos productos contiene el mismo. Si
+el ID está entre 1 y 999 contiene un único producto, si está entre 1000 y 1999, contendrá 2, si está entre 2000 y 2999
+contiene 3, si está entre 3000 y 3999 serán 4 y si está entre 4000 y 4999 serán 5. Un paquete no puede contener más de
+5 productos, y por tanto no hay IDs mayores a 4999.
+Se quiere poder determinar cuántos productos (productos, no paquetes) fueron comprados y están esperando ser
+entregados en un determinado momento (es decir, todos los que hay en el mapa). Para ello se pide realizar la función
+cantidadDeProductosARecoger que indique el total de productos que están esperando ser entregados a sus
+compradores.
 
+function cantidadDeProductosARecoger() {
+    IrAPrimerUbiación()
+    cantidad := 0
+    while (haySiguienteUbicación()) {
+        cantidad := cantidad + cantidadDeProductosARecogerAcá()
+        PasarASiguienteUbicación()
+    }
+    return(cantidad + cantidadDeProductosARecogerAcá())
+}
+
+function cantidadDeProductosARecogerAcá() {
+    return(choose
+        1 when ()
+        2 when ()
+        3 when ()
+        4 when ()
+        5 when ()
+        0 otherwise
+    )
+}
