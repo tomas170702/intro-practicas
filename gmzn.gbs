@@ -114,41 +114,6 @@ realizar el procedimiento LlevarTodosLosPaquetesDeASuComprador que lleva cada un
 correspondiente comprador
 
 
-//procedure LlevarTodosLosPaquetesDeASuComprador(){
-//    /*
-//    proposito: lleva cada uno de los paquetes a su
-//               correspondiente comprador
-//    precondicion:
-//        *El cabezal esta sobre el camion
-//        *El camion debe estar en la misma ubicacion que el paquete
-//    observaciones:
-//        *recorrido de acumulacion 
-//        *acumula los paquetes
-//        *en cada ubicacion ubicacion del mapa
-//    */
-//    acumuladorDePaquetes := 0
-//    LlevarCamiónAlInicioDeUnRecorrido()
-//    while (not elCamiónEstáAlFinalDeUnRecorrido()) {
-//        acumuladorDePaquetes := acumuladorDePaquetes + 1
-//        MoverCamiónAPróximaUbicación()
-//    }
-//    acumuladorDePaquetes := acumuladorDePaquetes + 1
-//    EntregarPaqueteACompradorSiHayAca()
-//}
-//
-//
-//procedure EntregarPaqueteACompradorSiHayAca() {
-//    /*
-//    proposito: entrega paquetes a comprador si hay en la ubicacion actual
-//    precondicion: 
-//            *el cabezal esta sobre el camion
-//            *hay un comprador en la ubicacion actual
-//    */
-//    if(estaELCompradoDe_En_(idPaquete, direccion)){
-//        MoverCamionAl_(direccion)
-//    }
-//}
-
 
 procedure LlevarTodosLosPaquetesDeASuComprador(){
     /*
