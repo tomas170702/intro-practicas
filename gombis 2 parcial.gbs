@@ -111,13 +111,15 @@ procedure ExplotarMinaDeCalabaza(){
         *sobre direcciones
         *elimina gombis 
     */
+    EliminarGombisAca()
+    EliminarPlanta()
     dirActual := minDir()
     while(dirActual /= maxDir()){
         EliminarGombisAl_(dirActual)
         dirActual := siguiente(dirActual)
         Mover(opuesto(dirActual))
     }
-    EliminarGombisAl(dirActual)
+    EliminarGombisAl_(dirActual)
 }
 
 
@@ -139,7 +141,7 @@ procedure EliminarGombisAca() {
     precondicion: hay al menos un gombi en la celda actual
     */
     if (hayGombi()) {
-        EliminarGombi()
+        EliminarGombis()
     }
 }
 
@@ -150,7 +152,7 @@ procedure EliminarGombis(){
     precondicion: hay al menos un gombi en la celda actual
     */
     repeat (cantidadDeGombis()) {
-        EliminarGombis()
+        EliminarGombi()
     }
 }
 
