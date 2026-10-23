@@ -52,9 +52,9 @@ function porcentajeActivoDeHordaDe_(CantidadDeGombis){
     while(haySiguienteCarril()){
         IrASiguienteCarril()
         cantTotalDeGombis := CantTotalDeGombis + cantDeGombisEnCelda
-    }
+        }
     return(((CantTotalDeGombis + cantDeGombisAca) * 100) div cantidadDeGombis)
-    
+}    
     
     
     procedure IrAPrimerCeldaDelCarril(){
