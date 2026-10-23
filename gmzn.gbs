@@ -220,11 +220,54 @@ function cantidadDeProductosARecoger() {
 
 function cantidadDeProductosARecogerAcá() {
     return(choose
-        1 when ()
-        2 when ()
-        3 when ()
-        4 when ()
-        5 when ()
-        0 otherwise
+        1 when (idDePaquete() >= 1 && idDePaquete() <= 999)
+        2 when (idDePaquete() >= 1000 && idDePaquete() <= 1999)
+        3 when (idDePaquete() >= 2000 && idDePaquete() <= 2999)
+        4 when (idDePaquete() >= 3000 && idDePaquete() <= 3999)
+        5 when (idDePaquete() >= 4000 && idDePaquete() <= 4999)
+        boom("ERROR MESSAGE") otherwise
     )
+}
+
+5. Una característica de la aplicación interesante es el concepto de que un comprador puede adquirir varios productos de
+diversas tiendas y compartir el envío de todos como si fuera un único paquete. Para soportar esta característica se desea
+implementar el procedimiento RealizarEntregaMultipaquete que funciona de la siguiente manera:
+○ El camión recoge el paquete en la ubicación actual (se asume hay una paquete en la misma).
+○ Sí en el mapa hay una ubicación que tenga el paquete con ID inmediatamente superior, el camión irá a
+recoger dicho paquete (Ej. se recogió el paquete con ID 324, se busca el paquete con ID 325).
+○ Se repite el segundo paso recogiendo el paquete superior (Ej. 326, luego 327, etc.). Así hasta que no haya
+un paquete con ID consecutivo en ninguna ubicación del mapa o bien se haya llegado al límite de 300
+paquetes en total (máximo que entran en el camión).
+○ Finalmente se lleva los paquetes a su comprador, el cual seguro queda en línea recta, es decir, misma fila
+o columna, desde la ubicación en donde se recogió el último paquete. Sabemos además que todos los
+paquetes tienen el mismo comprador, el cual se identifica en el mapa como el comprador del primer
+paquete que se recogió en este proceso.
+Al momento de hacer una entrega multipaquete la restricción de no poder cargar mas de un paquete al camión se anula.
+Adicionalmente, consultar por el id del paquete en el camión describe el id del primer paquete recogido en el camión, y al
+dejar el primer paquete recogido al comprador, todo el resto de los paquetes recogidos durante el proceso también se
+entregan con él.
+
+
+procedure RealizarEntregaMultipaquete(){
+    prec: hay un paquete en la ubi actual
+    RecogerPaquete_(idDePaquete())
+    if(hayPaqueteConId_(idDePaquete()+1)) {
+        IrARecogerPaquete_(idDePaquete()+1)
+    }
+}
+
+function hayPaqueteConId_(idPaquete){
+    // Recorrido de busqueda sin llevar el cambion
+    while(not hayPaquete()){
+    Mover(direccion)
+    }
+    return(idDePaquete() + 1)
+}
+
+procedure IrARecogerPaquete_(idDePaquete){
+    // Recorrido de busqueda llevando el cambion
+    LlevarCamiónAlInicioDeUnRecorrido()
+    while (not(elCamiónEstáAlFinalDeUnRecorrido && hayPaqueteConId_(idPaquete))) {
+        
+    }
 }
