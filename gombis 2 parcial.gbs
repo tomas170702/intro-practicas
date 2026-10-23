@@ -1,3 +1,5 @@
+//Ejercicio 1
+
 function SeDetendraElAvanceDeGombis(){
     /*
     proposito: indica si se detiene el avance de gombis en el mapa
@@ -84,6 +86,8 @@ function cantidadDeGombisEnCarril(){
     }
     return (cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda)
     }
+
+
     function cantDeGombisAtacandoEnCelda(){
     /*
     proposito: describe la cantidad de gombis en celda
@@ -95,6 +99,8 @@ function cantidadDeGombisEnCarril(){
         0 otherwise
     )
 }
+
+//Ejercicio 3
 
 procedure ExplotarMinaDeCalabaza(){
     /*
