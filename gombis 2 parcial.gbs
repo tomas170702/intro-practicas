@@ -1,0 +1,89 @@
+function SeDetendraElAvanceDeGombis(){
+    /*
+    proposito: indica si se detiene el avance de gombis en el mapa
+    tipo: Booleano
+    precondicion: ninguna
+    observaciones:
+        *recorrido de busqueda
+        *recorre el mapa sobre carriles
+        *sin saber si hay gombis en el mapa
+    */
+    IrAPrimerCarril()
+    IrAPrimerCeldaDelCarril()
+    while(haySiguienteCarril() && not haygombi()){
+        IrASiguienteCarril()
+    }
+    return (SeDentendraElAvanceDeGombisEnCarril())
+}
+
+function SeDentendraElAvanceDeGombisEnCarril(){
+    /*
+    proposito: indica si se detiene en avance de gombis en el carril actual
+    tipo: Booleano
+    precondicion: ninguna
+    observaciones:
+        *recorrido de busqueda 
+        *sobre celdas del carril
+        *sin saber si hay gombis o plantas en el carril
+    */
+    IrAlBorde(Oeste)
+    while(puedeMover(Este) && not(haygombi() || hayplanta()){
+        Mover(Este)
+    }
+    return(not(haygombis || hayPlanta())
+}
+
+
+//Ejercicio 2
+
+function porcentajeActivoDeHordaDe_(CantidadDeGombis){
+    /*
+    proposito: describe el porcentaje de la horda que actualmente esta atacando el jardin 
+    tipo: Numero
+    precondicion: ninguna
+    observaciones:
+        *recorrido de acumulacion
+        *sobre el mapa
+        *acumula gombis sobre el mapa
+    */
+    cantTotalDeGombis := 0
+    IrAprimerCarril()
+    IrAPrimerCeldaDelCarril()
+    while(haySiguienteCarril()){
+        IrASiguienteCarril()
+        cantTotalDeGombis := CantTotalDeGombis + cantDeGombisEnCelda
+    }
+    return(((CantTotalDeGombis + cantDeGombisAca) * 100) div cantidadDeGombis)
+    
+    
+    
+    procedure IrAPrimerCeldaDelCarril(){
+        /*
+        proposito: Ir hacia la primera celda en el carril actual
+        precondicion: es el carril actual
+        */
+        IrAlBorde(Este)
+    }
+    
+    
+    procedure ExplotarMinaDeCalabaza(){
+        /*
+        proposito: explota la mina de calabaza en la celda actual
+        precondicion: tiene que haber mina de calabaza y un gombi
+        observacion:
+            *recorrido de procesamiento 
+            *sobre direcciones
+            *elimina gombis y plantas si hay
+        */
+        dirActual := minDir()
+        while(dirActual /= maxDir()){
+            EliminarGombis()
+            dirActual := siguiente(minDir(dirActual))
+        }
+        EliminarGombis()
+    }
+    
+    
+    procedure EliminarGombis(){
+        
+    }
