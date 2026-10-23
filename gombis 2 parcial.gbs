@@ -16,6 +16,15 @@ function SeDetendraElAvanceDeGombis(){
     return (SeDentendraElAvanceDeGombisEnCarril())
 }
 
+procedure IrAPrimerCeldaDelCarril(){
+    /*
+    proposito: Ir hacia la primera celda en el carril actual
+    precondicion: es el carril actual
+    */
+    IrAlBorde(Este)
+}
+
+
 function SeDentendraElAvanceDeGombisEnCarril(){
     /*
     proposito: indica si se detiene en avance de gombis en el carril actual
@@ -26,11 +35,11 @@ function SeDentendraElAvanceDeGombisEnCarril(){
         *sobre celdas del carril
         *sin saber si hay gombis o plantas en el carril
     */
-    IrAlBorde(Oeste)
-    while(puedeMover(Este) && not(haygombi() || hayplanta()){
+    IrAPrimerCeldaDelCarril()
+    while(puedeMover(Este) && not(haygombi() || hayplanta())){
         Mover(Este)
     }
-    return(not(haygombis || hayPlanta())
+    return(not(haygombis || hayPlanta()))
 }
 
 
@@ -46,44 +55,96 @@ function porcentajeActivoDeHordaDe_(CantidadDeGombis){
         *sobre el mapa
         *acumula gombis sobre el mapa
     */
-    cantTotalDeGombis := 0
+    cantTotalDeGombisAtacando := 0
     IrAprimerCarril()
     IrAPrimerCeldaDelCarril()
     while(haySiguienteCarril()){
         IrASiguienteCarril()
-        cantTotalDeGombis := CantTotalDeGombis + cantDeGombisEnCelda
+        cantTotalDeGombisAtacando := cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril
         }
-    return(((CantTotalDeGombis + cantDeGombisAca) * 100) div cantidadDeGombis)
+    return(((CantTotalDeGombis + cantDeGombisAtacandoEnCarril) * 100) div cantidadDeGombis)
 }    
+
     
-    
-    procedure IrAPrimerCeldaDelCarril(){
-        /*
-        proposito: Ir hacia la primera celda en el carril actual
-        precondicion: es el carril actual
-        */
-        IrAlBorde(Este)
+function cantidadDeGombisEnCarril(){
+    /*
+    proposito: dezcribe la cantidad de gombis atacando en el carril
+    tipo: Numero
+    precondicion: ninguna
+    observaciones:
+        *recorrido de acumulacion
+        *sobre un carriles del jardin
+    *acumula la cantidad de gombis vistos en el carril
+*/
+    cantDeGombisAtacando := 0
+    IrAPrimerCeldaDelCarril()
+    while(puedeMover(Este)){
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda
+        Mover(Este)
     }
-    
-    
-    procedure ExplotarMinaDeCalabaza(){
-        /*
-        proposito: explota la mina de calabaza en la celda actual
-        precondicion: tiene que haber mina de calabaza y un gombi
-        observacion:
-            *recorrido de procesamiento 
-            *sobre direcciones
-            *elimina gombis y plantas si hay
-        */
-        dirActual := minDir()
-        while(dirActual /= maxDir()){
-            EliminarGombis()
-            dirActual := siguiente(minDir(dirActual))
-        }
+    return (cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda)
+    }
+    function cantDeGombisAtacandoEnCelda(){
+    /*
+    proposito: describe la cantidad de gombis en celda
+    tipo: Numero
+    precondicion: niguna
+    */
+    return (choose
+        cantidadDeGombis when (haygombi)
+        0 otherwise
+    )
+}
+
+procedure ExplotarMinaDeCalabaza(){
+    /*
+    proposito: explota la mina de calabaza en la celda actual
+    precondicion: hay mina de calabaza en la celda actual
+    observaciones:
+        *recorrido de procesamiento 
+        *sobre direcciones
+        *elimina gombis 
+    */
+    dirActual := minDir()
+    while(dirActual /= maxDir()){
+        EliminarGombisAl_(dirActual)
+        dirActual := siguiente(dirActual)
+        Mover(opuesto(dirActual))
+    }
+    EliminarGombisAl(dirActual)
+}
+
+
+procedure EliminarGombisAl_(direccion){
+    /*
+    proposito: elimina gombis en la direccion actual en un recorrido
+    precondicion: hay gombis en la direccion actual
+    */
+    if(puedeMover(direccion)){
+        Mover(direccion)
+        EliminarGombisAca()
+    }
+    EliminarGombisAca()
+}
+
+procedure EliminarGombisAca() {
+    /*
+    proposito: Eliminar gombis en en la celda actual si hay
+    precondicion: hay al menos un gombi en la celda actual
+    */
+    if (hayGombi()) {
+        EliminarGombi()
+    }
+}
+
+
+procedure EliminarGombis(){
+    /*
+    proposito: Eliminar gombis en en la celda actual
+    precondicion: hay al menos un gombi en la celda actual
+    */
+    repeat (cantidadDeGombis()) {
         EliminarGombis()
     }
-    
-    
-    procedure EliminarGombis(){
-        
-    }
+}
+
