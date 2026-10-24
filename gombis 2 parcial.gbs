@@ -33,21 +33,21 @@ function SeDentendraElAvanceDeGombisEnCarril(){
     tipo: Booleano
     precondicion: ninguna
     observaciones:
-        *recorrido de busqueda 
+        *recorrido de busqueda, buscando una celda con gombis o con plantas
         *sobre celdas del carril
         *sin saber si hay gombis o plantas en el carril
     */
     IrAPrimerCeldaDelCarril()
-    while(puedeMover(Este) && not(hayGombi() || hayplanta())){
+    while(puedeMover(Este) && not(hayGombi() || hayPlanta())){
         Mover(Este)
     }
-    return(hayGombi() || not hayPlanta())
+    return(not hayGombi() || hayPlanta())
 }
 
 
 //Ejercicio 2
 
-function porcentajeActivoDeHordaDe_(CantidadDeGombis){
+function porcentajeActivoDeHordaDe_(cantidadDeGombis){
     /*
     proposito: describe el porcentaje de la horda que actualmente esta atacando el jardin 
     tipo: Numero
@@ -57,18 +57,18 @@ function porcentajeActivoDeHordaDe_(CantidadDeGombis){
         *sobre el mapa
         *acumula gombis sobre el mapa
     */
-    cantTotalDeGombisAtacando := 0
+    cantidadTotalDeGombisAtacando := 0
     IrAprimerCarril()
     IrAPrimerCeldaDelCarril()
     while(haySiguienteCarril()){
-        cantTotalDeGombisAtacando := cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()
+        cantidadTotalDeGombisAtacando := cantidadTotalDeGombisAtacando + cantidadDeGombisAtacandoEnCarril()
         IrASiguienteCarril()
         }
-    return(((cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100) div cantidadDeGombis)
+    return(((cantidadTotalDeGombisAtacando + cantidadDeGombisAtacandoEnCarril()) * 100) div cantidadDeGombis)
 }    
 
     
-function cantidadDeGombisEnCarril(){
+function cantidadDeGombisAtacandoEnCarril(){
     /*
     proposito: dezcribe la cantidad de gombis atacando en el carril
     tipo: Numero
@@ -81,16 +81,16 @@ function cantidadDeGombisEnCarril(){
     cantDeGombisAtacando := 0
     IrAPrimerCeldaDelCarril()
     while(puedeMover(Este)){
-        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda
+        cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda()
         Mover(Este)
     }
-    return (cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda())
+    return (cantDeGombisAtacando + cantDeGombisAtacandoEnCelda())
     }
 
 
     function cantDeGombisAtacandoEnCelda(){
     /*
-    proposito: describe la cantidad de gombis en celda
+    proposito: describe la cantidad de gombis en celda, o 0 si no hay gombis en la celda actual
     tipo: Numero
     precondicion: niguna
     */
