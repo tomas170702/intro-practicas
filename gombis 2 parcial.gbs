@@ -59,11 +59,12 @@ function porcentajeActivoDeHordaDe_(CantidadDeGombis){
     */
     IrAprimerCarril()
     IrAPrimerCeldaDelCarril()
+    cantTotalDeGombisAtacando := 0
     while(haySiguienteCarril()){
         IrASiguienteCarril()
         cantTotalDeGombisAtacando := cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()
         }
-    return(((cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100) div cantidadDeGombistotalAtacando)
+    return(((cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100) div cantidadDeGombis)
 }    
 
     
@@ -77,8 +78,8 @@ function cantidadDeGombisEnCarril(){
         *sobre un carriles del jardin
     *acumula la cantidad de gombis vistos en el carril
 */
-    cantDeGombisAtacando := 0
     IrAPrimerCeldaDelCarril()
+    cantDeGombisAtacando := 0
     while(puedeMover(Este)){
         cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda
         Mover(Este)
