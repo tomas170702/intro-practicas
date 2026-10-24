@@ -130,7 +130,7 @@ procedure EliminarGombisAl_(direccion){
     if(puedeMover(direccion)){
         Mover(direccion)
         EliminarGombisAca()
-        Mover(opuesto(dir))
+        Mover(opuesto(direccion))
     }
 }
 
