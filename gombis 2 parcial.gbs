@@ -38,10 +38,10 @@ function SeDentendraElAvanceDeGombisEnCarril(){
         *sin saber si hay gombis o plantas en el carril
     */
     IrAPrimerCeldaDelCarril()
-    while(puedeMover(Este) && not(haygombi() || hayplanta())){
+    while(puedeMover(Este) && not(hayGombi() || hayplanta())){
         Mover(Este)
     }
-    return(not(haygombis || hayPlanta()))
+    return(hayGombi() || not hayPlanta())
 }
 
 
@@ -62,9 +62,9 @@ function porcentajeActivoDeHordaDe_(CantidadDeGombis){
     IrAPrimerCeldaDelCarril()
     while(haySiguienteCarril()){
         IrASiguienteCarril()
-        cantTotalDeGombisAtacando := cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril
+        cantTotalDeGombisAtacando := cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()
         }
-    return(((CantTotalDeGombis + cantDeGombisAtacandoEnCarril) * 100) div cantidadDeGombis)
+    return(((cantTotalDeGombisAtacando + cantDeGombisAtacandoEnCarril()) * 100) div cantidadDeGombistotalAtacando)
 }    
 
     
@@ -84,7 +84,7 @@ function cantidadDeGombisEnCarril(){
         cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda
         Mover(Este)
     }
-    return (cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda)
+    return (cantDeGombisAtacando := cantDeGombisAtacando + cantDeGombisAtacandoEnCelda())
     }
 
 
@@ -95,7 +95,7 @@ function cantidadDeGombisEnCarril(){
     precondicion: niguna
     */
     return (choose
-        cantidadDeGombis when (haygombi)
+        cantidadDeGombis when (hayGombi())
         0 otherwise
     )
 }
