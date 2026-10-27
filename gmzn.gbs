@@ -198,15 +198,15 @@ procedure Mover_CamionAl_(distancia, direccion){
 }
 
 //ejercicio 4
-Como ya mencionamos un paquete puede contener un producto o un conjunto de productos. Para poder saber cuántos
-productos se van a llevar en el camión en cuestión, el ID del paquete nos indica cuántos productos contiene el mismo. Si
-el ID está entre 1 y 999 contiene un único producto, si está entre 1000 y 1999, contendrá 2, si está entre 2000 y 2999
-contiene 3, si está entre 3000 y 3999 serán 4 y si está entre 4000 y 4999 serán 5. Un paquete no puede contener más de
-5 productos, y por tanto no hay IDs mayores a 4999.
-Se quiere poder determinar cuántos productos (productos, no paquetes) fueron comprados y están esperando ser
-entregados en un determinado momento (es decir, todos los que hay en el mapa). Para ello se pide realizar la función
-cantidadDeProductosARecoger que indique el total de productos que están esperando ser entregados a sus
-compradores.
+//Como ya mencionamos un paquete puede contener un producto o un conjunto de productos. Para poder saber cuántos
+//productos se van a llevar en el camión en cuestión, el ID del paquete nos indica cuántos productos contiene el mismo. Si
+//el ID está entre 1 y 999 contiene un único producto, si está entre 1000 y 1999, contendrá 2, si está entre 2000 y 2999
+//contiene 3, si está entre 3000 y 3999 serán 4 y si está entre 4000 y 4999 serán 5. Un paquete no puede contener más de
+//5 productos, y por tanto no hay IDs mayores a 4999.
+//Se quiere poder determinar cuántos productos (productos, no paquetes) fueron comprados y están esperando ser
+//entregados en un determinado momento (es decir, todos los que hay en el mapa). Para ello se pide realizar la función
+//cantidadDeProductosARecoger que indique el total de productos que están esperando ser entregados a sus
+//compradores.
 
 function cantidadDeProductosARecoger() {
     IrAPrimerUbiación()
@@ -217,6 +217,7 @@ function cantidadDeProductosARecoger() {
     }
     return(cantidad + cantidadDeProductosARecogerAcá())
 }
+
 
 function cantidadDeProductosARecogerAcá() {
     return(choose
@@ -229,23 +230,23 @@ function cantidadDeProductosARecogerAcá() {
     )
 }
 
-5. Una característica de la aplicación interesante es el concepto de que un comprador puede adquirir varios productos de
-diversas tiendas y compartir el envío de todos como si fuera un único paquete. Para soportar esta característica se desea
-implementar el procedimiento RealizarEntregaMultipaquete que funciona de la siguiente manera:
-○ El camión recoge el paquete en la ubicación actual (se asume hay una paquete en la misma).
-○ Sí en el mapa hay una ubicación que tenga el paquete con ID inmediatamente superior, el camión irá a
-recoger dicho paquete (Ej. se recogió el paquete con ID 324, se busca el paquete con ID 325).
-○ Se repite el segundo paso recogiendo el paquete superior (Ej. 326, luego 327, etc.). Así hasta que no haya
-un paquete con ID consecutivo en ninguna ubicación del mapa o bien se haya llegado al límite de 300
-paquetes en total (máximo que entran en el camión).
-○ Finalmente se lleva los paquetes a su comprador, el cual seguro queda en línea recta, es decir, misma fila
-o columna, desde la ubicación en donde se recogió el último paquete. Sabemos además que todos los
-paquetes tienen el mismo comprador, el cual se identifica en el mapa como el comprador del primer
-paquete que se recogió en este proceso.
-Al momento de hacer una entrega multipaquete la restricción de no poder cargar mas de un paquete al camión se anula.
-Adicionalmente, consultar por el id del paquete en el camión describe el id del primer paquete recogido en el camión, y al
-dejar el primer paquete recogido al comprador, todo el resto de los paquetes recogidos durante el proceso también se
-entregan con él.
+//5. Una característica de la aplicación interesante es el concepto de que un comprador puede adquirir varios productos de
+//diversas tiendas y compartir el envío de todos como si fuera un único paquete. Para soportar esta característica se desea
+//implementar el procedimiento RealizarEntregaMultipaquete que funciona de la siguiente manera:
+//○ El camión recoge el paquete en la ubicación actual (se asume hay una paquete en la misma).
+//○ Sí en el mapa hay una ubicación que tenga el paquete con ID inmediatamente superior, el camión irá a
+//recoger dicho paquete (Ej. se recogió el paquete con ID 324, se busca el paquete con ID 325).
+//○ Se repite el segundo paso recogiendo el paquete superior (Ej. 326, luego 327, etc.). Así hasta que no haya
+//un paquete con ID consecutivo en ninguna ubicación del mapa o bien se haya llegado al límite de 300
+//paquetes en total (máximo que entran en el camión).
+//○ Finalmente se lleva los paquetes a su comprador, el cual seguro queda en línea recta, es decir, misma fila
+//o columna, desde la ubicación en donde se recogió el último paquete. Sabemos además que todos los
+//paquetes tienen el mismo comprador, el cual se identifica en el mapa como el comprador del primer
+//paquete que se recogió en este proceso.
+//Al momento de hacer una entrega multipaquete la restricción de no poder cargar mas de un paquete al camión se anula.
+//Adicionalmente, consultar por el id del paquete en el camión describe el id del primer paquete recogido en el camión, y al
+//dejar el primer paquete recogido al comprador, todo el resto de los paquetes recogidos durante el proceso también se
+//entregan con él.
 
 
 procedure RealizarEntregaMultipaquete(){
