@@ -1,0 +1,177 @@
+// EXC ejercicio de tipo de dato variante 
+
+type DiaDeLaSemana is variant{
+case Lunes{}
+case Martes{}
+case Miercoles{}
+case Jueves{}
+case Viernes{}
+case Sabado{}
+case Domingo{}
+}
+
+function diaSiguiente_(dia) {
+    /*
+        PROPÓSITO: dado un **dia**, describe el dia siguiente  a **dia**
+        TIPO: DiaDeLaSemana 
+        PRECONDICIONES:
+            *ninguna 
+    */
+    
+    return (choose Lunes when (dia == Domingo)
+                Martes when (dia == Lunes)
+                Miercoles when (dia == Martes)
+                Jueves when (dia == Miercoles)
+                Viernes when (dia == Jueves)
+                Sabado when (dia == Viernes)
+                Domingo otherwise)
+}
+
+function diaPrevio_(dia) {
+    /*
+        PROPÓSITO: dado un **dia**, describe el dia siguiente
+        PARÁMETROS: 
+            * dia 
+        TIPO: DiasDeLaSemana
+        PRECONDICIONES: 
+            * ninguna
+    */
+    
+    return ((choose Lunes when (dia == Martes)
+                Martes when (dia == Miercoles)
+                Miercoles when (dia == Jueves)
+                Jueves when (dia == Viernes)
+                Viernes when (dia == Sabado)
+                Sabado when (dia == Domingo)
+                Domingo otherwise))
+}
+
+function esDiaDeFinDeSemana_(dia) {
+    /*
+        PROPÓSITO: dado un **dia**, decribe los dias del fin de semena
+        TIPO: DiasDeLaSemana
+        PRECONDICIONES:
+            * ninguna
+    */
+    
+    return (dia == Sabado || dia == Domingo)
+}
+
+
+type Palo is variant{
+    case Basto{}
+    case Espada{}
+    case Copa{}
+    case Oro{}
+} 
+
+type Carta is record{
+    /*
+    proposito: modelar cartas españolas
+    inv.de rep: numero <= 12 && numero > 0. (0; 12]
+    */
+    field numero   //tipo:Numero
+    field palo      //tipo:Palo
+}
+
+program {
+    carta1 := Carta(numero <- 1, palo <- Espada)
+    carta2 := Carta(carta1 | numero <- numero(carta1) + 1)
+}
+
+function anchoDeEspadas(){
+    return (Carta(numero <- 1, palo <- Espada))
+}
+
+function anchoDeBasto(){
+    /*
+    proposito: dezcribe la carta ancho de basto
+    tipo: Carta
+    precondicion: ninguna
+    obs: ancho de basto = a 1 de Basto
+    */
+    return (Carta(numero <- 1, palo <- Basto))
+}
+
+function laCarta_Yde_(numero, palo){
+    /*
+    proposito: describe la carta
+    tipo: Carta
+    parametro: 
+        * numero: Numero
+        * palo: Palo
+    precondicion: 
+        * numero > 0 && numero <= 12
+    */
+    return (Carta(numero <- numero , palo <- palo))
+}
+
+function esUnAncho_(carta){
+    /*
+    proposito: indica si la **carta** es un ancho
+    tipo: Booleano
+    parametro:
+        * carta: Carta
+    precondicion: ninguna
+    */
+    return (numero(carta) == 1)
+}
+
+
+function esFigura_(carta){
+    /*
+    proposito: indica si la **carta** es una figura
+    tipo: Booleano
+    parametro: 
+            *carta: Carta
+    precondicion:
+        *ninguna
+    obs: una carta es figura si vale 10, 11 o 12
+    */
+    return (numero(carta) == 10 || numero(carta) == 11 || numero(carta) == 12)        
+}
+
+
+function tieneUnNumeroMasGrande_Que_(carta1, carta2){
+    /*
+    proposito: dadas **carta1** y **carta**, indica si la primera carta es}
+    mas grande que la segunda.
+    tipo: Booleano
+    parametros: 
+        *carta1: Carta
+        *carta2: Carta
+    precondicion:
+        *ninguna
+    */
+    return (numero(carta1) > numero(carta2))
+}
+
+
+function sonnDelMismoPalo_Y_(carta1, carta2){
+    /*
+    propsito: indica si *carta1* y *carta2* son del mismo palo
+    tipo: Booleano
+    parametro:
+        *carta1: Carta
+        *carta2: Carta
+    precondicion:
+        *ninguna
+    */
+    return (palo(carta1) == palo(carta2))
+}
+
+function valorDeParaEnvidoDe_(carta){
+    /*
+    proposito: describe el numero que aporta la carta dada en el canto de envido, 
+        Figura si es Figura y 0 sino.
+    tipo: Numero
+    parametros:
+        *carta: carta
+    precondicion:
+        *ninguna
+    */
+    return (choose numero(carta) when (not esFigura_(carta))
+        0 otherwise)     
+}
+
+
