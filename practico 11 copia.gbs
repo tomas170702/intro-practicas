@@ -1,3 +1,4 @@
+// exc 1
 function singularCon_(elemento) {
     /*
     proposito: dado un iunico elemento, describe la lista que tiene unicamente elemento dado
@@ -9,7 +10,7 @@ function singularCon_(elemento) {
     */
     return ([elemento])
 }
-
+//exc 2
 function segundoDe_(lista){
     /*
     proposito: describe el segudo elemento de una lista
@@ -21,7 +22,7 @@ function segundoDe_(lista){
     */
     return (resto(lista))
 }
-
+//exc 3
 function esSingular_(lista){
     /*
     proposito: indica si la *lista* es singular
@@ -33,8 +34,8 @@ function esSingular_(lista){
     */
     return (not(esVacia(lista)) && esVacia(lista))
 }
-
-
+//exc 4
+//A
 function primerCartaDeLaMano_(mano){
     /*
     proposito: describa la primera carta de la *mano*
@@ -46,7 +47,7 @@ function primerCartaDeLaMano_(mano){
     */
     return (primero(mano))
 }
-
+//B
 function segundaCartaDeLaMano_(mano){
     /*
     proposito: describe la segunda carta a jugar
@@ -58,7 +59,7 @@ function segundaCartaDeLaMano_(mano){
     */
     return (primero(resto(mano)))
 }
-
+//C
 function tercerCartaDeLaMano_(mano) {
     /*
     proposito: describa la tercera carta a jugar de la *mano*
@@ -67,7 +68,7 @@ function tercerCartaDeLaMano_(mano) {
     */
     return (primero(resto(resto(mano))))
 }
-
+//D
 function laMano_LuegoDeRobarUnaCartaDe_(mano, mazo){
     /*
     proposito:ue dada una “mano” y un “mazo” describe la mano
@@ -83,7 +84,7 @@ function laMano_LuegoDeRobarUnaCartaDe_(mano, mazo){
     manoAlMomento := mano
     return (manoAlMomento ++ [primero(mazo)])
 }
-
+//E
 function laMano_LuegoDeJugarUnaCarta(mano){
     /*
     proposito:  que dada una “mano”, describe la mano resultante luego
@@ -96,11 +97,13 @@ function laMano_LuegoDeJugarUnaCarta(mano){
     */
     return (resto(mano))
 }
-
+//F
 function laMano_LuegoDeJugarLaSegundaCarta(mano){
     return ([primero(mano)] ++ resto(resto(mano)))
 }
 
+//exc 4 LA TIRA DE CARTAS 
+//A
 function primerasTresCartasDeLaTira_(tira){
     /*
     proposito: que dada una “tira”, describe una lista con las primeras 3
@@ -112,6 +115,20 @@ function primerasTresCartasDeLaTira_(tira){
         *hay al menos 3 cartas en la *tira*
     */
     return ([primero(tira)] ++ [primero(resto(tira))] ++ [primero(resto(resto(tira)))])
+}
+//B
+function laMano_TieneJugadaParaAgregarALaTira_(mano, tira) {
+    /*
+    proposito: indique si la primera carta de la *mano* que puede jugar el jugador puede ser agregada en la *tira* o no
+    tipo: Booleano
+    parametros:
+        * mano: Lista de Cartas
+        * tira: Lista de Cartas
+    precondicion:
+        * hay al menos una carta en la *mano*
+        * hay al menos una carta en la *tira*
+    */
+    return ()
 }
 
 
