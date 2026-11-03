@@ -1,0 +1,117 @@
+function singularCon_(elemento) {
+    /*
+    proposito: dado un iunico elemento, describe la lista que tiene unicamente elemento dado
+    tipo: [Elemento]
+    parametro:
+        *elemento: Elemento
+    preocndicion:
+        *ninguna
+    */
+    return ([elemento])
+}
+
+function segundoDe_(lista){
+    /*
+    proposito: describe el segudo elemento de una lista
+    tipo: Elemento
+    parametro:
+        *lista: [Elemento]
+    precondicion:
+        la **lista** tiene al menos 2 elementos
+    */
+    return (resto(lista))
+}
+
+function esSingular_(lista){
+    /*
+    proposito: indica si la *lista* es singular
+    tipo: Booleano
+    parametro:
+        *lista: [Elemento]
+    precondicion:
+        *ninguna
+    */
+    return (not(esVacia(lista)) && esVacia(lista))
+}
+
+
+function primerCartaDeLaMano_(mano){
+    /*
+    proposito: describa la primera carta de la *mano*
+    tipo: Carta
+    paramentro:
+        * mano: Carta
+    preocndicion:
+        *hay al menos una carta en la mano
+    */
+    return (primero(mano))
+}
+
+function segundaCartaDeLaMano_(mano){
+    /*
+    proposito: describe la segunda carta a jugar
+    tipo: Carta
+    parametro:
+        * mano: 
+    precondicion:
+        *hay al menos 2 cartas en la mano
+    */
+    return (primero(resto(mano)))
+}
+
+function tercerCartaDeLaMano_(mano) {
+    /*
+    proposito: describa la tercera carta a jugar de la *mano*
+    tipo: Carta
+    precondicion: hay al menos 3 cartas en la mano
+    */
+    return (primero(resto(resto(mano))))
+}
+
+function laMano_LuegoDeRobarUnaCartaDe_(mano, mazo){
+    /*
+    proposito:ue dada una “mano” y un “mazo” describe la mano
+    resultante luego de robar la primera carta del mazo 
+    y agregarla a la mano del jugador
+    tipo: Carta
+    parametro:
+        * mano: Lista de Carta
+        * mazo: Lista de Carta
+    precondicion:
+        * hay al menos una carta en el mazo
+    */
+    manoAlMomento := mano
+    return (manoAlMomento ++ [primero(mazo)])
+}
+
+function laMano_LuegoDeJugarUnaCarta(mano){
+    /*
+    proposito:  que dada una “mano”, describe la mano resultante luego
+                de jugar la próxima carta de la mano.
+    tipo: Lista de Carta
+    parametro:
+        * mano: Lista de Carta
+    precondicion:
+        * hay al menos una carta en la *mano*
+    */
+    return (resto(mano))
+}
+
+function laMano_LuegoDeJugarLaSegundaCarta(mano){
+    return ([primero(mano)] ++ resto(resto(mano)))
+}
+
+function primerasTresCartasDeLaTira_(tira){
+    /*
+    proposito: que dada una “tira”, describe una lista con las primeras 3
+                de la misma
+    tipo: Lista de Cartas
+    parametro:
+        * tira: Lista de Cartas
+    precondicion:
+        *hay al menos 3 cartas en la *tira*
+    */
+    return ([primero(tira)] ++ [primero(resto(tira))] ++ [primero(resto(resto(tira)))])
+}
+
+
