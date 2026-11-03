@@ -128,7 +128,8 @@ function laMano_TieneJugadaParaAgregarALaTira_(mano, tira) {
         * hay al menos una carta en la *mano*
         * hay al menos una carta en la *tira*
     */
-    return ()
+    return ((palo(primerCartaDeLaMano_(mano)) /= palo(primero(tira)) && 
+            número(primerCartaDeLaMano_(mano)) < número(primero(tira))))
 }
 
 
