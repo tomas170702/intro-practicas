@@ -312,8 +312,6 @@ function puntosDeCarta_(carta){
     numero(carta) otherwise)
 }
 
-
-
 //exc 14
 function elementosDe_aumentadosEn_(listaDeNumeros, numero){
     /*
@@ -336,3 +334,5 @@ function elementosDe_aumentadosEn_(listaDeNumeros, numero){
     }
     return (listaProcesada)
 }
+
+
