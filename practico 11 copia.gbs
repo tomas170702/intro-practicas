@@ -102,7 +102,7 @@ function laMano_LuegoDeJugarLaSegundaCarta(mano){
     return ([primero(mano)] ++ resto(resto(mano)))
 }
 
-//exc 4 LA TIRA DE CARTAS 
+//exc 5 LA TIRA DE CARTAS 
 //A
 function primerasTresCartasDeLaTira_(tira){
     /*
@@ -132,4 +132,62 @@ function laMano_TieneJugadaParaAgregarALaTira_(mano, tira) {
             número(primerCartaDeLaMano_(mano)) < número(primero(tira))))
 }
 
+//C
+function laTira_DespuésDeJugar_(tira, carta){
+    /*
+    proposito: describa la tira que resulta de jugar esa carta en esa tira
+    tipo: Lista De Cartas
+    parametros: 
+        *tira: Lista De Cartas
+        *Carta: Carta
+    precondicion: 
+        *hay al menos una carta en la tira
+        *hay al menos una carta la mano
+        * palo carta \= palo de la primera carta de la tira
+        * numero carta < de la primera carta de la tira
+    */
+    return([carta] ++ tira)
+}
 
+
+//EXC 7 
+function listaCon_Repetido_Veces(elemento, cantidad) {
+    /*
+    proposito: describe la lista que va del primero de los
+    elementos, al segundo de los elementos, 
+    pasando por cada elemento intermedio.
+    tipo: Lista Elementos
+    parametros:
+    * elemento1: Elemento - El dato que se va a repetir (de cualquier tipo).
+    * cantidad: Numero - La cantidad de veces que se debe repetir.
+    precondicion:
+    * **cantidad** >= 0
+    */
+    listaActual := []
+    repeat (cantidad) {
+        listaActual := listaActual ++ [elemento]
+    }
+    return (listaActual)
+}
+
+
+//Exc 8
+function listaDesde_Hasta_(elemento1, elemento2){
+    /*
+    proposito: describe la lista que va del primero de los elementos, 
+    al segundo de los elementos, pasando por cada elemento intermedio.
+    tipo: Lista Elementos
+    parametros:
+        * elemento1: Elemento
+        * elemento2: Elemento
+    precondicion:
+        * ningna
+    observaciones:
+        *
+        *
+        *
+    */
+    listaVacia =: []
+    enumeracion =: 0
+    return ()
+}
