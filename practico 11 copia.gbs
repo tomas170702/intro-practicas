@@ -285,8 +285,6 @@ function puntosEn_(mano){
     precondicion:
     *
     observaciones:
-    * puntos == numero de carta     
-    * esFigura_(carta) otorga 20 puntos
     * recorrido de acumulacion
     * sobre una **mano** de cartas
     * acumulas puntos por cartas en **mano**
