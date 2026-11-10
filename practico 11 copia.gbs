@@ -276,22 +276,44 @@ function productoriaDe_(listaDeNumeros){
     return (producto)
 }
 //exc 13
-function puntosEn_(mano){
+function puntosEn_(mano) {
     /*
     proposito: describe la cantidad de puntos que el jugador tiene en su **mano**
     tipo: Numero
     paramentro:
         *mano: Lista De Cartas
     precondicion:
-    *
+    * ninguna
     observaciones:
     * recorrido de acumulacion
     * sobre una **mano** de cartas
     * acumulas puntos por cartas en **mano**
     */
-
-    return ()
+    puntosAcumulados := 0
+    foreach cartaActual in mano {
+        puntosAcumulados := puntosAcumulados + puntosDeCarta_(cartaActual)
+    }
+    return (puntosAcumulados)
 }
+
+function puntosDeCarta_(carta){
+    /*
+    proposito: describe los puntos que otorga la **carta** dada
+    tipo: Numero
+    parametros:
+        *carta: Carta - la carta a evaluar
+    preocndicion:
+        ninguna
+    observaciones:
+    * puntos == numero de carta     
+    * esFigura_(carta) otorga 20 puntos
+    */
+    return (choose 20 when (esFigura_(carta))  
+    numero(carta) otherwise)
+}
+
+
+
 //exc 14
 function elementosDe_aumentadosEn_(listaDeNumeros, numero){
     /*
