@@ -181,13 +181,138 @@ function listaDesde_Hasta_(elemento1, elemento2){
         * elemento1: Elemento
         * elemento2: Elemento
     precondicion:
-        * ningna
+        * elemento1 <= elemento2
     observaciones:
-        *
-        *
-        *
+        * recorrido de enumerativos
+        * sobre elementos
+        * enumerando los elementos de la lista
     */
-    listaVacia =: []
-    enumeracion =: 0
+    listaActual := []
+    elementoactual := elemento1
+    while(actual /= elemento2){
+        listaActual := listaActual ++ [elementoactual]
+        elementoactual := siguiente(elemento)
+    }
+    return (listaActual ++ [elementoactual])
+}
+
+//exc 9
+function singular_Si_(elemento, condicion) {
+    /*
+    proposito: describe una lista con un único **elemento** dado Si la **condicion** es verdadera.
+            Sí es falsa, la lista es una lista vacía.
+    tipo: Lista Elemento
+    parametro: 
+        *elemento: Elemento
+        *condicion: Booleano
+    precondicion:
+        *ninguna
+    */
+    return (choose [elemento] when (condicion)
+            [] otherwise)
+}
+
+//exc 10
+function  longitudDe_(lista){
+    /*
+    proposito: describa la cantidad de
+        elementos de la misma.
+    tipo: Lista
+    parametro:
+        * lista: Lista
+    precondicion:
+        *ninguna
+    observaciones:
+        *recorrido de acumulacion sobre elementos de la **lista** dada
+    */
+    listaRestante := lista
+    cantidadContada := 0
+    while (not esVacia(listaRestante)){
+        cantidadContada := listaRestante + 1
+        listaRestante := resto(listaRestante)
+    }
+    return (cantidadContada)
+}
+
+//exc 11
+function sumatoriaDe_([numeros]){
+    /*
+    proposito: describe la suma de todos los elementos de una Lista de **numeros**
+    tipo: Numero
+    paramentros:
+        * [numeros]: Lista Numero
+    precondicion:
+        * hay al menos un **numero** en la lista
+    observaciones:
+        *recorrido de acumulacion 
+        *sobre lista de **numeros**
+        *sumando todos los numeros de la lista entre si y devolviendo un resultado
+    */
+    listaRestante := [numeros]
+    sumatoria := 0
+    while (not esVacia(listaRestante)) {
+        sumatoria := sumatoria + primero(listaRestante)
+        listaRestante := resto(listaRestante)
+    }
+    return (sumatoria)
+}
+
+//exc 12
+function productoriaDe_(listaDeNumeros){
+    /*
+    proposito: describa el producto de todos los elementos de la **listaDeNumeros**.
+    tipo: Numero
+    paramentro:
+        * listaDeNumero: Lista
+    precondicion:
+        * ninguna
+    */
+    listaRestante := listaDeNumeros
+    producto := 0
+    while (not esVacia(listaRestante)) {
+        producto := producto * primero(listaRestante)
+        listaRestante := resto(listaRestante)
+    }
+    return (producto)
+}
+//exc 13
+function puntosEn_(mano){
+    /*
+    proposito: describe la cantidad de puntos que el jugador tiene en su **mano**
+    tipo: Numero
+    paramentro:
+        *mano: Lista De Cartas
+    precondicion:
+    *
+    observaciones:
+    * puntos == numero de carta     
+    * esFigura_(carta) otorga 20 puntos
+    * recorrido de acumulacion
+    * sobre una **mano** de cartas
+    * acumulas puntos por cartas en **mano**
+    */
+
     return ()
+}
+//exc 14
+function elementosDe_aumentadosEn_(listaDeNumeros, numero){
+    /*
+    proposito: dada una lista de números, y un número que representa una cantidad a aumentar. 
+               describe la lista en donde cada elemento fue aumentado en la cantidad dada.
+    tipo: Lista De Numeros
+    paramentro:
+        * listaDeNumeros: Lista
+        * numero: Numero
+    precondicion:
+        * numero > 0 
+    observaciones:
+        * recorrido de procesamiento(transformacion) 
+        * sobre **listadeNumeros**
+        * suma **numero** a cada numero en **listaDeNumeros**
+    */ 
+    listaProcesada := []
+    foreach numeroActual in listadeNumeros {
+        listaProcesada := listaProcesada ++ [numeroActual + numero]
+    }
+    return (listaProcesada)
 }

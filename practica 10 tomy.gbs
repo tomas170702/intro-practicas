@@ -57,14 +57,6 @@ function esDiaDeFinDeSemana_(dia) {
     return (dia == Sabado || dia == Domingo)
 }
 
-
-type Palo is variant{
-    case Basto{}
-    case Espada{}
-    case Copa{}
-    case Oro{}
-} 
-
 type Carta is record{
     /*
     proposito: modelar cartas españolas
@@ -73,6 +65,13 @@ type Carta is record{
     field numero   //tipo:Numero
     field palo      //tipo:Palo
 }
+
+type Palo is variant{
+    case Basto{}
+    case Espada{}
+    case Copa{}
+    case Oro{}
+} 
 
 program {
     carta1 := Carta(numero <- 1, palo <- Espada)
@@ -171,7 +170,7 @@ function valorDeParaEnvidoDe_(carta){
         *ninguna
     */
     return (choose numero(carta) when (not esFigura_(carta))
-        0 otherwise)     
+        20 otherwise)     
 }
 
 
