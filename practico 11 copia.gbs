@@ -334,5 +334,52 @@ function elementosDe_aumentadosEn_(listaDeNumeros, numero){
     }
     return (listaProcesada)
 }
+//exc15
+function opuestasDe_(direcciones){
+    /*
+    prop: describi una lista con las direcciones opuestas 
+    a cada una de las direcciones en lista **[direccion]**
+    en el mismo orden.
+    tipo: Lista Direccion
+    parametro: direcciones - Lista de Direccion
+    precondicion: ninguna
+    obs: recorrido de tranformacion sobre lista Direccion
+    */
+    direccionesOpuestas := []
+    foreach direccionAlcual in direcciones{
+        direccionesOpuestas := direccionesOpuestas ++ [opuesto(direccionActual)]
+    }
+    return(direccionesOpuestas)
+}
+//exc16
+function siguientesDe_(elementos){
+    /*
+    PROP: describe la lista donde cada elemento es el siguiente del dado.
+    tipo: Lista de Elemento
+    parametro: elementos - Lista de Elemento
+    prec: ninguna
+    obs: recorrido de procesamiento sobre lista de **elementos** describiendo el
+    siguiente de cada elemento en otra lista
+    */
+    elementosSiguientes := []
+    foreach elementoActual in elementos{
+        elementoSiguientes := elementosSiguientes ++ [siguiente(elementoActual)]
+    }
+    return(elementosSiguientes)
+}
 
-
+//exc 17
+function transformadasTodasEnOro_(listaDeCartas){
+    /*
+    prop: describe la lista donde cada elemento es la misma carta, se convierte en oro
+    tipo: Lista De Carta
+    parametro: listadecartas - Lista De Carta
+    prec: ninguna
+    obs: recorrido de procesaminiento sobre cartas de la **listaDeCartas** transformandolas en oro
+    */
+    cartasTransformadas := []
+    foreach cartaActual in listaDeCartas{
+        cartasTransformadas := cartasTransformadas ++ [Carta(cartaActual | palo <- Oro)]
+    }
+    return (cartasTransformadas)
+}
